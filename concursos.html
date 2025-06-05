@@ -1,0 +1,1075 @@
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concursos - EduFuturo</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&amp;family=Syncopate:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+        :root {
+            --primary-color: #6C63FF;
+            --secondary-color: #FF8F6C;
+            --tertiary-color: #6CFFE8;
+            --accent-color: #FF6584;
+            --dark-color: #0A0E17;
+            --light-color: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            overflow-x: hidden;
+            min-height: 100vh;
+            background: radial-gradient(ellipse at top, #0a1025, transparent),
+                        radial-gradient(ellipse at bottom, #160a1c, transparent);
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%236C63FF' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Syncopate', sans-serif;
+            letter-spacing: -0.03em;
+            font-weight: 700;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: rgba(10, 14, 23, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white !important;
+            letter-spacing: -0.05em;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .logo-image {
+            transition: all 0.3s ease;
+        }
+        
+        .logo-text {
+            position: relative;
+            left: 10px;
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            white-space: nowrap;
+            display: inline-block;
+        }
+        
+        .navbar-brand:hover .logo-text {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9) !important;
+            margin: 0 0.5rem;
+            position: relative;
+            transition: all 0.4s;
+            padding: 0.5rem 0.8rem !important;
+            border-radius: 100px;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            background-color: rgba(108, 99, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: 100px;
+            min-height: 100vh;
+            padding-bottom: 4rem;
+        }
+
+        .page-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+        }
+
+        /* Concurso Cards */
+        .concurso-card {
+            background: rgba(15, 23, 41, 0.5);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.5s;
+            margin-bottom: 30px;
+            height: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        .concurso-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(108, 99, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 
+                      0 0 20px rgba(108, 99, 255, 0.2);
+        }
+
+        .concurso-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 8px 15px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            z-index: 2; 
+            color: white;
+        }
+
+        .badge-federal {
+            background: linear-gradient(45deg, #6C63FF, #8B80FF);
+        }
+
+        .badge-estadual {
+            background: linear-gradient(45deg, #FF6584, #FF8F6C);
+        }
+
+        .badge-municipal {
+            background: linear-gradient(45deg, #6CFFE8, #60A5FA);
+        }
+
+        .concurso-header {
+            padding: 2rem;
+            position: relative;
+            background-color: rgba(108, 99, 255, 0.05);
+            border-bottom: 1px solid rgba(108, 99, 255, 0.1);
+        }
+
+        .concurso-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .concurso-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .concurso-dates {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .date-item {
+            background-color: rgba(108, 99, 255, 0.1);
+            padding: 0.6rem 1rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(108, 99, 255, 0.2);
+        }
+
+        .concurso-content {
+            padding: 2rem;
+        }
+
+        .info-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item h5 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .info-item p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0;
+        }
+
+        .concurso-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid rgba(108, 99, 255, 0.1);
+            background-color: rgba(108, 99, 255, 0.03);
+        }
+
+        .btn-concurso {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-concurso:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(108, 99, 255, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        /* Featured Concurso */
+        .featured-concurso {
+            background: rgba(15, 23, 41, 0.5);
+            border: 2px solid rgba(108, 99, 255, 0.2);
+            border-radius: 20px;
+            padding: 0;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-concurso::before {
+            content: "Destaque";
+            position: absolute;
+            top: 0;
+            right: 2rem;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 2rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+            border-radius: 0 0 10px 10px;
+            z-index: 1;
+        }
+
+        .featured-concurso .row {
+            --bs-gutter-x: 0;
+        }
+
+        .featured-image {
+            height: 100%;
+            min-height: 300px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            border-radius: 20px 0 0 20px;
+        }
+
+        .featured-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(10, 14, 23, 0.8), transparent);
+            border-radius: 20px 0 0 20px;
+        }
+
+        .featured-content {
+            padding: 3rem 2rem;
+        }
+
+        /* Search and filters */
+        .search-section {
+            background: rgba(15, 23, 41, 0.5);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .form-control, .form-select {
+            background-color: rgba(10, 14, 23, 0.5);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            color: white;
+            border-radius: 10px;
+            padding: 0.8rem 1.2rem;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background-color: rgba(10, 14, 23, 0.7);
+            border-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 0 0 0.25rem rgba(108, 99, 255, 0.25);
+        }
+
+        .form-select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+        }
+
+        /* Pagination */
+        .custom-pagination {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .page-item .page-link {
+            color: var(--light-color);
+            background-color: rgba(15, 23, 41, 0.5);
+            border-color: rgba(108, 99, 255, 0.2);
+            margin: 0 5px;
+            border-radius: 8px;
+            padding: 10px 16px;
+            transition: all 0.3s;
+        }
+
+        .page-item .page-link:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .page-item.active .page-link {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(10, 14, 23, 0.8);
+            position: relative;
+            border-top: 1px solid rgba(108, 99, 255, 0.1);
+            padding: 4rem 0 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-logo {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.05em;
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .footer-title {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            padding-left: 0;
+            display: inline-block;
+        }
+
+        .footer-links a::before {
+            content: '→';
+            position: absolute;
+            left: -20px;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 20px;
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+            left: 0;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(108, 99, 255, 0.1);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Stats Label */
+        .featured-label {
+            position: absolute;
+            top: 0;
+            left: 2rem;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.5rem 2rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+            border-radius: 0 0 10px 10px;
+            z-index: 1;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .navbar-toggler {
+                background-color: rgba(108, 99, 255, 0.1);
+                border: none;
+            }
+            
+            .navbar-toggler:focus {
+                box-shadow: none;
+            }
+            
+            .navbar-toggler-icon {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            }
+            
+            .featured-image {
+                min-height: 200px;
+                border-radius: 20px 20px 0 0;
+            }
+            
+            .featured-image::after {
+                border-radius: 20px 20px 0 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding-top: 80px;
+            }
+            
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            .featured-content {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark"><div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="tj5n4mq0k8.png" alt="EduFuturo Logo" height="45" class="logo-image"><span class="logo-text">EDUFUTURO</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+<li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="noticias.html">Notícias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="concursos.html">Concursos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="vestibulares.html">Vestibulares</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="estudo.html">Área de Estudo</a>
+                    </li>
+                </ul>
+</div>
+        </div>
+    </nav><!-- Main Content --><div class="main-content">
+        <div class="container">
+            <h1 class="page-title">Concursos</h1>
+            
+            <!-- Search and Filters -->
+            <div class="search-section" data-aos="fade-up">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 mb-3 mb-lg-0">
+                        <label for="search" class="form-label text-white mb-2">Buscar concursos</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="search" placeholder="Nome ou órgão"><button class="btn btn-primary" type="button"><i class="bi bi-search"></i></button>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-3 mb-lg-0">
+                        <label for="nivel" class="form-label text-white mb-2">Nível</label>
+                        <select class="form-select" id="nivel"><option value="" selected>Todos</option>
+<option value="federal">Federal</option>
+<option value="estadual">Estadual</option>
+<option value="municipal">Municipal</option></select>
+</div>
+                    <div class="col-lg-2 col-md-6 mb-3 mb-lg-0">
+                        <label for="estado" class="form-label text-white mb-2">Estado</label>
+                        <select class="form-select" id="estado"><option value="" selected>Todos</option>
+<option value="sp">São Paulo</option>
+<option value="rj">Rio de Janeiro</option>
+<option value="mg">Minas Gerais</option>
+<option value="df">Distrito Federal</option>
+<option value="outros">Outros Estados</option></select>
+</div>
+                    <div class="col-lg-2 col-md-6 mb-3 mb-lg-0">
+                        <label for="escolaridade" class="form-label text-white mb-2">Escolaridade</label>
+                        <select class="form-select" id="escolaridade"><option value="" selected>Todas</option>
+<option value="medio">Ensino Médio</option>
+<option value="superior">Ensino Superior</option>
+<option value="tecnico">Técnico</option></select>
+</div>
+                    <div class="col-lg-2 col-md-6 d-flex align-items-end">
+                        <button class="btn btn-outline-light w-100" id="filtrarConcursos">Filtrar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Featured Concurso -->
+            <div class="featured-concurso" data-aos="fade-up">
+                <div class="row">
+                    <div class="col-lg-5 p-0">
+                        <div class="featured-image" style="background-image: url('https://cdn.pixabay.com/photo/2018/03/10/12/00/teamwork-3213924_1280.jpg');"></div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="featured-content">
+                            <h2 class="concurso-title">Concurso Nacional Unificado 2023</h2>
+                            <p class="concurso-subtitle">Ministério da Gestão e Inovação em Serviços Públicos</p>
+                            
+                            <div class="concurso-dates mb-4">
+                                <div class="date-item">
+<i class="bi bi-calendar-event me-2"></i> Inscrições: 19/01 a 09/02/2024</div>
+                                <div class="date-item">
+<i class="bi bi-calendar-check me-2"></i> Provas: 05/05/2024</div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-4 mb-3 mb-md-0">
+                                    <h5>
+<i class="bi bi-person-badge me-2"></i> Vagas</h5>
+                                    <p class="mb-0">6.640 vagas imediatas</p>
+                                </div>
+                                <div class="col-md-4 mb-3 mb-md-0">
+                                    <h5>
+<i class="bi bi-cash-stack me-2"></i> Salários</h5>
+                                    <p class="mb-0">Até R$ 22.900,00</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>
+<i class="bi bi-book me-2"></i> Escolaridade</h5>
+                                    <p class="mb-0">Médio / Superior</p>
+                                </div>
+                            </div>
+                            
+                            <p class="mb-4">O Concurso Público Nacional Unificado (CNU) é uma iniciativa inédita do governo federal para selecionar servidores de forma simultânea para diversos órgãos. Também chamado de "Enem dos Concursos", o CNU contará com mais de 6.600 vagas.</p>
+                            
+                            <div class="mt-3">
+                                <a href="#" class="btn-concurso me-2" data-id="concurso_cnu_2023"><i class="bi bi-info-circle me-2"></i>Ver detalhes</a>
+                                <a href="#" class="btn-concurso btn-outline"><i class="bi bi-bookmark-plus me-2"></i>Salvar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Concursos Grid -->
+            <div class="row">
+                <!-- Concurso Card 1 -->
+                <div class="col-xl-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="concurso-card" data-estado="df" data-id="concurso_bb_2024">
+                        <div class="concurso-header">
+                            <span class="concurso-badge badge-federal">Federal</span>
+                            <h3 class="concurso-title">Banco do Brasil</h3>
+                            <p class="concurso-subtitle">Escriturário - Agente de Tecnologia</p>
+                            <div class="concurso-dates">
+                                <div class="date-item">
+<i class="bi bi-calendar-event me-2"></i> Inscrições: até 28/02/2024</div>
+                            </div>
+                        </div>
+                        <div class="concurso-content">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-person-badge me-2"></i> Vagas</h5>
+                                        <p>2.000 + CR</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-cash-stack me-2"></i> Salário</h5>
+                                        <p>R$ 4.256,00</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-book me-2"></i> Escolaridade</h5>
+                                        <p>Médio/Técnico</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-calendar-check me-2"></i> Provas</h5>
+                                        <p>14/04/2024</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="concurso-footer">
+                            <div class="d-flex justify-content-between">
+                                <a href="#" class="btn-concurso"><i class="bi bi-info-circle me-2"></i>Ver detalhes</a>
+                                <button class="btn btn-outline-light btn-sm"><i class="bi bi-bookmark-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Concurso Card 2 -->
+                <div class="col-xl-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="concurso-card" data-estado="sp" data-id="concurso_pmsp_2024">
+                        <div class="concurso-header">
+                            <span class="concurso-badge badge-estadual">Estadual</span>
+                            <h3 class="concurso-title">Polícia Militar SP</h3>
+                            <p class="concurso-subtitle">Soldado PM 2ª Classe</p>
+                            <div class="concurso-dates">
+                                <div class="date-item">
+<i class="bi bi-calendar-event me-2"></i> Inscrições: até 15/03/2024</div>
+                            </div>
+                        </div>
+                        <div class="concurso-content">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-person-badge me-2"></i> Vagas</h5>
+                                        <p>2.700</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-cash-stack me-2"></i> Salário</h5>
+                                        <p>R$ 4.852,21</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-book me-2"></i> Escolaridade</h5>
+                                        <p>Médio</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-calendar-check me-2"></i> Provas</h5>
+                                        <p>21/05/2024</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="concurso-footer">
+                            <div class="d-flex justify-content-between">
+                                <a href="#" class="btn-concurso"><i class="bi bi-info-circle me-2"></i>Ver detalhes</a>
+                                <button class="btn btn-outline-light btn-sm"><i class="bi bi-bookmark-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Concurso Card 3 -->
+                <div class="col-xl-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="concurso-card" data-estado="sp" data-id="concurso_trf3_2024">
+                        <div class="concurso-header">
+                            <span class="concurso-badge badge-federal">Federal</span>
+                            <h3 class="concurso-title">Tribunal Regional Federal</h3>
+                            <p class="concurso-subtitle">TRF 3ª Região - Analista e Técnico</p>
+                            <div class="concurso-dates">
+                                <div class="date-item">
+<i class="bi bi-calendar-event me-2"></i> Inscrições: até 10/03/2024</div>
+                            </div>
+                        </div>
+                        <div class="concurso-content">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-person-badge me-2"></i> Vagas</h5>
+                                        <p>35 + CR</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-cash-stack me-2"></i> Salário</h5>
+                                        <p>Até R$ 15.128,00</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-book me-2"></i> Escolaridade</h5>
+                                        <p>Médio/Superior</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-calendar-check me-2"></i> Provas</h5>
+                                        <p>07/04/2024</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="concurso-footer">
+                            <div class="d-flex justify-content-between">
+                                <a href="#" class="btn-concurso"><i class="bi bi-info-circle me-2"></i>Ver detalhes</a>
+                                <button class="btn btn-outline-light btn-sm"><i class="bi bi-bookmark-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Concurso Card 4 -->
+                <div class="col-xl-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="concurso-card" data-estado="sp" data-id="concurso_pref_sp_2024">
+                        <div class="concurso-header">
+                            <span class="concurso-badge badge-municipal">Municipal</span>
+                            <h3 class="concurso-title">Prefeitura de São Paulo</h3>
+                            <p class="concurso-subtitle">Professor de Educação Infantil</p>
+                            <div class="concurso-dates">
+                                <div class="date-item">
+<i class="bi bi-calendar-event me-2"></i> Inscrições: até 20/02/2024</div>
+                            </div>
+                        </div>
+                        <div class="concurso-content">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-person-badge me-2"></i> Vagas</h5>
+                                        <p>1.500</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-cash-stack me-2"></i> Salário</h5>
+                                        <p>R$ 3.845,20</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-book me-2"></i> Escolaridade</h5>
+                                        <p>Superior</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-calendar-check me-2"></i> Provas</h5>
+                                        <p>24/03/2024</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="concurso-footer">
+                            <div class="d-flex justify-content-between">
+                                <a href="#" class="btn-concurso"><i class="bi bi-info-circle me-2"></i>Ver detalhes</a>
+                                <button class="btn btn-outline-light btn-sm"><i class="bi bi-bookmark-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Concurso Card 5 -->
+                <div class="col-xl-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="concurso-card" data-estado="mg" data-id="concurso_pcmg_2024">
+                        <div class="concurso-header">
+                            <span class="concurso-badge badge-estadual">Estadual</span>
+                            <h3 class="concurso-title">Polícia Civil MG</h3>
+                            <p class="concurso-subtitle">Delegado / Escrivão / Investigador</p>
+                            <div class="concurso-dates">
+                                <div class="date-item">
+<i class="bi bi-calendar-event me-2"></i> Inscrições: até 05/03/2024</div>
+                            </div>
+                        </div>
+                        <div class="concurso-content">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-person-badge me-2"></i> Vagas</h5>
+                                        <p>500</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-cash-stack me-2"></i> Salário</h5>
+                                        <p>Até R$ 12.967,43</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-book me-2"></i> Escolaridade</h5>
+                                        <p>Superior</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-calendar-check me-2"></i> Provas</h5>
+                                        <p>14/04/2024</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="concurso-footer">
+                            <div class="d-flex justify-content-between">
+                                <a href="#" class="btn-concurso"><i class="bi bi-info-circle me-2"></i>Ver detalhes</a>
+                                <button class="btn btn-outline-light btn-sm"><i class="bi bi-bookmark-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Concurso Card 6 -->
+                <div class="col-xl-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="concurso-card" data-estado="df" data-id="concurso_inss_2024">
+                        <div class="concurso-header">
+                            <span class="concurso-badge badge-federal">Federal</span>
+                            <h3 class="concurso-title">INSS</h3>
+                            <p class="concurso-subtitle">Técnico do Seguro Social</p>
+                            <div class="concurso-dates">
+                                <div class="date-item">
+<i class="bi bi-calendar-event me-2"></i> Inscrições: até 22/02/2024</div>
+                            </div>
+                        </div>
+                        <div class="concurso-content">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-person-badge me-2"></i> Vagas</h5>
+                                        <p>1.000 + CR</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-cash-stack me-2"></i> Salário</h5>
+                                        <p>R$ 5.905,79</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-book me-2"></i> Escolaridade</h5>
+                                        <p>Médio</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-item">
+                                        <h5>
+<i class="bi bi-calendar-check me-2"></i> Provas</h5>
+                                        <p>31/03/2024</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="concurso-footer">
+                            <div class="d-flex justify-content-between">
+                                <a href="#" class="btn-concurso"><i class="bi bi-info-circle me-2"></i>Ver detalhes</a>
+                                <button class="btn btn-outline-light btn-sm"><i class="bi bi-bookmark-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <nav aria-label="Navegação de concursos"><ul class="pagination custom-pagination">
+<li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Anterior">
+                            <i class="bi bi-chevron-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Próximo">
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+                    </li>
+                </ul></nav>
+</div>
+    </div>
+
+    <!-- Footer -->
+    <footer><div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
+                    <a href="index.html" class="footer-logo">EDUFUTURO</a>
+                    <p class="footer-text">Transformando a educação brasileira através da tecnologia e da inteligência artificial para criar um futuro mais brilhante e acessível para todos.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Navegação</h4>
+                    <ul class="footer-links">
+<li><a href="index.html">Home</a></li>
+                        <li><a href="noticias.html">Notícias</a></li>
+                        <li><a href="concursos.html">Concursos</a></li>
+                        <li><a href="vestibulares.html">Vestibulares</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+</div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Estudo</h4>
+                    <ul class="footer-links">
+<li><a href="estudo.html">Área de Estudo</a></li>
+                        <li><a href="#">Materiais</a></li>
+                        <li><a href="#">Exercícios</a></li>
+                        <li><a href="#">Simulados</a></li>
+                        <li><a href="#">Suporte</a></li>
+                    </ul>
+</div>
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="footer-title">Contato</h4>
+                    <ul class="footer-links">
+<li>
+<i class="bi bi-envelope me-2"></i> contato@edufuturo.com.br</li>
+                        <li>
+<i class="bi bi-telephone me-2"></i> (11) 4002-8922</li>
+                        <li>
+<i class="bi bi-geo-alt me-2"></i> Av. Paulista, 1000 - São Paulo, SP</li>
+                    </ul>
+</div>
+            </div>
+            <div class="copyright">
+                © 2023 EduFuturo. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer><!-- Scripts --><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script><script src="https://unpkg.com/aos@next/dist/aos.js"></script><script src="script.js"></script><script src="concurso-stats.js"></script><!-- Script para inicialização --><script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar AOS (Animate on Scroll)
+            AOS.init({
+                duration: 700,
+                once: true,
+                offset: 50
+            });
+        });
+    </script>
+</body>
+</html>

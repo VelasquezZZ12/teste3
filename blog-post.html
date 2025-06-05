@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como Criar um Cronograma de Estudos Eficiente - EduFuturo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6C63FF;
+            --secondary-color: #FF8F6C;
+            --tertiary-color: #6CFFE8;
+            --accent-color: #FF6584;
+            --dark-color: #0A0E17;
+            --light-color: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            overflow-x: hidden;
+            min-height: 100vh;
+            background: radial-gradient(ellipse at top, #0a1025, transparent),
+                        radial-gradient(ellipse at bottom, #160a1c, transparent);
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%236C63FF' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Syncopate', sans-serif;
+            letter-spacing: -0.03em;
+            font-weight: 700;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: rgba(10, 14, 23, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white !important;
+            letter-spacing: -0.05em;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .logo-image {
+            transition: all 0.3s ease;
+        }
+        
+        .logo-text {
+            position: relative;
+            left: 10px;
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            white-space: nowrap;
+            display: inline-block;
+        }
+        
+        .navbar-brand:hover .logo-text {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9) !important;
+            margin: 0 0.5rem;
+            position: relative;
+            transition: all 0.4s;
+            padding: 0.5rem 0.8rem !important;
+            border-radius: 100px;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            background-color: rgba(108, 99, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: 100px;
+            min-height: 100vh;
+            padding-bottom: 4rem;
+        }
+
+        .page-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+        }
+
+        /* Post Content */
+        .post-container {
+            background: rgba(15, 23, 41, 0.5);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .post-header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(108, 99, 255, 0.1);
+            padding-bottom: 1.5rem;
+        }
+
+        .post-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+        }
+
+        .post-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .post-meta-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .post-meta-item i {
+            margin-right: 0.5rem;
+        }
+
+        .post-author {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0;
+        }
+
+        .post-author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1rem;
+            border: 2px solid var(--primary-color);
+        }
+
+        .post-author-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .post-author-info h5 {
+            margin-bottom: 0.2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .post-author-info p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        .post-tag {
+            display: inline-block;
+            background: rgba(108, 99, 255, 0.2);
+            color: var(--tertiary-color);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid rgba(108, 99, 255, 0.3);
+        }
+
+        .post-content {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .post-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .post-content h2 {
+            color: white;
+            font-size: 1.8rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .post-content h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .post-content ul, .post-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .post-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .post-content img {
+            max-width: 100%;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+        }
+
+        .post-content blockquote {
+            background: rgba(108, 99, 255, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+        }
+
+        .post-content blockquote p:last-child {
+            margin-bottom: 0;
+        }
+
+        .post-footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(108, 99, 255, 0.1);
+        }
+
+        .post-tags {
+            margin-bottom: 1.5rem;
+        }
+
+        .post-share {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .share-text {
+            color: white;
+            font-weight: 600;
+            margin-right: 1rem;
+        }
+
+        .share-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(108, 99, 255, 0.1);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .share-icon:hover {
+            transform: translateY(-3px);
+        }
+
+        .share-icon.facebook:hover {
+            background-color: #3b5998;
+            color: white;
+        }
+
+        .share-icon.twitter:hover {
+            background-color: #1da1f2;
+            color: white;
+        }
+
+        .share-icon.linkedin:hover {
+            background-color: #0077b5;
+            color: white;
+        }
+
+        .share-icon.whatsapp:hover {
+            background-color: #25d366;
+            color: white;
+        }
+
+        /* Comments */
+        .comments-section {
+            background: rgba(15, 23, 41, 0.5);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .comments-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            align-items: center;
+        }
+
+        .comments-title i {
+            margin-right: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        .comment-count {
+            background: rgba(108, 99, 255, 0.2);
+            color: var(--tertiary-color);
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            margin-left: 1rem;
+        }
+
+        .comment-form {
+            margin-bottom: 2rem;
+        }
+
+        .comment-form textarea {
+            background: rgba(10, 14, 23, 0.5);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            color: white;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .comment-form textarea:focus {
+            background: rgba(10, 14, 23, 0.7);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(108, 99, 255, 0.25);
+        }
+
+        .comment-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .comment-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(108, 99, 255, 0.1);
+        }
+
+        .comment-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+        }
+
+        .comment-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .comment-author-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+
+        .comment-author-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .comment-author-info h6 {
+            margin-bottom: 0;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .comment-author-info small {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+        }
+
+        .comment-date {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+        }
+
+        .comment-content {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.8rem;
+        }
+
+        .comment-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .comment-action {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .comment-action i {
+            margin-right: 0.5rem;
+        }
+
+        .comment-action:hover {
+            color: var(--primary-color);
+        }
+
+        .comment-replies {
+            margin-top: 1.5rem;
+            margin-left: 3rem;
+            padding-left: 1.5rem;
+            border-left: 2px solid rgba(108, 99, 255, 0.2);
+        }
+
+        .reply-form {
+            margin-top: 1rem;
+            margin-left: 3rem;
+            display: none;
+        }
+
+        .reply-form.active {
+            display: block;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(15, 23, 41, 0.9);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 15px 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1100;
+            transform: translateX(120%);
+            transition: transform 0.3s ease-in-out;
+            backdrop-filter: blur(10px);
+            max-width: 350px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            color: white;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .notification-message {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        /* Sidebar */
+        .sidebar-title {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .sidebar-card {
+            background: rgba(15, 23, 41, 0.5);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .recent-posts-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .recent-post-item {
+            display: flex;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(108, 99, 255, 0.1);
+        }
+
+        .recent-post-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .recent-post-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .recent-post-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .recent-post-info h5 {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .recent-post-info h5 a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .recent-post-info h5 a:hover {
+            color: var(--tertiary-color);
+        }
+
+        .recent-post-meta {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* New Post Button */
+        .new-post-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 20px rgba(108, 99, 255, 0.4);
+            z-index: 100;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .new-post-btn:hover {
+            transform: translateY(-5px) rotate(90deg);
+            box-shadow: 0 8px 30px rgba(108, 99, 255, 0.6);
+        }
+
+        /* Notifications modal */
+        .notifications-modal {
+            display: none;
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 350px;
+            background: rgba(15, 23, 41, 0.95);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .notifications-modal.show {
+            display: block;
+        }
+
+        .notifications-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(108, 99, 255, 0.1);
+        }
+
+        .notifications-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            margin: 0;
+        }
+
+        .notifications-close {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .notifications-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(108, 99, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .notification-item:hover {
+            background-color: rgba(108, 99, 255, 0.1);
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-item.unread {
+            position: relative;
+        }
+
+        .notification-item.unread::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -8px;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+
+        .notification-content {
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .notification-time {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(10, 14, 23, 0.8);
+            position: relative;
+            border-top: 1px solid rgba(108, 99, 255, 0.1);
+            padding: 4rem 0 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-logo {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.05em;
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .footer-title {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            padding-left: 0;
+            display: inline-block;
+        }
+
+        .footer-links a::before {
+            content: '→';
+            position: absolute;
+            left: -20px;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 20px;
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+            left: 0;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(108, 99, 255, 0.1);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .navbar-toggler {
+                background-color: rgba(108, 99, 255, 0.1);
+                border: none;
+            }
+            
+            .navbar-toggler:focus {
+                box-shadow: none;
+            }
+            
+            .navbar-toggler-icon {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            }
+            
+            .sidebar {
+                margin-top: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding-top: 80px;
+            }
+            
+            .post-title {
+                font-size: 1.8rem;
+            }
+            
+            .post-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .comment-header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="tj5n4mq0k8.png" alt="EduFuturo Logo" height="45" class="logo-image">
+                <span class="logo-text">EDUFUTURO</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="noticias.html">Notícias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="concursos.html">Concursos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="vestibulares.html">Vestibulares</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="estudo.html">Área de Estudo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="notificationsBtn">
+                            <i class="bi bi-bell"></i>
+                            <span class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill" id="notificationBadge">2</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Notifications Modal -->
+    <div class="notifications-modal" id="notificationsModal">
+        <div class="notifications-header">
+            <h5 class="notifications-title"><i class="bi bi-bell me-2"></i> Notificações</h5>
+            <button class="notifications-close" id="notificationsCloseBtn">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        <ul class="notifications-list">
+            <li class="notification-item unread">
+                <div class="notification-content">
+                    <strong>Carlos Oliveira</strong> comentou em seu post "5 Técnicas de Memorização Baseadas em Neurociência"
+                </div>
+                <div class="notification-time">Agora mesmo</div>
+            </li>
+            <li class="notification-item unread">
+                <div class="notification-content">
+                    <strong>Amanda Costa</strong> respondeu ao seu comentário no post "Como Criar um Cronograma de Estudos Eficiente"
+                </div>
+                <div class="notification-time">5 minutos atrás</div>
+            </li>
+            <li class="notification-item">
+                <div class="notification-content">
+                    <strong>Ricardo Santos</strong> curtiu seu post "10 Habilidades Mais Valorizadas no Mercado de Trabalho em 2023"
+                </div>
+                <div class="notification-time">30 minutos atrás</div>
+            </li>
+            <li class="notification-item">
+                <div class="notification-content">
+                    <strong>Camila Ferreira</strong> começou a seguir você
+                </div>
+                <div class="notification-time">2 horas atrás</div>
+            </li>
+            <li class="notification-item">
+                <div class="notification-content">
+                    Seu post "Como Manter a Motivação nos Estudos Durante Períodos Difíceis" foi compartilhado por <strong>10 pessoas</strong>
+                </div>
+                <div class="notification-time">1 dia atrás</div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Post Container -->
+                    <article class="post-container" data-aos="fade-up">
+                        <header class="post-header">
+                            <h1 class="post-title">Como Criar um Cronograma de Estudos Eficiente</h1>
+                            <div class="post-meta">
+                                <div class="post-meta-item">
+                                    <i class="bi bi-calendar3"></i> 15 de Setembro, 2023
+                                </div>
+                                <div class="post-meta-item">
+                                    <i class="bi bi-eye"></i> 3.2k visualizações
+                                </div>
+                                <div class="post-meta-item">
+                                    <i class="bi bi-chat-dots"></i> 38 comentários
+                                </div>
+                                <div class="post-meta-item">
+                                    <i class="bi bi-clock"></i> 8 min de leitura
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                <div class="post-author">
+                                    <div class="post-author-img">
+                                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Author">
+                                    </div>
+                                    <div class="post-author-info">
+                                        <h5>Amanda Costa</h5>
+                                        <p>Coach Educacional</p>
+                                    </div>
+                                </div>
+                                <div class="post-tags mt-3 mt-md-0">
+                                    <span class="post-tag">Estudos</span>
+                                    <span class="post-tag">Produtividade</span>
+                                    <span class="post-tag">Organização</span>
+                                </div>
+                            </div>
+                        </header>
+                        
+                        <div class="post-content">
+                            <img src="https://cdn.pixabay.com/photo/2018/01/17/07/06/laptop-3087585_1280.jpg" alt="Estudante com cronograma" class="img-fluid rounded mb-4">
+                            
+                            <p>Organizar o tempo de estudo é um dos maiores desafios para estudantes de todos os níveis, especialmente para aqueles que estão se preparando para vestibulares e concursos. Um cronograma bem estruturado não só ajuda a garantir que todos os conteúdos sejam estudados adequadamente, mas também a evitar a procrastinação e aumentar a produtividade.</p>
+                            
+                            <p>Neste artigo, vou compartilhar estratégias comprovadas para criar um cronograma de estudos que realmente funcione, baseadas em princípios de gestão de tempo e neurociência.</p>
+                            
+                            <h2>Por que um cronograma é essencial?</h2>
+                            
+                            <p>Antes de entrarmos nas técnicas específicas, é importante compreender por que um cronograma é tão crucial:</p>
+                            
+                            <ul>
+                                <li><strong>Organização mental:</strong> Um plano claro reduz a ansiedade e te dá uma sensação de controle sobre seus estudos.</li>
+                                <li><strong>Distribuição eficiente:</strong> Garante que você dedique tempo suficiente para cada disciplina, especialmente as mais desafiadoras.</li>
+                                <li><strong>Consistência:</strong> Cria um hábito de estudo regular, essencial para a retenção de longo prazo.</li>
+                                <li><strong>Equilíbrio:</strong> Ajuda a balancear estudos com outras atividades importantes da sua vida.</li>
+                            </ul>
+                            
+                            <h2>1. Faça um diagnóstico honesto</h2>
+                            
+                            <p>Antes de criar seu cronograma, é fundamental fazer uma autoavaliação sincera:</p>
+                            
+                            <ul>
+                                <li>Quais são suas disciplinas mais fortes e mais fracas?</li>
+                                <li>Em quais períodos do dia você tem mais energia e concentração?</li>
+                                <li>Quanto tempo real você tem disponível para estudar?</li>
+                                <li>Quais são seus objetivos e prazos?</li>
+                            </ul>
+                            
+                            <blockquote>
+                                <p>"A organização do tempo não se trata de encaixar mais tarefas no seu dia, mas de realizar as tarefas certas nos momentos certos."</p>
+                            </blockquote>
+                            
+                            <h2>2. Entenda seus ciclos de energia</h2>
+                            
+                            <p>Cada pessoa tem momentos do dia em que está mais alerta e produtiva. Identifique seus picos de energia e utilize-os para estudar os conteúdos mais desafiadores:</p>
+                            
+                            <ul>
+                                <li><strong>Matutinos:</strong> Se você é mais produtivo pela manhã, reserve esse período para as matérias mais complexas.</li>
+                                <li><strong>Vespertinos:</strong> Se seu pico de energia é à tarde, planeje as atividades mais intensas para este momento.</li>
+                                <li><strong>Noturnos:</strong> Se você funciona melhor à noite, deixe as tarefas mais exigentes para este período.</li>
+                            </ul>
+                            
+                            <h2>3. Aplique as técnicas de estudo mais eficientes</h2>
+                            
+                            <p>Um cronograma eficaz não se trata apenas de quando estudar, mas também de como. Incorpore essas técnicas comprovadas:</p>
+                            
+                            <h3>A técnica Pomodoro</h3>
+                            
+                            <p>Estude em blocos de 25 minutos (um "pomodoro") seguidos por 5 minutos de descanso. A cada 4 pomodoros, faça uma pausa mais longa de 15-30 minutos. Esta técnica mantém a mente fresca e evita o esgotamento.</p>
+                            
+                            <h3>Espaçamento e intercalação</h3>
+                            
+                            <p>Ao invés de estudar um único assunto por várias horas seguidas (massed practice), é mais eficaz:</p>
+                            
+                            <ul>
+                                <li><strong>Espaçar:</strong> Revisar o mesmo conteúdo em diferentes dias.</li>
+                                <li><strong>Intercalar:</strong> Alternar entre diferentes assuntos em uma mesma sessão de estudos.</li>
+                            </ul>
+                            
+                            <p>Essas abordagens evitam a ilusão de aprendizado e promovem uma compreensão mais profunda.</p>
+                            
+                            <h2>4. Construindo seu cronograma semanal</h2>
+                            
+                            <p>Com base nas informações acima, aqui está um passo-a-passo para montar seu cronograma:</p>
+                            
+                            <ol>
+                                <li><strong>Defina seus blocos fixos:</strong> Marque primeiro seus compromissos inalteráveis (aulas, trabalho, família).</li>
+                                <li><strong>Distribua as disciplinas:</strong> Aloque tempo para cada matéria de acordo com sua dificuldade e peso no seu objetivo.</li>
+                                <li><strong>Inclua tempo para revisão:</strong> Reserve pelo menos 20% do seu tempo para revisar conteúdos anteriores.</li>
+                                <li><strong>Planeje descansos estratégicos:</strong> Inclua pausas entre os blocos de estudo e pelo menos um dia por semana mais leve.</li>
+                                <li><strong>Adicione tempos para prática:</strong> Resolução de exercícios e simulados são fundamentais.</li>
+                            </ol>
+                            
+                            <img src="https://cdn.pixabay.com/photo/2020/01/21/09/37/time-4782678_1280.jpg" alt="Gestão de tempo" class="img-fluid rounded my-4">
+                            
+                            <h2>5. Monitore e adapte</h2>
+                            
+                            <p>Um cronograma não é um documento estático. É essencial monitorar sua eficácia e fazer ajustes:</p>
+                            
+                            <ul>
+                                <li>Avalie semanalmente o que funcionou e o que não funcionou.</li>
+                                <li>Não tenha medo de ajustar seu cronograma às suas necessidades reais.</li>
+                                <li>Use aplicativos para acompanhar seu progresso e obter insights sobre seus hábitos.</li>
+                            </ul>
+                            
+                            <h2>6. Dicas para manter a consistência</h2>
+                            
+                            <p>Criar um cronograma é apenas o primeiro passo. Segui-lo consistentemente é o verdadeiro desafio:</p>
+                            
+                            <ul>
+                                <li><strong>Estabeleça rituais:</strong> Crie rotinas que sinalizem para seu cérebro que é hora de estudar.</li>
+                                <li><strong>Elimine distrações:</strong> Identifique e minimize interrupções durante seu tempo de estudo.</li>
+                                <li><strong>Use a técnica dos "5 minutos":</strong> Quando não estiver motivado, comprometa-se a estudar por apenas 5 minutos - frequentemente, você continuará naturalmente.</li>
+                                <li><strong>Celebre pequenas vitórias:</strong> Reconheça e recompense-se por cumprir seus objetivos diários e semanais.</li>
+                            </ul>
+                            
+                            <h2>Conclusão</h2>
+                            
+                            <p>Um cronograma de estudos bem planejado é uma ferramenta poderosa na jornada acadêmica. Ele transforma a montanha aparentemente intransponível de conteúdos em passos diários gerenciáveis, reduzindo a ansiedade e aumentando significativamente suas chances de sucesso.</p>
+                            
+                            <p>Lembre-se de que a perfeição não deve ser o objetivo - a consistência sim. Um cronograma seguido em 80% do tempo é infinitamente melhor do que um plano perfeito que nunca sai do papel.</p>
+                            
+                            <p>E você, já implementa alguma dessas técnicas? Compartilhe nos comentários suas experiências e dúvidas!</p>
+                        </div>
+                        
+                        <footer class="post-footer">
+                            <div class="row align-items-center">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <div class="post-tags">
+                                        <span class="share-text">Tags:</span>
+                                        <span class="post-tag">Estudos</span>
+                                        <span class="post-tag">Produtividade</span>
+                                        <span class="post-tag">Organização</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="post-share text-md-end">
+                                        <span class="share-text">Compartilhar:</span>
+                                        <a href="#" class="share-icon facebook"><i class="bi bi-facebook"></i></a>
+                                        <a href="#" class="share-icon twitter"><i class="bi bi-twitter"></i></a>
+                                        <a href="#" class="share-icon linkedin"><i class="bi bi-linkedin"></i></a>
+                                        <a href="#" class="share-icon whatsapp"><i class="bi bi-whatsapp"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </footer>
+                    </article>
+                    
+                    <!-- Comments Section -->
+                    <section class="comments-section" data-aos="fade-up">
+                        <h3 class="comments-title"><i class="bi bi-chat-square-text"></i> Comentários <span class="comment-count">38</span></h3>
+                        
+                        <form class="comment-form" id="mainCommentForm">
+                            <div class="mb-3">
+                                <textarea class="form-control" id="commentText" rows="3" placeholder="Deixe seu comentário..."></textarea>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="notifyReplies">
+                                    <label class="form-check-label" for="notifyReplies">
+                                        Notificar-me sobre respostas
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Comentar</button>
+                            </div>
+                        </form>
+                        
+                        <ul class="comment-list mt-4">
+                            <!-- Comment 1 -->
+                            <li class="comment-item">
+                                <div class="comment-header">
+                                    <div class="comment-author">
+                                        <div class="comment-author-img">
+                                            <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="Pedro Lima">
+                                        </div>
+                                        <div class="comment-author-info">
+                                            <h6>Pedro Lima</h6>
+                                            <small>Estudante de Medicina</small>
+                                        </div>
+                                    </div>
+                                    <div class="comment-date">
+                                        <i class="bi bi-clock"></i> 2 dias atrás
+                                    </div>
+                                </div>
+                                <div class="comment-content">
+                                    <p>Excelente artigo! Eu tenho usado a técnica Pomodoro há alguns meses e realmente fez toda a diferença na minha preparação para o vestibular de medicina. Consegui aumentar minha produtividade em pelo menos 30%.</p>
+                                </div>
+                                <div class="comment-actions">
+                                    <a href="#" class="comment-action like-action"><i class="bi bi-hand-thumbs-up"></i> Curtir (15)</a>
+                                    <a href="#" class="comment-action reply-action" data-comment-id="1"><i class="bi bi-reply"></i> Responder</a>
+                                </div>
+                                
+                                <!-- Reply Form -->
+                                <div class="reply-form" id="replyForm1">
+                                    <div class="mb-3">
+                                        <textarea class="form-control" rows="2" placeholder="Escreva sua resposta..."></textarea>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="notifyRepliesSub1">
+                                            <label class="form-check-label" for="notifyRepliesSub1">
+                                                Notificar-me
+                                            </label>
+                                        </div>
+                                        <button type="button" class="btn btn-primary btn-sm">Responder</button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Comment Replies -->
+                                <div class="comment-replies">
+                                    <!-- Reply 1 -->
+                                    <div class="comment-item">
+                                        <div class="comment-header">
+                                            <div class="comment-author">
+                                                <div class="comment-author-img">
+                                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Amanda Costa">
+                                                </div>
+                                                <div class="comment-author-info">
+                                                    <h6>Amanda Costa <span class="badge bg-primary">Autor</span></h6>
+                                                    <small>Coach Educacional</small>
+                                                </div>
+                                            </div>
+                                            <div class="comment-date">
+                                                <i class="bi bi-clock"></i> 1 dia atrás
+                                            </div>
+                                        </div>
+                                        <div class="comment-content">
+                                            <p>Fico muito feliz em saber, Pedro! A técnica Pomodoro é realmente eficaz para muitas pessoas. Você tem alguma outra estratégia que combina com ela e tem funcionado bem?</p>
+                                        </div>
+                                        <div class="comment-actions">
+                                            <a href="#" class="comment-action like-action"><i class="bi bi-hand-thumbs-up"></i> Curtir (8)</a>
+                                            <a href="#" class="comment-action reply-action" data-comment-id="1-1"><i class="bi bi-reply"></i> Responder</a>
+                                        </div>
+                                        
+                                        <!-- Reply Form -->
+                                        <div class="reply-form" id="replyForm1-1">
+                                            <div class="mb-3">
+                                                <textarea class="form-control" rows="2" placeholder="Escreva sua resposta..."></textarea>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="notifyRepliesSub1-1">
+                                                    <label class="form-check-label" for="notifyRepliesSub1-1">
+                                                        Notificar-me
+                                                    </label>
+                                                </div>
+                                                <button type="button" class="btn btn-primary btn-sm">Responder</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Reply 2 -->
+                                    <div class="comment-item">
+                                        <div class="comment-header">
+                                            <div class="comment-author">
+                                                <div class="comment-author-img">
+                                                    <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="Pedro Lima">
+                                                </div>
+                                                <div class="comment-author-info">
+                                                    <h6>Pedro Lima</h6>
+                                                    <small>Estudante de Medicina</small>
+                                                </div>
+                                            </div>
+                                            <div class="comment-date">
+                                                <i class="bi bi-clock"></i> 23 horas atrás
+                                            </div>
+                                        </div>
+                                        <div class="comment-content">
+                                            <p>Sim, Amanda! Tenho combinado com o método de intercalação de matérias que você mencionou. Estudo biologia por 25min, faço uma pausa curta, depois química... Isso evita a fadiga mental e mantém meu interesse.</p>
+                                        </div>
+                                        <div class="comment-actions">
+                                            <a href="#" class="comment-action like-action"><i class="bi bi-hand-thumbs-up"></i> Curtir (5)</a>
+                                            <a href="#" class="comment-action reply-action" data-comment-id="1-2"><i class="bi bi-reply"></i> Responder</a>
+                                        </div>
+                                        
+                                        <!-- Reply Form -->
+                                        <div class="reply-form" id="replyForm1-2">
+                                            <div class="mb-3">
+                                                <textarea class="form-control" rows="2" placeholder="Escreva sua resposta..."></textarea>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="notifyRepliesSub1-2">
+                                                    <label class="form-check-label" for="notifyRepliesSub1-2">
+                                                        Notificar-me
+                                                    </label>
+                                                </div>
+                                                <button type="button" class="btn btn-primary btn-sm">Responder</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            
+                            <!-- Comment 2 -->
+                            <li class="comment-item">
+                                <div class="comment-header">
+                                    <div class="comment-author">
+                                        <div class="comment-author-img">
+                                            <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Juliana Santos">
+                                        </div>
+                                        <div class="comment-author-info">
+                                            <h6>Juliana Santos</h6>
+                                            <small>Concurseira</small>
+                                        </div>
+                                    </div>
+                                    <div class="comment-date">
+                                        <i class="bi bi-clock"></i> 3 dias atrás
+                                    </div>
+                                </div>
+                                <div class="comment-content">
+                                    <p>Vocês poderiam falar mais sobre como equilibrar o estudo para concursos com o trabalho em período integral? Tento seguir um cronograma, mas muitas vezes chego tão cansada em casa que não consigo cumprir o planejado.</p>
+                                </div>
+                                <div class="comment-actions">
+                                    <a href="#" class="comment-action like-action"><i class="bi bi-hand-thumbs-up"></i> Curtir (27)</a>
+                                    <a href="#" class="comment-action reply-action" data-comment-id="2"><i class="bi bi-reply"></i> Responder</a>
+                                </div>
+                                
+                                <!-- Reply Form -->
+                                <div class="reply-form" id="replyForm2">
+                                    <div class="mb-3">
+                                        <textarea class="form-control" rows="2" placeholder="Escreva sua resposta..."></textarea>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="notifyRepliesSub2">
+                                            <label class="form-check-label" for="notifyRepliesSub2">
+                                                Notificar-me
+                                            </label>
+                                        </div>
+                                        <button type="button" class="btn btn-primary btn-sm">Responder</button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Comment Replies -->
+                                <div class="comment-replies">
+                                    <!-- Reply 1 -->
+                                    <div class="comment-item">
+                                        <div class="comment-header">
+                                            <div class="comment-author">
+                                                <div class="comment-author-img">
+                                                    <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="Rafael Gomes">
+                                                </div>
+                                                <div class="comment-author-info">
+                                                    <h6>Rafael Gomes</h6>
+                                                    <small>Auditor Aprovado</small>
+                                                </div>
+                                            </div>
+                                            <div class="comment-date">
+                                                <i class="bi bi-clock"></i> 2 dias atrás
+                                            </div>
+                                        </div>
+                                        <div class="comment-content">
+                                            <p>Juliana, passei pela mesma situação! O que funcionou para mim foi estudar de manhã antes do trabalho (acordava 1h mais cedo) e reservar os finais de semana para revisões e simulados. Durante a semana, fazia apenas microestudos de 20-30min, mas com muita qualidade e foco.</p>
+                                        </div>
+                                        <div class="comment-actions">
+                                            <a href="#" class="comment-action like-action"><i class="bi bi-hand-thumbs-up"></i> Curtir (19)</a>
+                                            <a href="#" class="comment-action reply-action" data-comment-id="2-1"><i class="bi bi-reply"></i> Responder</a>
+                                        </div>
+                                        
+                                        <!-- Reply Form -->
+                                        <div class="reply-form" id="replyForm2-1">
+                                            <div class="mb-3">
+                                                <textarea class="form-control" rows="2" placeholder="Escreva sua resposta..."></textarea>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="notifyRepliesSub2-1">
+                                                    <label class="form-check-label" for="notifyRepliesSub2-1">
+                                                        Notificar-me
+                                                    </label>
+                                                </div>
+                                                <button type="button" class="btn btn-primary btn-sm">Responder</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            
+                            <!-- Comment 3 -->
+                            <li class="comment-item">
+                                <div class="comment-header">
+                                    <div class="comment-author">
+                                        <div class="comment-author-img">
+                                            <img src="https://randomuser.me/api/portraits/men/72.jpg" alt="Bruno Carvalho">
+                                        </div>
+                                        <div class="comment-author-info">
+                                            <h6>Bruno Carvalho</h6>
+                                            <small>Professor de Matemática</small>
+                                        </div>
+                                    </div>
+                                    <div class="comment-date">
+                                        <i class="bi bi-clock"></i> 4 dias atrás
+                                    </div>
+                                </div>
+                                <div class="comment-content">
+                                    <p>Como professor, sempre recomendo que meus alunos adicionem no cronograma um tempo para resolução de exercícios práticos. A teoria sozinha não é suficiente, especialmente em disciplinas como matemática e física. Vocês poderiam elaborar um pouco mais sobre isso em um próximo artigo?</p>
+                                </div>
+                                <div class="comment-actions">
+                                    <a href="#" class="comment-action like-action"><i class="bi bi-hand-thumbs-up"></i> Curtir (32)</a>
+                                    <a href="#" class="comment-action reply-action" data-comment-id="3"><i class="bi bi-reply"></i> Responder</a>
+                                </div>
+                                
+                                <!-- Reply Form -->
+                                <div class="reply-form" id="replyForm3">
+                                    <div class="mb-3">
+                                        <textarea class="form-control" rows="2" placeholder="Escreva sua resposta..."></textarea>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="notifyRepliesSub3">
+                                            <label class="form-check-label" for="notifyRepliesSub3">
+                                                Notificar-me
+                                            </label>
+                                        </div>
+                                        <button type="button" class="btn btn-primary btn-sm">Responder</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                        <!-- Load More Comments -->
+                        <div class="text-center mt-4">
+                            <button class="btn btn-outline-primary">Carregar mais comentários</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <!-- Sidebar -->
+                <div class="col-lg-4 sidebar" data-aos="fade-left">
+                    <!-- Author Profile -->
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">Sobre a Autora</h3>
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Amanda Costa" class="rounded-circle me-3" width="80" height="80">
+                            <div>
+                                <h4 class="mb-1">Amanda Costa</h4>
+                                <p class="text-muted mb-2">Coach Educacional</p>
+                                <div class="d-flex">
+                                    <a href="#" class="me-2 text-primary"><i class="bi bi-twitter"></i></a>
+                                    <a href="#" class="me-2 text-primary"><i class="bi bi-linkedin"></i></a>
+                                    <a href="#" class="text-primary"><i class="bi bi-instagram"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <p>Com mais de 10 anos de experiência em orientação educacional, Amanda ajuda estudantes a desenvolver estratégias de aprendizado eficientes e personalizadas para concursos e vestibulares.</p>
+                        <button class="btn btn-outline-primary btn-sm">Seguir autora</button>
+                    </div>
+                    
+                    <!-- Recent Posts -->
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">Posts Recentes</h3>
+                        <ul class="recent-posts-list">
+                            <li class="recent-post-item">
+                                <div class="recent-post-img">
+                                    <img src="https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_1280.jpg" alt="Post image">
+                                </div>
+                                <div class="recent-post-info">
+                                    <h5><a href="#">5 Técnicas de Memorização Baseadas em Neurociência</a></h5>
+                                    <div class="recent-post-meta">
+                                        <i class="bi bi-calendar3"></i> 20 Set 2023
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="recent-post-item">
+                                <div class="recent-post-img">
+                                    <img src="https://cdn.pixabay.com/photo/2020/07/08/04/12/work-5382501_1280.jpg" alt="Post image">
+                                </div>
+                                <div class="recent-post-info">
+                                    <h5><a href="#">10 Habilidades Mais Valorizadas no Mercado de Trabalho em 2023</a></h5>
+                                    <div class="recent-post-meta">
+                                        <i class="bi bi-calendar3"></i> 10 Set 2023
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="recent-post-item">
+                                <div class="recent-post-img">
+                                    <img src="https://cdn.pixabay.com/photo/2017/09/08/20/29/chess-2730034_1280.jpg" alt="Post image">
+                                </div>
+                                <div class="recent-post-info">
+                                    <h5><a href="#">Como Manter a Motivação nos Estudos Durante Períodos Difíceis</a></h5>
+                                    <div class="recent-post-meta">
+                                        <i class="bi bi-calendar3"></i> 5 Set 2023
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Categories -->
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">Categorias</h3>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent text-white border-bottom border-primary">
+                                Técnicas de Estudo
+                                <span class="badge bg-primary rounded-pill">24</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent text-white border-bottom border-primary">
+                                Vestibulares
+                                <span class="badge bg-primary rounded-pill">18</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent text-white border-bottom border-primary">
+                                Concursos Públicos
+                                <span class="badge bg-primary rounded-pill">15</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent text-white border-bottom border-primary">
+                                Carreira
+                                <span class="badge bg-primary rounded-pill">12</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent text-white">
+                                Motivação
+                                <span class="badge bg-primary rounded-pill">9</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Tags -->
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">Tags Populares</h3>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="#" class="badge bg-secondary text-decoration-none">ENEM</a>
+                            <a href="#" class="badge bg-secondary text-decoration-none">Vestibular</a>
+                            <a href="#" class="badge bg-secondary text-decoration-none">Concurso</a>
+                            <a href="#" class="badge bg-secondary text-decoration-none">Produtividade</a>
+                            <a href="#" class="badge bg-secondary text-decoration-none">Memorização</a>
+                            <a href="#" class="badge bg-secondary text-decoration-none">Carreira</a>
+                            <a href="#" class="badge bg-secondary text-decoration-none">Motivação</a>
+                            <a href="#" class="badge bg-secondary text-decoration-none">Tecnologia</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Post Button -->
+    <a href="blog-novo-post.html" class="new-post-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Nova Publicação">
+        <i class="bi bi-plus-lg"></i>
+    </a>
+
+    <!-- Notification Toast -->
+    <div class="notification" id="notification">
+        <div class="notification-header">
+            <h6 class="notification-title">Nova notificação</h6>
+            <button class="notification-close" id="notificationClose">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+        <p class="notification-message">Alguém comentou em seu post</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
+                    <a href="index.html" class="footer-logo">EDUFUTURO</a>
+                    <p class="footer-text">Transformando a educação brasileira através da tecnologia e da inteligência artificial para criar um futuro mais brilhante e acessível para todos.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Navegação</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="noticias.html">Notícias</a></li>
+                        <li><a href="concursos.html">Concursos</a></li>
+                        <li><a href="vestibulares.html">Vestibulares</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Estudo</h4>
+                    <ul class="footer-links">
+                        <li><a href="estudo.html">Área de Estudo</a></li>
+                        <li><a href="#">Materiais</a></li>
+                        <li><a href="#">Exercícios</a></li>
+                        <li><a href="#">Simulados</a></li>
+                        <li><a href="#">Suporte</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="footer-title">Contato</h4>
+                    <ul class="footer-links">
+                        <li><i class="bi bi-envelope me-2"></i> contato@edufuturo.com.br</li>
+                        <li><i class="bi bi-telephone me-2"></i> (11) 4002-8922</li>
+                        <li><i class="bi bi-geo-alt me-2"></i> Av. Paulista, 1000 - São Paulo, SP</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2023 EduFuturo. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 100
+            });
+            
+            // Initialize tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+            
+            // Reply functionality
+            const replyButtons = document.querySelectorAll('.reply-action');
+            replyButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const commentId = this.getAttribute('data-comment-id');
+                    const replyForm = document.getElementById(`replyForm${commentId}`);
+                    
+                    // Toggle the form visibility
+                    if (replyForm.classList.contains('active')) {
+                        replyForm.classList.remove('active');
+                    } else {
+                        // Close all other open reply forms
+                        document.querySelectorAll('.reply-form.active').forEach(form => {
+                            form.classList.remove('active');
+                        });
+                        
+                        // Open this reply form
+                        replyForm.classList.add('active');
+                        replyForm.querySelector('textarea').focus();
+                    }
+                });
+            });
+            
+            // Notifications dropdown
+            const notificationsBtn = document.getElementById('notificationsBtn');
+            const notificationsModal = document.getElementById('notificationsModal');
+            const notificationsCloseBtn = document.getElementById('notificationsCloseBtn');
+            
+            if (notificationsBtn && notificationsModal && notificationsCloseBtn) {
+                notificationsBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    notificationsModal.classList.toggle('show');
+                    
+                    // Remove badge when notifications are viewed
+                    const badge = document.getElementById('notificationBadge');
+                    if (badge) {
+                        badge.style.display = 'none';
+                    }
+                });
+                
+                notificationsCloseBtn.addEventListener('click', function() {
+                    notificationsModal.classList.remove('show');
+                });
+                
+                // Close notifications when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!notificationsBtn.contains(e.target) && !notificationsModal.contains(e.target)) {
+                        notificationsModal.classList.remove('show');
+                    }
+                });
+            }
+            
+            // Notification toast
+            const notification = document.getElementById('notification');
+            const notificationClose = document.getElementById('notificationClose');
+            
+            if (notification && notificationClose) {
+                // Close notification when clicking the X
+                notificationClose.addEventListener('click', function() {
+                    notification.classList.remove('show');
+                });
+                
+                // Show a sample notification after 5 seconds
+                setTimeout(function() {
+                    notification.classList.add('show');
+                    
+                    // Hide it after 5 seconds
+                    setTimeout(function() {
+                        notification.classList.remove('show');
+                    }, 5000);
+                }, 5000);
+            }
+            
+            // Comment form submit
+            const mainCommentForm = document.getElementById('mainCommentForm');
+            if (mainCommentForm) {
+                mainCommentForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const commentText = document.getElementById('commentText').value.trim();
+                    if (commentText) {
+                        // Here you would normally send this to a server
+                        // For now, we'll just simulate a successful comment
+                        alert('Seu comentário foi enviado com sucesso!');
+                        
+                        // Clear the form
+                        document.getElementById('commentText').value = '';
+                    } else {
+                        alert('Por favor, escreva um comentário antes de enviar.');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercícios - EduFuturo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Theme variables */
+        :root {
+            /* Default Theme */
+            --primary-color: #6C63FF;
+            --secondary-color: #584cff;
+            --accent-color: #FF6584;
+            --success-color: #10B981;
+            --warning-color: #FBBF24;
+            --info-color: #60A5FA;
+            --danger-color: #EF4444;
+            --light-color: #F9FAFB;
+            --dark-color: #111827;
+            --bg-color: #F9FAFB;
+            --text-color: #111827;
+            --card-bg: #FFFFFF;
+            --card-border: rgba(0, 0, 0, 0.03);
+            --sidebar-bg: #FFFFFF;
+            --btn-text: #FFFFFF;
+            --dropdown-bg: #FFFFFF;
+            --input-bg: #FFFFFF;
+            --input-border: #E5E7EB;
+            --table-border: rgba(0, 0, 0, 0.05);
+            --muted-text: #6B7280;
+            --border-color: rgba(0, 0, 0, 0.05);
+            --navbar-bg: #6C63FF;
+            --navbar-text: rgba(255, 255, 255, 0.9);
+            --correct-option: rgba(16, 185, 129, 0.15);
+            --incorrect-option: rgba(239, 68, 68, 0.15);
+            --option-hover: rgba(108, 99, 255, 0.1);
+        }
+
+        /* Themes */
+        [data-theme="dark"] {
+            --primary-color: #8B80FF;
+            --secondary-color: #7570FF;
+            --accent-color: #FF7A96;
+            --success-color: #10B981;
+            --warning-color: #FBBF24;
+            --info-color: #60A5FA;
+            --danger-color: #EF4444;
+            --light-color: #1E293B;
+            --dark-color: #F9FAFB;
+            --bg-color: #0F172A;
+            --text-color: #F9FAFB;
+            --card-bg: #1E293B;
+            --card-border: rgba(255, 255, 255, 0.05);
+            --sidebar-bg: #1E293B;
+            --btn-text: #FFFFFF;
+            --dropdown-bg: #1E293B;
+            --input-bg: #2D3748;
+            --input-border: #4B5563;
+            --table-border: rgba(255, 255, 255, 0.05);
+            --muted-text: #94A3B8;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --navbar-bg: #1E293B;
+            --navbar-text: rgba(255, 255, 255, 0.9);
+            --correct-option: rgba(16, 185, 129, 0.25);
+            --incorrect-option: rgba(239, 68, 68, 0.25);
+            --option-hover: rgba(108, 99, 255, 0.2);
+        }
+        
+        [data-theme="light"] {
+            --primary-color: #4F46E5;
+            --secondary-color: #4338CA;
+            --accent-color: #EC4899;
+            --success-color: #10B981;
+            --warning-color: #FBBF24;
+            --info-color: #60A5FA;
+            --danger-color: #EF4444;
+            --light-color: #FFFFFF;
+            --dark-color: #1F2937;
+            --bg-color: #F1F5F9;
+            --text-color: #1F2937;
+            --card-bg: #FFFFFF;
+            --card-border: rgba(0, 0, 0, 0.05);
+            --sidebar-bg: #FFFFFF;
+            --btn-text: #FFFFFF;
+            --dropdown-bg: #FFFFFF;
+            --input-bg: #FFFFFF;
+            --input-border: #D1D5DB;
+            --table-border: rgba(0, 0, 0, 0.05);
+            --muted-text: #4B5563;
+            --border-color: rgba(0, 0, 0, 0.05);
+            --navbar-bg: #4F46E5;
+            --navbar-text: rgba(255, 255, 255, 0.9);
+            --correct-option: rgba(16, 185, 129, 0.15);
+            --incorrect-option: rgba(239, 68, 68, 0.15);
+            --option-hover: rgba(79, 70, 229, 0.1);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--navbar-bg);
+            padding: 0.8rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(108, 99, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: white !important;
+            letter-spacing: -0.5px;
+        }
+
+        .navbar .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .navbar .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+
+        /* Layout */
+        .app-container {
+            display: flex;
+            padding-top: 60px;
+            min-height: 100vh;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Exercise styles */
+        .exercise-breadcrumb {
+            margin-bottom: 2rem;
+        }
+
+        .breadcrumb-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .breadcrumb-item a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .exercise-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            transition: all 0.3s;
+            border: 1px solid var(--card-border);
+        }
+
+        .exercise-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .exercise-number {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background-color: rgba(108, 99, 255, 0.1);
+            border-radius: 100px;
+        }
+
+        .exercise-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .exercise-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            color: var(--muted-text);
+        }
+
+        /* Option styles */
+        .options-container {
+            margin-top: 2.5rem;
+        }
+
+        .option-item {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary-color);
+            background-color: var(--option-hover);
+        }
+
+        .option-marker {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.2rem;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .option-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            flex-grow: 1;
+        }
+
+        /* Selected option styles */
+        .option-item.selected {
+            border-width: 2px;
+        }
+
+        .option-item.selected .option-marker::after {
+            content: "";
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            position: absolute;
+        }
+
+        /* Correct and incorrect styles */
+        .option-item.correct {
+            border-color: var(--success-color);
+            background-color: var(--correct-option);
+        }
+
+        .option-item.correct .option-marker {
+            border-color: var(--success-color);
+        }
+
+        .option-item.correct .option-marker::after {
+            background-color: var(--success-color);
+        }
+
+        .option-item.incorrect {
+            border-color: var(--danger-color);
+            background-color: var(--incorrect-option);
+        }
+
+        .option-item.incorrect .option-marker {
+            border-color: var(--danger-color);
+        }
+
+        .option-item.incorrect .option-marker::after {
+            background-color: var(--danger-color);
+        }
+
+        /* Feedback styles */
+        .feedback-container {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 15px;
+            display: none;
+        }
+
+        .feedback-container.correct {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .feedback-container.incorrect {
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .feedback-icon {
+            font-size: 1.8rem;
+            margin-right: 1rem;
+        }
+
+        .feedback-icon.correct {
+            color: var(--success-color);
+        }
+
+        .feedback-icon.incorrect {
+            color: var(--danger-color);
+        }
+
+        .feedback-text {
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .feedback-text h4 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Navigation buttons */
+        .exercise-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+        }
+
+        .btn-nav {
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .btn-prev {
+            background-color: rgba(108, 99, 255, 0.1);
+            color: var(--primary-color);
+        }
+
+        .btn-prev:hover {
+            background-color: rgba(108, 99, 255, 0.2);
+            transform: translateX(-5px);
+        }
+
+        .btn-next {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.2);
+        }
+
+        .btn-next:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.3);
+        }
+
+        /* Progress bar */
+        .progress-container {
+            margin: 3rem 0;
+        }
+
+        .progress-bar-container {
+            height: 10px;
+            background-color: var(--input-border);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            width: 10%;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.8rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--muted-text);
+        }
+
+        /* Images and formulas */
+        .exercise-image {
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 2rem 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .exercise-image img {
+            width: 100%;
+            display: block;
+        }
+
+        .formula-container {
+            background-color: rgba(108, 99, 255, 0.05);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .formula {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 1rem 0;
+            color: var(--dark-color);
+        }
+
+        /* Media queries */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .exercise-card {
+                padding: 1.5rem;
+            }
+
+            .exercise-title {
+                font-size: 1.6rem;
+            }
+
+            .option-item {
+                padding: 1rem;
+            }
+
+            .exercise-nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn-nav {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Table styles */
+        .exercise-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 2rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .exercise-table thead {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .exercise-table th {
+            padding: 1rem;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .exercise-table td {
+            padding: 1rem;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--table-border);
+        }
+
+        .exercise-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--navbar-bg);">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="index.html">EduFuturo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <!-- Theme Selector -->
+                    <li class="nav-item dropdown me-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="themeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-palette me-1"></i> Tema
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeDropdown">
+                            <li><button class="dropdown-item theme-option" data-theme="default"><i class="bi bi-circle-fill me-2 text-primary"></i> Padrão</button></li>
+                            <li><button class="dropdown-item theme-option" data-theme="dark"><i class="bi bi-moon-stars-fill me-2 text-info"></i> Escuro</button></li>
+                            <li><button class="dropdown-item theme-option" data-theme="light"><i class="bi bi-sun-fill me-2 text-warning"></i> Claro</button></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle me-1"></i> Minha Conta
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="perfil.html"><i class="bi bi-person me-2"></i> Perfil</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Configurações</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sair</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- App Container -->
+    <div class="app-container">
+        <div class="main-content">
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="exercise-breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="estudo.html">Área de Estudo</a></li>
+                    <li class="breadcrumb-item"><a href="#">Matemática</a></li>
+                    <li class="breadcrumb-item"><a href="#">Geometria</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Exercícios</li>
+                </ol>
+            </nav>
+
+            <!-- Progress bar -->
+            <div class="progress-container">
+                <div class="progress-bar-container">
+                    <div class="progress-fill" id="exerciseProgress"></div>
+                </div>
+                <div class="progress-text">
+                    <span>Exercício 1 de 10</span>
+                    <span id="progressPercent">10% concluído</span>
+                </div>
+            </div>
+
+            <!-- Exercise Card -->
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-number">Exercício 1</div>
+                    <h2 class="exercise-title">Cálculo da Área de um Triângulo</h2>
+                    <p class="exercise-description">
+                        Em Geometria, o triângulo é um dos polígonos mais importantes e fundamentais. Vamos testar seu conhecimento sobre o cálculo da área de triângulos.
+                    </p>
+                </div>
+
+                <!-- Exercise Content -->
+                <div class="exercise-content">
+                    <p>
+                        Considere um triângulo com base medindo 6 cm e altura relativa a essa base medindo 8 cm, conforme a figura abaixo:
+                    </p>
+
+                    <!-- Exercise Image -->
+                    <div class="exercise-image">
+                        <img src="https://cdn.pixabay.com/photo/2023/03/17/20/30/triangle-7859291_1280.png" alt="Triângulo com base 6cm e altura 8cm">
+                    </div>
+
+                    <div class="formula-container">
+                        <p>Para calcular a área de um triângulo, utilizamos a seguinte fórmula:</p>
+                        <div class="formula">
+                            A = (b × h) ÷ 2
+                        </div>
+                        <p>Onde <strong>b</strong> é a base do triângulo e <strong>h</strong> é a altura relativa a essa base.</p>
+                    </div>
+
+                    <p>
+                        Com base nessas informações, qual é a área do triângulo?
+                    </p>
+
+                    <!-- Options -->
+                    <div class="options-container">
+                        <div class="option-item" data-value="A">
+                            <div class="option-marker">A</div>
+                            <div class="option-text">24 cm²</div>
+                        </div>
+                        <div class="option-item" data-value="B">
+                            <div class="option-marker">B</div>
+                            <div class="option-text">48 cm²</div>
+                        </div>
+                        <div class="option-item" data-value="C">
+                            <div class="option-marker">C</div>
+                            <div class="option-text">12 cm²</div>
+                        </div>
+                        <div class="option-item" data-value="D">
+                            <div class="option-marker">D</div>
+                            <div class="option-text">36 cm²</div>
+                        </div>
+                    </div>
+
+                    <!-- Feedback - This will be shown via JavaScript when an option is selected -->
+                    <div class="feedback-container" id="correctFeedback">
+                        <div class="d-flex align-items-start">
+                            <div class="feedback-icon correct">
+                                <i class="bi bi-check-circle-fill"></i>
+                            </div>
+                            <div class="feedback-text">
+                                <h4>Resposta Correta!</h4>
+                                <p>
+                                    Muito bem! Você aplicou corretamente a fórmula para encontrar a área do triângulo.
+                                </p>
+                                <p>
+                                    Substituindo os valores na fórmula A = (b × h) ÷ 2, temos:
+                                    <br>
+                                    A = (6 × 8) ÷ 2 = 48 ÷ 2 = 24 cm²
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feedback-container" id="incorrectFeedback">
+                        <div class="d-flex align-items-start">
+                            <div class="feedback-icon incorrect">
+                                <i class="bi bi-x-circle-fill"></i>
+                            </div>
+                            <div class="feedback-text">
+                                <h4>Resposta Incorreta</h4>
+                                <p>
+                                    A resposta correta é <strong>24 cm²</strong>.
+                                </p>
+                                <p>
+                                    Aplicando a fórmula para a área do triângulo A = (b × h) ÷ 2:
+                                    <br>
+                                    A = (6 × 8) ÷ 2 = 48 ÷ 2 = 24 cm²
+                                </p>
+                                <p>Não desista! Continue praticando para melhorar seu domínio dos conceitos de geometria.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons (initially just the Verify button) -->
+                <div class="exercise-nav">
+                    <a href="estudo.html" class="btn-nav btn-prev">
+                        <i class="bi bi-arrow-left me-2"></i> Voltar ao Estudo
+                    </a>
+                    <button id="verifyButton" class="btn-nav btn-next">
+                        Verificar <i class="bi bi-check-circle ms-2"></i>
+                    </button>
+                    <a href="#" id="nextButton" class="btn-nav btn-next" style="display: none;">
+                        Próximo Exercício <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme Functionality
+            const themeOptions = document.querySelectorAll('.theme-option');
+            
+            // Load saved theme from localStorage
+            const savedTheme = localStorage.getItem('eduFuturoTheme');
+            if (savedTheme) {
+                document.body.setAttribute('data-theme', savedTheme);
+                
+                // Update the UI to reflect the current theme
+                themeOptions.forEach(option => {
+                    if (option.dataset.theme === savedTheme) {
+                        option.classList.add('active');
+                    }
+                });
+            }
+            
+            // Add click event listeners to theme options
+            themeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const selectedTheme = this.dataset.theme;
+                    
+                    // Apply the theme
+                    if (selectedTheme === 'default') {
+                        document.body.removeAttribute('data-theme');
+                    } else {
+                        document.body.setAttribute('data-theme', selectedTheme);
+                    }
+                    
+                    // Save to localStorage
+                    localStorage.setItem('eduFuturoTheme', selectedTheme);
+                    
+                    // Update UI
+                    themeOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Exercise functionality
+            const optionItems = document.querySelectorAll('.option-item');
+            const verifyButton = document.getElementById('verifyButton');
+            const nextButton = document.getElementById('nextButton');
+            const correctFeedback = document.getElementById('correctFeedback');
+            const incorrectFeedback = document.getElementById('incorrectFeedback');
+            const exerciseProgress = document.getElementById('exerciseProgress');
+            const progressPercent = document.getElementById('progressPercent');
+
+            let selectedOption = null;
+            const correctAnswer = 'A'; // Option A is the correct one
+
+            // Option selection
+            optionItems.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selection from all options
+                    optionItems.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selection to clicked option
+                    this.classList.add('selected');
+                    selectedOption = this.dataset.value;
+                });
+            });
+
+            // Verify answer
+            verifyButton.addEventListener('click', function() {
+                if (!selectedOption) {
+                    alert('Por favor, selecione uma opção antes de verificar.');
+                    return;
+                }
+
+                // Disable further selection
+                optionItems.forEach(option => {
+                    option.style.pointerEvents = 'none';
+                });
+
+                // Mark the correct and incorrect options
+                optionItems.forEach(option => {
+                    if (option.dataset.value === correctAnswer) {
+                        option.classList.add('correct');
+                    } else if (option.dataset.value === selectedOption) {
+                        option.classList.add('incorrect');
+                    }
+                });
+
+                // Show appropriate feedback
+                if (selectedOption === correctAnswer) {
+                    correctFeedback.style.display = 'block';
+                } else {
+                    incorrectFeedback.style.display = 'block';
+                }
+
+                // Hide verify button, show next button
+                verifyButton.style.display = 'none';
+                nextButton.style.display = 'block';
+
+                // Update progress
+                exerciseProgress.style.width = '10%';
+                progressPercent.textContent = '10% concluído';
+            });
+        });
+    </script>
+</body>
+</html>

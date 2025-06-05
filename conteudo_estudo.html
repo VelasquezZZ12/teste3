@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conteúdo de Estudo - EduFuturo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Theme variables */
+        :root {
+            /* Default Theme */
+            --primary-color: #6C63FF;
+            --secondary-color: #584cff;
+            --accent-color: #FF6584;
+            --success-color: #10B981;
+            --warning-color: #FBBF24;
+            --info-color: #60A5FA;
+            --danger-color: #EF4444;
+            --light-color: #F9FAFB;
+            --dark-color: #111827;
+            --bg-color: #F9FAFB;
+            --text-color: #111827;
+            --card-bg: #FFFFFF;
+            --card-border: rgba(0, 0, 0, 0.03);
+            --sidebar-bg: #FFFFFF;
+            --btn-text: #FFFFFF;
+            --dropdown-bg: #FFFFFF;
+            --input-bg: #FFFFFF;
+            --input-border: #E5E7EB;
+            --table-border: rgba(0, 0, 0, 0.05);
+            --muted-text: #6B7280;
+            --border-color: rgba(0, 0, 0, 0.05);
+            --navbar-bg: #6C63FF;
+            --navbar-text: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Themes */
+        [data-theme="dark"] {
+            --primary-color: #8B80FF;
+            --secondary-color: #7570FF;
+            --accent-color: #FF7A96;
+            --success-color: #10B981;
+            --warning-color: #FBBF24;
+            --info-color: #60A5FA;
+            --danger-color: #EF4444;
+            --light-color: #1E293B;
+            --dark-color: #F9FAFB;
+            --bg-color: #0F172A;
+            --text-color: #F9FAFB;
+            --card-bg: #1E293B;
+            --card-border: rgba(255, 255, 255, 0.05);
+            --sidebar-bg: #1E293B;
+            --btn-text: #FFFFFF;
+            --dropdown-bg: #1E293B;
+            --input-bg: #2D3748;
+            --input-border: #4B5563;
+            --table-border: rgba(255, 255, 255, 0.05);
+            --muted-text: #94A3B8;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --navbar-bg: #1E293B;
+            --navbar-text: rgba(255, 255, 255, 0.9);
+        }
+        
+        [data-theme="light"] {
+            --primary-color: #4F46E5;
+            --secondary-color: #4338CA;
+            --accent-color: #EC4899;
+            --success-color: #10B981;
+            --warning-color: #FBBF24;
+            --info-color: #60A5FA;
+            --danger-color: #EF4444;
+            --light-color: #FFFFFF;
+            --dark-color: #1F2937;
+            --bg-color: #F1F5F9;
+            --text-color: #1F2937;
+            --card-bg: #FFFFFF;
+            --card-border: rgba(0, 0, 0, 0.05);
+            --sidebar-bg: #FFFFFF;
+            --btn-text: #FFFFFF;
+            --dropdown-bg: #FFFFFF;
+            --input-bg: #FFFFFF;
+            --input-border: #D1D5DB;
+            --table-border: rgba(0, 0, 0, 0.05);
+            --muted-text: #4B5563;
+            --border-color: rgba(0, 0, 0, 0.05);
+            --navbar-bg: #4F46E5;
+            --navbar-text: rgba(255, 255, 255, 0.9);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--navbar-bg);
+            padding: 0.8rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(108, 99, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: white !important;
+            letter-spacing: -0.5px;
+        }
+
+        .navbar .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .navbar .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+
+        /* Layout */
+        .app-container {
+            display: flex;
+            padding-top: 60px;
+            min-height: 100vh;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: = 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Study content styles */
+        .study-breadcrumb {
+            margin-bottom: 2rem;
+        }
+
+        .breadcrumb-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .breadcrumb-item a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .study-header {
+            margin-bottom: 3rem;
+        }
+
+        .study-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .study-subtitle {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .study-intro {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--muted-text);
+            margin-bottom: 2.5rem;
+            max-width: 900px;
+        }
+
+        .study-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+            left: 0;
+            bottom: -10px;
+            border-radius: 2px;
+        }
+
+        .content-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+            border: 1px solid var(--card-border);
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .study-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .study-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .study-image {
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 2rem 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .study-image img {
+            width: 100%;
+            transition: transform 0.5s;
+        }
+
+        .study-image:hover img {
+            transform: scale(1.02);
+        }
+
+        /* Example styles */
+        .example-box {
+            background-color: rgba(108, 99, 255, 0.05);
+            border-left: 4px solid var(--primary-color);
+            padding: 2rem;
+            margin: 2.5rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .example-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .example-content {
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .example-formula {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 1.5rem 0;
+            color: var(--dark-color);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* Chart container */
+        .chart-container {
+            height: 350px;
+            margin: 2rem 0;
+        }
+
+        /* Navigation buttons */
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4rem;
+        }
+
+        .nav-btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .btn-prev {
+            background-color: rgba(108, 99, 255, 0.1);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-prev:hover {
+            background-color: rgba(108, 99, 255, 0.2);
+            transform: translateX(-5px);
+        }
+
+        .btn-next {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.2);
+        }
+
+        .btn-next:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.3);
+        }
+        
+        /* Study Action Buttons */
+        .study-action-buttons {
+            margin: 4rem 0;
+        }
+        
+        .action-btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-continue {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.2);
+        }
+        
+        .btn-continue:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(108, 99, 255, 0.3);
+        }
+        
+        .btn-exercise {
+            background: linear-gradient(45deg, var(--accent-color), #ff7e9d);
+            color: white;
+            border: none;
+            box-shadow: 0 8px 20px rgba(255, 101, 132, 0.2);
+        }
+        
+        .btn-exercise:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(255, 101, 132, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .btn-back {
+            background-color: rgba(108, 99, 255, 0.1);
+            color: var(--primary-color);
+            border: none;
+        }
+        
+        .btn-back:hover {
+            background-color: rgba(108, 99, 255, 0.2);
+            transform: translateY(-5px);
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* Table styles */
+        .study-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .study-table thead {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .study-table th {
+            padding: 1.2rem 1rem;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .study-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--table-border);
+            background-color: var(--card-bg);
+        }
+
+        .study-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .study-table tbody tr:hover td {
+            background-color: rgba(108, 99, 255, 0.03);
+        }
+        
+        /* Media queries */
+        @media (max-width: 768px) {
+            .study-title {
+                font-size: 2rem;
+            }
+            
+            .study-subtitle {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .content-card {
+                padding: 1.5rem;
+            }
+            
+            .navigation-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--navbar-bg);">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="index.html">EduFuturo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <!-- Theme Selector -->
+                    <li class="nav-item dropdown me-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="themeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-palette me-1"></i> Tema
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeDropdown">
+                            <li><button class="dropdown-item theme-option" data-theme="default"><i class="bi bi-circle-fill me-2 text-primary"></i> Padrão</button></li>
+                            <li><button class="dropdown-item theme-option" data-theme="dark"><i class="bi bi-moon-stars-fill me-2 text-info"></i> Escuro</button></li>
+                            <li><button class="dropdown-item theme-option" data-theme="light"><i class="bi bi-sun-fill me-2 text-warning"></i> Claro</button></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle me-1"></i> Minha Conta
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="perfil.html"><i class="bi bi-person me-2"></i> Perfil</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Configurações</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sair</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="app-container">
+        <div class="main-content py-5 px-4">
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="study-breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="estudo.html">Área de Estudo</a></li>
+                    <li class="breadcrumb-item"><a href="#">Matemática</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Geometria</li>
+                </ol>
+            </nav>
+
+            <!-- Study Header -->
+            <header class="study-header">
+                <div class="study-title-container">
+                    <h1 class="study-title">Geometria</h1>
+                    <div class="study-subtitle">Fundamentos da Geometria Euclidiana</div>
+                </div>
+                <p class="study-intro">
+                    A Geometria é um ramo da matemática que estuda as formas, tamanhos e propriedades do espaço. Foi desenvolvida inicialmente pelos gregos antigos, com Euclides sendo considerado o "pai da geometria" por sistematizar os conhecimentos de sua época nos famosos "Elementos". Neste estudo, vamos explorar os conceitos fundamentais da geometria euclidiana, entender suas aplicações práticas e como ela se relaciona com nosso mundo cotidiano.
+                </p>
+            </header>
+
+            <!-- Study Content -->
+            <section class="study-section">
+                <h2 class="section-title">Conceitos Fundamentais</h2>
+                <div class="content-card">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <div class="study-text">
+                                <p>
+                                    A geometria euclidiana é baseada em cinco postulados fundamentais, estabelecidos por Euclides por volta de 300 a.C. Estes postulados são verdades aceitas sem demonstração, a partir das quais todos os outros teoremas são derivados:
+                                </p>
+                                <ol>
+                                    <li>Por dois pontos distintos passa uma única reta;</li>
+                                    <li>Um segmento de reta pode ser estendido indefinidamente em uma linha reta;</li>
+                                    <li>Dado um ponto e uma distância, pode-se construir uma circunferência com centro no ponto e raio igual à distância;</li>
+                                    <li>Todos os ângulos retos são iguais entre si;</li>
+                                    <li>Por um ponto fora de uma reta passa uma, e somente uma, reta paralela à reta dada.</li>
+                                </ol>
+                                <p>
+                                    Esses postulados formam a base para o estudo das figuras geométricas no plano (geometria plana) e no espaço (geometria espacial).
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="study-image">
+                                <img src="https://cdn.pixabay.com/photo/2016/12/20/22/32/cubes-1921290_1280.jpg" alt="Representação visual de figuras geométricas" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Triangle Section -->
+            <section class="study-section">
+                <h2 class="section-title">Triângulos</h2>
+                <div class="content-card">
+                    <div class="study-text">
+                        <p>
+                            O triângulo é uma das figuras fundamentais da geometria euclidiana. É um polígono com três lados e três ângulos internos, cuja soma é sempre 180°. Os triângulos podem ser classificados quanto aos lados e quanto aos ângulos:
+                        </p>
+                        
+                        <h4>Classificação quanto aos lados:</h4>
+                        <ul>
+                            <li><strong>Equilátero:</strong> três lados iguais (e três ângulos iguais, cada um com 60°)</li>
+                            <li><strong>Isósceles:</strong> dois lados iguais (e dois ângulos iguais)</li>
+                            <li><strong>Escaleno:</strong> três lados com medidas diferentes (e três ângulos diferentes)</li>
+                        </ul>
+
+                        <h4>Classificação quanto aos ângulos:</h4>
+                        <ul>
+                            <li><strong>Acutângulo:</strong> todos os ângulos são agudos (menores que 90°)</li>
+                            <li><strong>Retângulo:</strong> possui um ângulo reto (90°)</li>
+                            <li><strong>Obtusângulo:</strong> possui um ângulo obtuso (maior que 90°)</li>
+                        </ul>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-lg-6">
+                            <div class="study-image">
+                                <img src="https://cdn.pixabay.com/photo/2017/01/31/23/42/geometric-2028272_1280.png" alt="Tipos de triângulos" class="img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="example-box">
+                                <h4 class="example-title">Exemplo: Teorema de Pitágoras</h4>
+                                <div class="example-content">
+                                    <p>Em um triângulo retângulo, o quadrado do comprimento da hipotenusa é igual à soma dos quadrados dos comprimentos dos catetos.</p>
+                                    <div class="example-formula">
+                                        a² = b² + c²
+                                    </div>
+                                    <p>Onde <strong>a</strong> é a hipotenusa e <strong>b</strong> e <strong>c</strong> são os catetos.</p>
+                                    <p>Este teorema é fundamental para cálculos em geometria e tem inúmeras aplicações práticas, desde a construção civil até a navegação.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Area and Perimeter Section -->
+            <section class="study-section">
+                <h2 class="section-title">Áreas e Perímetros</h2>
+                <div class="content-card">
+                    <div class="study-text">
+                        <p>
+                            O cálculo de áreas e perímetros é uma parte importante da geometria com muitas aplicações práticas. O perímetro é a medida do contorno de uma figura, enquanto a área é a medida da superfície que ela ocupa.
+                        </p>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="study-table">
+                            <thead>
+                                <tr>
+                                    <th>Figura</th>
+                                    <th>Perímetro</th>
+                                    <th>Área</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Quadrado (lado = a)</td>
+                                    <td>P = 4a</td>
+                                    <td>A = a²</td>
+                                </tr>
+                                <tr>
+                                    <td>Retângulo (lados = a e b)</td>
+                                    <td>P = 2a + 2b</td>
+                                    <td>A = a × b</td>
+                                </tr>
+                                <tr>
+                                    <td>Triângulo (lados = a, b, c; base = b; altura = h)</td>
+                                    <td>P = a + b + c</td>
+                                    <td>A = (b × h) ÷ 2</td>
+                                </tr>
+                                <tr>
+                                    <td>Círculo (raio = r)</td>
+                                    <td>P = 2πr</td>
+                                    <td>A = πr²</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="example-box mt-4">
+                        <h4 class="example-title">Exemplo Prático: Cálculo de Área</h4>
+                        <div class="example-content">
+                            <p>Suponha que você precisa calcular a quantidade de tinta necessária para pintar uma parede retangular com 4m de altura e 6m de largura:</p>
+                            <ol>
+                                <li>Calcula-se a área da parede: A = altura × largura = 4m × 6m = 24m²</li>
+                                <li>Sabendo que 1 litro de tinta cobre aproximadamente 10m², seriam necessários 24m² ÷ 10m²/litro = 2,4 litros de tinta.</li>
+                            </ol>
+                            <p>Este é um exemplo simples de como a geometria é aplicada em situações cotidianas.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3D Geometry -->
+            <section class="study-section">
+                <h2 class="section-title">Geometria Espacial</h2>
+                <div class="content-card">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <div class="study-text">
+                                <p>
+                                    A geometria espacial estuda figuras tridimensionais, como cubos, prismas, pirâmides, esferas e cilindros. Nela, além das medidas de comprimento e área, também lidamos com o volume, que representa o espaço ocupado pela figura.
+                                </p>
+                                <p>
+                                    Alguns dos sólidos mais importantes são:
+                                </p>
+                                <ul>
+                                    <li><strong>Cubo:</strong> sólido com 6 faces quadradas iguais</li>
+                                    <li><strong>Paralelepípedo:</strong> sólido com 6 faces retangulares</li>
+                                    <li><strong>Prisma:</strong> sólido com duas bases paralelas poligonais e faces laterais retangulares</li>
+                                    <li><strong>Pirâmide:</strong> sólido com uma base poligonal e faces laterais triangulares que se encontram em um vértice</li>
+                                    <li><strong>Esfera:</strong> sólido em que todos os pontos estão à mesma distância de um ponto central</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="study-image">
+                                <img src="https://cdn.pixabay.com/photo/2017/09/08/20/29/geometric-2730742_1280.jpg" alt="Sólidos geométricos" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-box mt-4">
+                        <h4 class="example-title">Exemplo: Volume e Área de Superfície</h4>
+                        <div class="example-content">
+                            <p>Para um cubo de aresta a:</p>
+                            <ul>
+                                <li>Volume: V = a³</li>
+                                <li>Área da superfície: A = 6a²</li>
+                            </ul>
+                            <p>Por exemplo, um cubo com aresta de 5 cm tem:</p>
+                            <ul>
+                                <li>Volume: V = 5³ = 125 cm³</li>
+                                <li>Área da superfície: A = 6 × 5² = 6 × 25 = 150 cm²</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Study Action Buttons -->
+            <div class="study-action-buttons my-5 text-center">
+                <a href="estudo.html" class="action-btn btn-back me-3">
+                    <i class="bi bi-arrow-left me-2"></i> Voltar para Academia
+                </a>
+                <button id="continueStudyingBtn" class="action-btn btn-continue me-3">
+                    <i class="bi bi-book me-2"></i> Continuar Estudando
+                </button>
+                <a href="exercicios.html?subject=matematica&topic=geometria" class="action-btn btn-exercise">
+                    <i class="bi bi-pencil me-2"></i> Fazer Exercícios
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the current subject and topic from the breadcrumb
+            const breadcrumb = document.querySelector('.breadcrumb');
+            const subject = breadcrumb ? breadcrumb.querySelector('li:nth-child(2) a').textContent.trim() : 'matematica';
+            const topic = breadcrumb ? breadcrumb.querySelector('li:nth-child(3)').textContent.trim() : 'geometria';
+            
+            const studyKey = `eduFuturo_study_${subject}_${topic}`;
+            
+            // Theme Functionality
+            const themeOptions = document.querySelectorAll('.theme-option');
+            
+            // Load saved theme from localStorage
+            const savedTheme = localStorage.getItem('eduFuturoTheme');
+            if (savedTheme) {
+                document.body.setAttribute('data-theme', savedTheme);
+                
+                // Update the UI to reflect the current theme
+                themeOptions.forEach(option => {
+                    if (option.dataset.theme === savedTheme) {
+                        option.classList.add('active');
+                    }
+                });
+            }
+            
+            // Add click event listeners to theme options
+            themeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const selectedTheme = this.dataset.theme;
+                    
+                    // Apply the theme
+                    if (selectedTheme === 'default') {
+                        document.body.removeAttribute('data-theme');
+                    } else {
+                        document.body.setAttribute('data-theme', selectedTheme);
+                    }
+                    
+                    // Save to localStorage
+                    localStorage.setItem('eduFuturoTheme', selectedTheme);
+                    
+                    // Update UI
+                    themeOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Check if user has previously studied content and add it
+            const savedContent = localStorage.getItem(studyKey);
+            if (savedContent) {
+                const studyContent = JSON.parse(savedContent);
+                
+                // Add all saved content to the page
+                studyContent.forEach(contentSection => {
+                    const sectionElement = document.createElement('div');
+                    sectionElement.innerHTML = contentSection;
+                    document.querySelector('.main-content').insertBefore(
+                        sectionElement, 
+                        document.querySelector('.study-action-buttons')
+                    );
+                });
+            }
+            
+            // Continuar Estudando button functionality
+            const continueStudyingBtn = document.getElementById('continueStudyingBtn');
+            if (continueStudyingBtn) {
+                continueStudyingBtn.addEventListener('click', function() {
+                    // Show loading effect
+                    this.innerHTML = '<i class="bi bi-hourglass-split me-2"></i> Carregando...';
+                    this.disabled = true;
+                    
+                    // Simulate loading time (you would replace this with an actual API call)
+                    setTimeout(() => {
+                        // Add the advanced content to the page
+                        showAdvancedContent();
+                        
+                        // Scroll to the new content
+                        const advancedContent = document.getElementById('advanced-content');
+                        if (advancedContent) {
+                            advancedContent.scrollIntoView({ 
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                        
+                        // Reset button
+                        this.innerHTML = '<i class="bi bi-book me-2"></i> Continuar Estudando';
+                        this.disabled = false;
+                    }, 1500);
+                });
+            }
+            
+            // Function to show advanced content
+            function showAdvancedContent() {
+                // Check if advanced content already exists
+                if (document.getElementById('advanced-content')) {
+                    return;
+                }
+                
+                const advancedContentHTML = `
+                <section id="advanced-content" class="study-section mt-5">
+                    <h2 class="section-title">Conteúdo Avançado: Geometria Analítica</h2>
+                    <div class="content-card">
+                        <div class="study-text">
+                            <p>
+                                A Geometria Analítica une a álgebra e a geometria, permitindo resolver problemas geométricos usando coordenadas e equações. 
+                                Este ramo da matemática foi desenvolvido independentemente por René Descartes e Pierre de Fermat no século XVII.
+                            </p>
+                            <h4 class="mt-4">Plano Cartesiano</h4>
+                            <p>
+                                O plano cartesiano é formado por dois eixos perpendiculares (x e y) que se cruzam na origem. Cada ponto do plano é 
+                                identificado por um par ordenado (x, y) que indica sua posição em relação aos eixos.
+                            </p>
+                            
+                            <div class="example-box mt-4">
+                                <h4 class="example-title">Distância entre dois pontos</h4>
+                                <div class="example-content">
+                                    <p>A distância d entre dois pontos P₁(x₁, y₁) e P₂(x₂, y₂) é dada pela fórmula:</p>
+                                    <div class="example-formula">
+                                        d = √[(x₂ - x₁)² + (y₂ - y₁)²]
+                                    </div>
+                                    <p>Esta fórmula é uma aplicação direta do Teorema de Pitágoras.</p>
+                                </div>
+                            </div>
+                            
+                            <h4 class="mt-4">Equação da Reta</h4>
+                            <p>
+                                Uma reta no plano cartesiano pode ser representada pela equação:
+                            </p>
+                            <div class="example-formula">
+                                y = mx + b
+                            </div>
+                            <p>
+                                Onde m é o coeficiente angular (inclinação da reta) e b é o coeficiente linear (intercepto y, ou seja, onde a reta corta o eixo y).
+                            </p>
+                            <p>
+                                O coeficiente angular m representa a taxa de variação de y em relação a x e pode ser calculado por:
+                            </p>
+                            <div class="example-formula">
+                                m = (y₂ - y₁) / (x₂ - x₁)
+                            </div>
+                            <p>
+                                onde (x₁, y₁) e (x₂, y₂) são dois pontos distintos da reta.
+                            </p>
+                            
+                            <h4 class="mt-4">Cônicas</h4>
+                            <p>
+                                As cônicas são curvas obtidas pela interseção de um plano com um cone de duas folhas. As principais cônicas são:
+                            </p>
+                            <ul>
+                                <li><strong>Circunferência:</strong> lugar geométrico dos pontos que estão a uma mesma distância (raio) de um ponto fixo (centro).</li>
+                                <li><strong>Elipse:</strong> lugar geométrico dos pontos cuja soma das distâncias a dois pontos fixos (focos) é constante.</li>
+                                <li><strong>Hipérbole:</strong> lugar geométrico dos pontos cuja diferença das distâncias a dois pontos fixos (focos) é constante.</li>
+                                <li><strong>Parábola:</strong> lugar geométrico dos pontos que estão a mesma distância de um ponto fixo (foco) e de uma reta fixa (diretriz).</li>
+                            </ul>
+                            
+                            <div class="example-box mt-4">
+                                <h4 class="example-title">Exemplo: Equação da Circunferência</h4>
+                                <div class="example-content">
+                                    <p>A equação de uma circunferência com centro C(h, k) e raio r é:</p>
+                                    <div class="example-formula">
+                                        (x - h)² + (y - k)² = r²
+                                    </div>
+                                    <p>Para uma circunferência com centro na origem (0, 0) e raio 5, a equação seria:</p>
+                                    <div class="example-formula">
+                                        x² + y² = 25
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="study-section">
+                    <h2 class="section-title">Aplicações Práticas da Geometria</h2>
+                    <div class="content-card">
+                        <div class="study-text">
+                            <p>
+                                A geometria tem inúmeras aplicações no mundo real, desde a arquitetura e engenharia até a arte e design.
+                                Aqui estão alguns exemplos de como os conceitos geométricos são aplicados em diferentes áreas:
+                            </p>
+                            
+                            <h4 class="mt-4">Arquitetura e Construção</h4>
+                            <p>
+                                Os arquitetos usam princípios geométricos para criar estruturas que sejam tanto esteticamente agradáveis quanto 
+                                funcionais e estáveis. Conceitos como simetria, proporção áurea, e formas geométricas básicas são fundamentais no design arquitetônico.
+                            </p>
+                            <p>
+                                Por exemplo, o Parthenon na Grécia antiga foi construído usando a proporção áurea e conceitos de simetria, resultando 
+                                em uma estrutura visualmente harmoniosa que resiste ao teste do tempo.
+                            </p>
+                            
+                            <h4 class="mt-4">Arte e Design</h4>
+                            <p>
+                                Artistas e designers frequentemente usam princípios geométricos para criar composições equilibradas e visualmente atraentes. 
+                                O movimento artístico do Cubismo, por exemplo, quebrava objetos em formas geométricas básicas para representá-los de múltiplas perspectivas simultaneamente.
+                            </p>
+                            
+                            <h4 class="mt-4">Tecnologia e Computação</h4>
+                            <p>
+                                A computação gráfica, realidade virtual, modelagem 3D e jogos digitais são todos campos que dependem fortemente 
+                                de princípios geométricos. Algoritmos baseados em geometria computacional são usados para renderizar objetos 3D, 
+                                detectar colisões em jogos e simular fenômenos físicos.
+                            </p>
+                            
+                            <div class="example-box mt-4">
+                                <h4 class="example-title">Exemplo prático: GPS e triangulação</h4>
+                                <div class="example-content">
+                                    <p>
+                                        Os sistemas de GPS (Global Positioning System) usam princípios de geometria e triangulação para determinar a posição exata 
+                                        de um receptor na Terra. O receptor mede a distância até pelo menos três satélites diferentes, e usando 
+                                        essas distâncias, calcula sua posição através de triangulação espacial.
+                                    </p>
+                                    <p>
+                                        Este é um exemplo perfeito de como conceitos geométricos aparentemente abstratos têm aplicações práticas que usamos diariamente.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                `;
+                
+                // Insert the advanced content before the study action buttons
+                const studyActionButtons = document.querySelector('.study-action-buttons');
+                studyActionButtons.insertAdjacentHTML('beforebegin', advancedContentHTML);
+                
+                // Save this content to localStorage
+                let studyContent = [];
+                if (localStorage.getItem(studyKey)) {
+                    studyContent = JSON.parse(localStorage.getItem(studyKey));
+                }
+                
+                studyContent.push(advancedContentHTML);
+                localStorage.setItem(studyKey, JSON.stringify(studyContent));
+            }
+        });
+    </script>
+</body>
+</html>

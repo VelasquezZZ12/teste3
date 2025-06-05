@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quem Somos - EduFuturo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6C63FF;
+            --secondary-color: #FF8F6C;
+            --tertiary-color: #6CFFE8;
+            --accent-color: #FF6584;
+            --dark-color: #0A0E17;
+            --light-color: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSI4IiBmaWxsPSIjNkM2M0ZGIiBmaWxsLW9wYWNpdHk9IjAuNCIvPjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIHI9IjQiIGZpbGw9IiM2QzYzRkYiLz48L3N2Zz4='), auto;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            overflow-x: hidden;
+            min-height: 100vh;
+            background: radial-gradient(ellipse at top, #0a1025, transparent),
+                        radial-gradient(ellipse at bottom, #160a1c, transparent);
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%236C63FF' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Syncopate', sans-serif;
+            letter-spacing: -0.03em;
+            font-weight: 700;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+
+        /* Loader */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+
+        .loader-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid rgba(108, 99, 255, 0.2);
+            border-top: 4px solid var(--accent-color);
+            border-right: 4px solid var(--primary-color);
+            border-bottom: 4px solid var(--tertiary-color);
+            animation: spin 1.5s linear infinite;
+        }
+
+        .loader-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 700;
+            color: white;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: transparent;
+            transition: all 0.4s;
+            padding: 1.5rem 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(10, 14, 23, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white !important;
+            letter-spacing: -0.05em;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .logo-image {
+            transition: all 0.3s ease;
+        }
+        
+        .logo-text {
+            position: relative;
+            left: 10px;
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            white-space: nowrap;
+            display: inline-block;
+        }
+        
+        .navbar-brand:hover .logo-text {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9) !important;
+            margin: 0 0.5rem;
+            position: relative;
+            transition: all 0.4s;
+            padding: 0.5rem 0.8rem !important;
+            border-radius: 100px;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            background-color: rgba(108, 99, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Page Header */
+        .page-header {
+            position: relative;
+            padding: 10rem 0 6rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(10, 14, 23, 0.7) 0%, rgba(22, 10, 28, 0.8) 100%);
+        }
+
+        .page-title {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top left, rgba(108, 99, 255, 0.05), transparent 70%),
+                        radial-gradient(circle at bottom right, rgba(255, 101, 132, 0.05), transparent 70%);
+            z-index: -1;
+        }
+
+        .content-card {
+            background: rgba(15, 23, 41, 0.5);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s;
+        }
+
+        .content-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(108, 99, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 
+                      0 0 20px rgba(108, 99, 255, 0.2);
+        }
+
+        .content-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .content-text {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-section {
+            padding: 3rem 0;
+        }
+
+        .team-card {
+            background: rgba(15, 23, 41, 0.5);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            transition: all 0.4s;
+            text-align: center;
+            padding-bottom: 2rem;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(108, 99, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 
+                      0 0 20px rgba(108, 99, 255, 0.2);
+        }
+
+        .team-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 2rem auto 1rem;
+            border: 4px solid var(--primary-color);
+        }
+
+        .team-name {
+            font-size: 1.4rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .team-bio {
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .values-card {
+            background: rgba(15, 23, 41, 0.5);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 30px;
+            height: 100%;
+            transition: all 0.4s;
+        }
+        
+        .values-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(108, 99, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 
+                      0 0 20px rgba(108, 99, 255, 0.2);
+        }
+        
+        .values-icon {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+            background: rgba(108, 99, 255, 0.1);
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+        }
+        
+        .values-title {
+            font-size: 1.4rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .values-text {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Newsletter button style to match home page */
+        .newsletter-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 100px;
+            font-weight: 600;
+            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .newsletter-btn:hover {
+            background: var(--accent-color);
+        }
+        
+        @media (max-width: 768px) {
+            .newsletter-btn {
+                position: static;
+                width: 100%;
+                margin-top: 1rem;
+                border-radius: 100px;
+            }
+        }
+        
+        /* Footer styling is already in the main CSS */
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .back-to-top:hover {
+            background: var(--accent-color);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: rgba(10, 14, 23, 0.8);
+            position: relative;
+            border-top: 1px solid rgba(108, 99, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(108, 99, 255, 0.05), transparent 70%),
+                        radial-gradient(circle at bottom left, rgba(255, 101, 132, 0.05), transparent 70%);
+            z-index: -1;
+        }
+        
+        /* Fix for input-group border radius consistency */
+        .input-group {
+            position: relative;
+            border-radius: 100px;
+            overflow: hidden;
+        }
+        
+        .input-group .form-control {
+            border-radius: 100px;
+        }
+
+        .footer-logo {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.05em;
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .footer-title {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            padding-left: 0;
+            display: inline-block;
+        }
+
+        .footer-links a::before {
+            content: '→';
+            position: absolute;
+            left: -20px;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 20px;
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+            left: 0;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(108, 99, 255, 0.1);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(108, 99, 255, 0.1);
+            padding-top: 2rem;
+            margin-top: 5rem;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .page-header {
+                padding: 8rem 0 4rem;
+            }
+            
+            .content-card {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-toggler {
+                background-color: rgba(108, 99, 255, 0.1);
+                border: none;
+            }
+            
+            .navbar-toggler:focus {
+                box-shadow: none;
+            }
+            
+            .navbar-toggler-icon {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader">
+        <div class="loader-content">
+            <div class="loader-circle"></div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="tj5n4mq0k8.png" alt="EduFuturo Logo" height="45" class="logo-image">
+                <span class="logo-text">EDUFUTURO</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="noticias.html">Notícias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="concursos.html">Concursos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="vestibulares.html">Vestibulares</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="estudo.html">Área de Estudo</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-title">Quem Somos</h1>
+            <p class="page-subtitle">Conheça a história, missão e valores da equipe por trás da EduFuturo, a plataforma que está revolucionando a educação brasileira com o poder da inteligência artificial.</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="container">
+            <!-- About Us -->
+            <div class="content-card" data-aos="fade-up">
+                <h2 class="content-title">Nossa História</h2>
+                <p class="content-text">A EduFuturo nasceu da visão de um grupo de educadores, tecnólogos e entusiastas da educação que acreditavam no poder transformador da tecnologia para democratizar o acesso ao conhecimento de qualidade no Brasil.</p>
+                
+                <p class="content-text">Fundada em 2021, nossa jornada começou com um objetivo claro: criar uma plataforma acessível e inovadora que pudesse personalizar o aprendizado de cada estudante, independentemente de sua localização ou condição socioeconômica.</p>
+                
+                <p class="content-text">Ao longo dos anos, desenvolvemos algoritmos avançados de inteligência artificial que analisam o perfil de aprendizado de cada usuário, identificam suas forças e fraquezas, e criam planos de estudo personalizados que maximizam seus resultados.</p>
+                
+                <p class="content-text">Hoje, a EduFuturo se orgulha de ter ajudado milhares de estudantes a alcançarem seus objetivos acadêmicos e profissionais, desde aprovações em vestibulares concorridos até conquistas em concursos públicos em todo o país.</p>
+            </div>
+
+            <!-- Our Mission and Vision -->
+            <div class="content-card" data-aos="fade-up" data-aos-delay="100">
+                <h2 class="content-title">Missão e Visão</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 style="color: var(--primary-color); font-size: 1.4rem; margin-bottom: 1rem;">Nossa Missão</h3>
+                        <p class="content-text">Democratizar o acesso à educação de qualidade no Brasil através da tecnologia, oferecendo ferramentas e conteúdos personalizados que se adaptam às necessidades individuais de cada estudante, promovendo a igualdade de oportunidades e o desenvolvimento do potencial humano.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h3 style="color: var(--primary-color); font-size: 1.4rem; margin-bottom: 1rem;">Nossa Visão</h3>
+                        <p class="content-text">Ser a principal plataforma educacional do Brasil, reconhecida pela excelência e inovação, onde a tecnologia e a educação se unem para criar experiências de aprendizado transformadoras, impactando positivamente a vida de milhões de estudantes em todo o território nacional.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Our Values -->
+            <h2 class="content-title text-center mt-5 mb-4" data-aos="fade-up">Nossos Valores</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="values-card">
+                        <div class="values-icon">
+                            <i class="bi bi-lightbulb"></i>
+                        </div>
+                        <h3 class="values-title">Inovação</h3>
+                        <p class="values-text">Buscamos constantemente novas formas de melhorar a experiência de aprendizado, combinando tecnologias emergentes com métodos pedagógicos eficazes.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="values-card">
+                        <div class="values-icon">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <h3 class="values-title">Inclusão</h3>
+                        <p class="values-text">Acreditamos que todos merecem acesso à educação de qualidade, independentemente de sua origem, localização geográfica ou condição socioeconômica.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="values-card">
+                        <div class="values-icon">
+                            <i class="bi bi-graph-up-arrow"></i>
+                        </div>
+                        <h3 class="values-title">Excelência</h3>
+                        <p class="values-text">Comprometemo-nos com os mais altos padrões de qualidade em nossos conteúdos, plataforma e serviços, buscando a melhoria contínua em tudo o que fazemos.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="values-card">
+                        <div class="values-icon">
+                            <i class="bi bi-gear-wide-connected"></i>
+                        </div>
+                        <h3 class="values-title">Adaptabilidade</h3>
+                        <p class="values-text">Desenvolvemos sistemas que se adaptam às necessidades individuais de cada estudante, reconhecendo que cada pessoa tem um jeito único de aprender.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                    <div class="values-card">
+                        <div class="values-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h3 class="values-title">Ética</h3>
+                        <p class="values-text">Atuamos com integridade, transparência e responsabilidade em todas as nossas interações, protegendo a privacidade dos usuários e utilizando dados apenas para melhorar a experiência educacional.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+                    <div class="values-card">
+                        <div class="values-icon">
+                            <i class="bi bi-heart"></i>
+                        </div>
+                        <h3 class="values-title">Impacto Social</h3>
+                        <p class="values-text">Nossa maior motivação é gerar impacto positivo na sociedade, contribuindo para a formação de cidadãos preparados para os desafios do futuro e para a construção de um Brasil mais justo e desenvolvido.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Our Team -->
+            <h2 class="content-title text-center mt-5 mb-4" data-aos="fade-up">Nossa Equipe</h2>
+            <div class="row">
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="team-card">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Foto do fundador" class="team-image">
+                        <h3 class="team-name">Carlos Eduardo Silva</h3>
+                        <p class="team-role">Fundador e CEO</p>
+                        <p class="team-bio">Educador e empreendedor com 15 anos de experiência em tecnologia educacional. Formado em Engenharia da Computação pela USP com mestrado em Inteligência Artificial aplicada à Educação.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-card">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Foto da diretora pedagógica" class="team-image">
+                        <h3 class="team-name">Dra. Mariana Santos</h3>
+                        <p class="team-role">Diretora Pedagógica</p>
+                        <p class="team-bio">Doutora em Educação pela UFRJ, com 20 anos de experiência no desenvolvimento de metodologias de ensino inovadoras e na criação de conteúdos educacionais.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="team-card">
+                        <img src="https://randomuser.me/api/portraits/men/62.jpg" alt="Foto do diretor de tecnologia" class="team-image">
+                        <h3 class="team-name">Rafael Oliveira</h3>
+                        <p class="team-role">Diretor de Tecnologia</p>
+                        <p class="team-bio">Especialista em desenvolvimento de sistemas de IA e Machine Learning. Ex-engenheiro do Google, formado pelo MIT com vasta experiência em startups de tecnologia.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="team-card">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Foto da diretora de conteúdo" class="team-image">
+                        <h3 class="team-name">Juliana Ferreira</h3>
+                        <p class="team-role">Diretora de Conteúdo</p>
+                        <p class="team-bio">Professora e pesquisadora com ampla experiência na criação de materiais didáticos para vestibulares e concursos. Mestre em Linguística Aplicada pela Unicamp.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
+                    <a href="index.html" class="footer-logo">EDUFUTURO</a>
+                    <p class="footer-text">Transformando a educação brasileira através da tecnologia e da inteligência artificial para criar um futuro mais brilhante e acessível para todos.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Navegação</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="noticias.html">Notícias</a></li>
+                        <li><a href="concursos.html">Concursos</a></li>
+                        <li><a href="vestibulares.html">Vestibulares</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Sobre Nós</h4>
+                    <ul class="footer-links">
+                        <li><a href="quem-somos.html">Quem Somos</a></li>
+                        <li><a href="suporte.html">Suporte</a></li>
+                        <li><a href="parceria.html">Parceria</a></li>
+                        <li><a href="trabalhe-conosco.html">Trabalhe Conosco</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="footer-title">Fique por dentro</h4>
+                    <p class="footer-text">Receba novidades sobre educação, concursos e vestibulares diretamente no seu email.</p>
+                    
+                    <form class="subscribe-form">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Seu melhor e-mail" aria-label="Email" aria-describedby="button-addon2">
+                            <button class="newsletter-btn" type="button" id="button-addon2">Assinar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2023 EduFuturo. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="bi bi-arrow-up"></i>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Initialize AOS (Animate On Scroll)
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 100
+            });
+            
+            // Page loader
+            window.addEventListener('load', function() {
+                const loader = document.querySelector('.page-loader');
+                setTimeout(function() {
+                    loader.classList.add('loader-hidden');
+                }, 1000);
+            });
+            
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                
+                // Back to top button visibility
+                const backToTop = document.getElementById('backToTop');
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('show');
+                } else {
+                    backToTop.classList.remove('show');
+                }
+            });
+            
+            // Back to top button functionality
+            document.getElementById('backToTop').addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (!target) return;
+                    
+                    window.scrollTo({
+                        top: target.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

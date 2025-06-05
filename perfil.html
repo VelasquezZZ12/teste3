@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - EduFuturo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Theme variables */
+        :root {
+            /* Default Theme */
+            --primary-color: #6C63FF;
+            --secondary-color: #584cff;
+            --accent-color: #FF6584;
+            --success-color: #10B981;
+            --warning-color: #FBBF24;
+            --info-color: #60A5FA;
+            --danger-color: #EF4444;
+            --light-color: #F9FAFB;
+            --dark-color: #111827;
+            --bg-color: #F9FAFB;
+            --text-color: #111827;
+            --card-bg: #FFFFFF;
+            --card-border: rgba(0, 0, 0, 0.03);
+            --sidebar-bg: #FFFFFF;
+            --btn-text: #FFFFFF;
+            --dropdown-bg: #FFFFFF;
+            --input-bg: #FFFFFF;
+            --input-border: #E5E7EB;
+            --table-border: rgba(0, 0, 0, 0.05);
+            --muted-text: #6B7280;
+            --border-color: rgba(0, 0, 0, 0.05);
+            --navbar-bg: #6C63FF;
+            --navbar-text: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Themes */
+        [data-theme="dark"] {
+            --primary-color: #8B80FF;
+            --secondary-color: #7570FF;
+            --accent-color: #FF7A96;
+            --success-color: #10B981;
+            --warning-color: #FBBF24;
+            --info-color: #60A5FA;
+            --danger-color: #EF4444;
+            --light-color: #1E293B;
+            --dark-color: #F9FAFB;
+            --bg-color: #0F172A;
+            --text-color: #F9FAFB;
+            --card-bg: #1E293B;
+            --card-border: rgba(255, 255, 255, 0.05);
+            --sidebar-bg: #1E293B;
+            --btn-text: #FFFFFF;
+            --dropdown-bg: #1E293B;
+            --input-bg: #2D3748;
+            --input-border: #4B5563;
+            --table-border: rgba(255, 255, 255, 0.05);
+            --muted-text: #94A3B8;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --navbar-bg: #1E293B;
+            --navbar-text: rgba(255, 255, 255, 0.9);
+        }
+        
+        [data-theme="light"] {
+            --primary-color: #4F46E5;
+            --secondary-color: #4338CA;
+            --accent-color: #EC4899;
+            --success-color: #10B981;
+            --warning-color: #FBBF24;
+            --info-color: #60A5FA;
+            --danger-color: #EF4444;
+            --light-color: #FFFFFF;
+            --dark-color: #1F2937;
+            --bg-color: #F1F5F9;
+            --text-color: #1F2937;
+            --card-bg: #FFFFFF;
+            --card-border: rgba(0, 0, 0, 0.05);
+            --sidebar-bg: #FFFFFF;
+            --btn-text: #FFFFFF;
+            --dropdown-bg: #FFFFFF;
+            --input-bg: #FFFFFF;
+            --input-border: #D1D5DB;
+            --table-border: rgba(0, 0, 0, 0.05);
+            --muted-text: #4B5563;
+            --border-color: rgba(0, 0, 0, 0.05);
+            --navbar-bg: #4F46E5;
+            --navbar-text: rgba(255, 255, 255, 0.9);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Page loader */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-dots {
+            display: flex;
+            gap: 12px;
+        }
+
+        .loader-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+
+        .loader-dot:nth-child(1) {
+            animation: bounce 1.4s ease-in-out infinite;
+        }
+
+        .loader-dot:nth-child(2) {
+            animation: bounce 1.4s ease-in-out 0.2s infinite;
+            background-color: var(--secondary-color);
+        }
+
+        .loader-dot:nth-child(3) {
+            animation: bounce 1.4s ease-in-out 0.4s infinite;
+            background-color: var(--accent-color);
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--navbar-bg);
+            padding: 0.8rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(108, 99, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: white !important;
+            letter-spacing: -0.5px;
+        }
+
+        .navbar .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .navbar .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
+
+        .dropdown-item {
+            padding: 0.6rem 1.2rem;
+            transition: all 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(108, 99, 255, 0.1);
+            color: var(--primary-color);
+        }
+
+        /* Layout */
+        .app-container {
+            display: flex;
+            padding-top: 60px;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            height: calc(100vh - 60px);
+            position: fixed;
+            top: 60px;
+            left: 0;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+            z-index: 99;
+            padding: 2rem 0;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 0 1.5rem 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar-link {
+            padding: 0.9rem 1.5rem;
+            display: flex;
+            align-items: center;
+            color: var(--dark-color);
+            text-decoration: none;
+            position: relative;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin: 0.2rem 0.5rem;
+            border-radius: 12px;
+        }
+
+        .sidebar-link i {
+            margin-right: 12px;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-link:hover, .sidebar-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .sidebar-link:hover i, .sidebar-link.active i {
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 2rem 2.5rem;
+            margin-left: 280px;
+            transition: all 0.3s ease;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            width: 60%;
+            height: 4px;
+            background: var(--accent-color);
+            left: 0;
+            bottom: -8px;
+            border-radius: 5px;
+        }
+
+        /* Card styles */
+        .profile-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+            padding: 1.5rem;
+            height: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: 1px solid var(--card-border);
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-card:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+            transform: translateY(-3px);
+        }
+
+        /* Avatar upload styles */
+        .avatar-wrapper {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .avatar-image {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+            background-color: var(--card-bg);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .avatar-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+
+        .avatar-wrapper:hover .avatar-overlay {
+            opacity: 1;
+        }
+
+        .avatar-upload {
+            display: none;
+        }
+
+        /* Form styles */
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--text-color);
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 0.7rem 1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .form-select {
+            border-radius: 10px;
+            padding: 0.7rem 1rem;
+            height: auto;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Plan selection styles */
+        .plan-option {
+            border: 2px solid var(--input-border);
+            border-radius: 14px;
+            padding: 1.2rem;
+            margin-bottom: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .plan-option:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+        }
+
+        .plan-option.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(108, 99, 255, 0.05);
+        }
+
+        .plan-option .plan-radio {
+            display: none;
+        }
+
+        .plan-option .plan-check {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--input-border);
+            border-radius: 50%;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .plan-option.selected .plan-check {
+            border-color: var(--primary-color);
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .plan-option .plan-check i {
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.7rem;
+        }
+
+        .plan-option.selected .plan-check i {
+            opacity: 1;
+        }
+
+        .plan-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .plan-price {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        .plan-features {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 0;
+            font-size: 0.95rem;
+        }
+
+        .plan-features li {
+            margin-bottom: 0.4rem;
+            position: relative;
+            padding-left: 1.6rem;
+        }
+
+        .plan-features li:before {
+            content: "\F270";
+            font-family: "bootstrap-icons";
+            color: var(--success-color);
+            position: absolute;
+            left: 0;
+            font-size: 0.9rem;
+        }
+
+        .plan-badge {
+            position: absolute;
+            top: -8px;
+            right: 8px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.7rem;
+            box-shadow: 0 3px 12px rgba(108, 99, 255, 0.2);
+        }
+
+        /* Button styles */
+        .btn-save {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 0.7rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(108, 99, 255, 0.2);
+            font-size: 0.95rem;
+        }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(108, 99, 255, 0.3);
+        }
+
+        /* Custom header style */
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-header h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .card-header i {
+            font-size: 1.4rem;
+            margin-right: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        /* Media queries */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                z-index: 999;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 1.5rem;
+            }
+            
+            .toggle-sidebar {
+                display: block !important;
+            }
+            
+            .navbar-toggler {
+                border: none;
+                padding: 0;
+            }
+            
+            .navbar-toggler:focus {
+                box-shadow: none;
+            }
+            
+            .navbar-toggler-icon {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .avatar-wrapper {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .avatar-image {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader">
+        <div class="loader-dots">
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--navbar-bg);">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="index.html">EduFuturo</a>
+            <button class="navbar-toggler toggle-sidebar" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <!-- Theme Selector -->
+                    <li class="nav-item dropdown me-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="themeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-palette me-1"></i> Tema
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeDropdown">
+                            <li><button class="dropdown-item theme-option" data-theme="default"><i class="bi bi-circle-fill me-2 text-primary"></i> Padrão</button></li>
+                            <li><button class="dropdown-item theme-option" data-theme="dark"><i class="bi bi-moon-stars-fill me-2 text-info"></i> Escuro</button></li>
+                            <li><button class="dropdown-item theme-option" data-theme="light"><i class="bi bi-sun-fill me-2 text-warning"></i> Claro</button></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle me-1"></i> Minha Conta
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="perfil.html"><i class="bi bi-person me-2"></i> Perfil</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Configurações</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sair</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- App Container -->
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h5 class="mb-0">Meu Perfil</h5>
+                </div>
+                <div class="d-grid mb-3">
+                    <a href="estudo.html" class="btn btn-primary">
+                        <i class="bi bi-arrow-left me-2"></i> Voltar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="row mb-3">
+                <div class="col-12" data-aos="fade-up">
+                    <h2 class="section-title">Meu Perfil</h2>
+                </div>
+            </div>
+
+            <!-- Compact Layout with Avatar at the top -->
+            <div class="row">
+                <!-- Avatar Card in the first row -->
+                <div class="col-md-4 mb-3" data-aos="fade-up">
+                    <div class="profile-card text-center">
+                        <div class="card-header">
+                            <i class="bi bi-person-circle"></i>
+                            <h4>Foto de Perfil</h4>
+                        </div>
+                        
+                        <div class="avatar-wrapper">
+                            <img src="https://via.placeholder.com/140x140" alt="Foto de perfil" class="avatar-image" id="avatarPreview">
+                            <div class="avatar-overlay" id="avatarOverlay">
+                                <i class="bi bi-camera me-1"></i>Alterar
+                            </div>
+                            <input type="file" id="avatarUpload" class="avatar-upload" accept="image/*">
+                        </div>
+                        
+                        <p class="text-muted small mb-0">Clique na imagem para carregar uma nova foto.<br>JPG, PNG ou GIF. Max: 1MB</p>
+                    </div>
+                </div>
+
+                <!-- Basic Info Card -->
+                <div class="col-md-8 mb-3" data-aos="fade-up">
+                    <div class="profile-card">
+                        <div class="card-header">
+                            <i class="bi bi-person-badge"></i>
+                            <h4>Informações Básicas</h4>
+                        </div>
+                        
+                        <form id="basicInfoForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="firstName" class="form-label">Nome</label>
+                                    <input type="text" class="form-control" id="firstName" placeholder="Seu nome">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="lastName" class="form-label">Sobrenome</label>
+                                    <input type="text" class="form-control" id="lastName" placeholder="Seu sobrenome">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">E-mail</label>
+                                    <input type="email" class="form-control" id="email" placeholder="seu.email@exemplo.com">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label">Telefone</label>
+                                    <input type="tel" class="form-control" id="phone" placeholder="(00) 00000-0000">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="education" class="form-label">Escolaridade</label>
+                                    <select class="form-select" id="education">
+                                        <option value="" selected disabled>Selecione sua escolaridade</option>
+                                        <option value="fundamental-incompleto">Ensino Fundamental - Incompleto</option>
+                                        <option value="fundamental-completo">Ensino Fundamental - Completo</option>
+                                        <option value="medio-incompleto">Ensino Médio - Incompleto</option>
+                                        <option value="medio-completo">Ensino Médio - Completo</option>
+                                        <option value="tecnico">Ensino Técnico</option>
+                                        <option value="superior-incompleto">Ensino Superior - Incompleto</option>
+                                        <option value="superior-completo">Ensino Superior - Completo</option>
+                                        <option value="pos-graduacao">Pós-Graduação</option>
+                                        <option value="mestrado">Mestrado</option>
+                                        <option value="doutorado">Doutorado</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="institution" class="form-label">Instituição de Ensino</label>
+                                    <input type="text" class="form-control" id="institution" placeholder="Nome da instituição">
+                                </div>
+                            </div>
+                            
+                            <div class="mt-2">
+                                <button type="submit" class="btn btn-save">
+                                    <i class="bi bi-check2 me-2"></i>Salvar Alterações
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Second Row with Password and Plan Cards -->
+            <div class="row">
+                <!-- Password Card -->
+                <div class="col-md-6 mb-3" data-aos="fade-up">
+                    <div class="profile-card">
+                        <div class="card-header">
+                            <i class="bi bi-shield-lock"></i>
+                            <h4>Alterar Senha</h4>
+                        </div>
+                        
+                        <form id="passwordForm">
+                            <div class="mb-2">
+                                <label for="currentPassword" class="form-label">Senha Atual</label>
+                                <input type="password" class="form-control" id="currentPassword">
+                            </div>
+                            
+                            <div class="mb-2">
+                                <label for="newPassword" class="form-label">Nova Senha</label>
+                                <input type="password" class="form-control" id="newPassword">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirmar Nova Senha</label>
+                                <input type="password" class="form-control" id="confirmPassword">
+                            </div>
+                            
+                            <div>
+                                <button type="submit" class="btn btn-save">
+                                    <i class="bi bi-shield-check me-2"></i>Atualizar Senha
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Plan Selection Card -->
+                <div class="col-md-6 mb-3" data-aos="fade-up">
+                    <div class="profile-card">
+                        <div class="card-header">
+                            <i class="bi bi-stars"></i>
+                            <h4>Meu Plano</h4>
+                        </div>
+                        
+                        <div class="plan-option" onclick="selectPlan('free')">
+                            <input type="radio" name="plan" id="freePlan" class="plan-radio" value="free" checked>
+                            <div class="plan-check"><i class="bi bi-check-lg"></i></div>
+                            
+                            <h5 class="plan-name">Plano Gratuito</h5>
+                            <div class="plan-price">R$ 0,00</div>
+                            
+                            <ul class="plan-features">
+                                <li>Acesso a conteúdos básicos</li>
+                                <li>5 simulados por mês</li>
+                                <li>Gamificação limitada</li>
+                                <li>Fórum da comunidade</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="plan-option" onclick="selectPlan('premium')">
+                            <input type="radio" name="plan" id="premiumPlan" class="plan-radio" value="premium">
+                            <div class="plan-check"><i class="bi bi-check-lg"></i></div>
+                            <div class="plan-badge">Recomendado</div>
+                            
+                            <h5 class="plan-name">Plano Premium</h5>
+                            <div class="plan-price">R$ 29,90/mês</div>
+                            
+                            <ul class="plan-features">
+                                <li>Acesso a todo o conteúdo</li>
+                                <li>Simulados ilimitados</li>
+                                <li>Correção de redações com IA</li>
+                                <li>Monitoramento de desempenho</li>
+                                <li>Materiais exclusivos</li>
+                                <li>Suporte prioritário</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="d-grid mt-3">
+                            <button type="button" class="btn btn-save" id="savePlanBtn">
+                                <i class="bi bi-check2-all me-2"></i>Confirmar Plano
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS (Animate On Scroll)
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+
+            // Page loader
+            window.addEventListener('load', function() {
+                const loader = document.querySelector('.page-loader');
+                setTimeout(function() {
+                    loader.classList.add('loader-hidden');
+                }, 800);
+            });
+            
+            // Theme Functionality
+            const themeOptions = document.querySelectorAll('.theme-option');
+            
+            // Load saved theme from localStorage
+            const savedTheme = localStorage.getItem('eduFuturoTheme');
+            if (savedTheme) {
+                document.body.setAttribute('data-theme', savedTheme);
+                
+                // Update the UI to reflect the current theme
+                themeOptions.forEach(option => {
+                    if (option.dataset.theme === savedTheme) {
+                        option.classList.add('active');
+                    }
+                });
+            }
+            
+            // Add click event listeners to theme options
+            themeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const selectedTheme = this.dataset.theme;
+                    
+                    // Apply the theme
+                    if (selectedTheme === 'default') {
+                        document.body.removeAttribute('data-theme');
+                    } else {
+                        document.body.setAttribute('data-theme', selectedTheme);
+                    }
+                    
+                    // Save to localStorage
+                    localStorage.setItem('eduFuturoTheme', selectedTheme);
+                    
+                    // Update UI
+                    themeOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Toggle sidebar on mobile
+            const toggleButton = document.querySelector('.toggle-sidebar');
+            const sidebar = document.querySelector('.sidebar');
+            
+            if (toggleButton) {
+                toggleButton.addEventListener('click', function() {
+                    sidebar.classList.toggle('show');
+                });
+            }
+            
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', function(event) {
+                if (window.innerWidth < 992) {
+                    const isClickInsideSidebar = sidebar.contains(event.target);
+                    const isClickOnToggleButton = toggleButton.contains(event.target);
+                    
+                    if (!isClickInsideSidebar && !isClickOnToggleButton && sidebar.classList.contains('show')) {
+                        sidebar.classList.remove('show');
+                    }
+                }
+            });
+            
+            // Avatar upload functionality
+            const avatarUpload = document.getElementById('avatarUpload');
+            const avatarPreview = document.getElementById('avatarPreview');
+            const avatarOverlay = document.getElementById('avatarOverlay');
+            
+            if (avatarOverlay && avatarUpload) {
+                avatarOverlay.addEventListener('click', function() {
+                    avatarUpload.click();
+                });
+                
+                avatarUpload.addEventListener('change', function() {
+                    if (this.files && this.files[0]) {
+                        const reader = new FileReader();
+                        
+                        reader.onload = function(e) {
+                            avatarPreview.setAttribute('src', e.target.result);
+                        }
+                        
+                        reader.readAsDataURL(this.files[0]);
+                    }
+                });
+            }
+            
+            // Plan selection functionality
+            window.selectPlan = function(planType) {
+                const planOptions = document.querySelectorAll('.plan-option');
+                const selectedPlan = document.querySelector(`#${planType}Plan`);
+                
+                planOptions.forEach(option => {
+                    option.classList.remove('selected');
+                });
+                
+                selectedPlan.checked = true;
+                selectedPlan.closest('.plan-option').classList.add('selected');
+            };
+            
+            // Initially select the free plan
+            selectPlan('free');
+            
+            // Handle save plan button
+            const savePlanBtn = document.getElementById('savePlanBtn');
+            if (savePlanBtn) {
+                savePlanBtn.addEventListener('click', function() {
+                    const selectedPlan = document.querySelector('input[name="plan"]:checked').value;
+                    alert(`Plano ${selectedPlan === 'premium' ? 'Premium' : 'Gratuito'} selecionado com sucesso!`);
+                });
+            }
+            
+            // Handle profile form submission
+            const basicInfoForm = document.getElementById('basicInfoForm');
+            if (basicInfoForm) {
+                basicInfoForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Informações do perfil atualizadas com sucesso!');
+                });
+            }
+            
+            // Handle password form submission
+            const passwordForm = document.getElementById('passwordForm');
+            if (passwordForm) {
+                passwordForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const newPassword = document.getElementById('newPassword').value;
+                    const confirmPassword = document.getElementById('confirmPassword').value;
+                    
+                    if (newPassword !== confirmPassword) {
+                        alert('As senhas não coincidem. Por favor, verifique.');
+                        return;
+                    }
+                    
+                    alert('Senha atualizada com sucesso!');
+                    this.reset();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

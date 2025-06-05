@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulados - EduFuturo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6C63FF;
+            --secondary-color: #584cff;
+            --accent-color: #FF6584;
+            --success-color: #10B981;
+            --warning-color: #FBBF24;
+            --info-color: #60A5FA;
+            --danger-color: #EF4444;
+            --light-color: #F9FAFB;
+            --dark-color: #111827;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Page loader */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-dots {
+            display: flex;
+            gap: 12px;
+        }
+
+        .loader-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+
+        .loader-dot:nth-child(1) {
+            animation: bounce 1.4s ease-in-out infinite;
+        }
+
+        .loader-dot:nth-child(2) {
+            animation: bounce 1.4s ease-in-out 0.2s infinite;
+            background-color: var(--secondary-color);
+        }
+
+        .loader-dot:nth-child(3) {
+            animation: bounce 1.4s ease-in-out 0.4s infinite;
+            background-color: var(--accent-color);
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 0.8rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(108, 99, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: white !important;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .logo-image {
+            transition: all 0.3s ease;
+        }
+        
+        .logo-text {
+            position: relative;
+            left: 10px;
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            white-space: nowrap;
+            display: inline-block;
+        }
+        
+        .navbar-brand:hover .logo-text {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .navbar .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .navbar .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
+
+        .dropdown-item {
+            padding: 0.6rem 1.2rem;
+            transition: all 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(108, 99, 255, 0.1);
+            color: var(--primary-color);
+        }
+
+        /* Layout */
+        .app-container {
+            display: flex;
+            padding-top: 60px;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background-color: white;
+            height: calc(100vh - 60px);
+            position: fixed;
+            top: 60px;
+            left: 0;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+            z-index: 99;
+            padding: 2rem 0;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 0 1.5rem 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar-link {
+            padding: 0.9rem 1.5rem;
+            display: flex;
+            align-items: center;
+            color: var(--dark-color);
+            text-decoration: none;
+            position: relative;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin: 0.2rem 0.5rem;
+            border-radius: 12px;
+        }
+
+        .sidebar-link i {
+            margin-right: 12px;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-link:hover, .sidebar-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .sidebar-link:hover i, .sidebar-link.active i {
+            color: white;
+        }
+
+        .btn-add {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.3);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-add::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
+            z-index: -1;
+            transition: opacity 0.5s ease;
+            opacity: 0;
+        }
+
+        .btn-add:hover::before {
+            opacity: 1;
+        }
+
+        .btn-add:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(108, 99, 255, 0.4);
+        }
+
+        .btn-add i {
+            margin-right: 8px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 2rem 2.5rem;
+            margin-left: 280px;
+            transition: all 0.3s ease;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            width: 60%;
+            height: 5px;
+            background: var(--accent-color);
+            left: 0;
+            bottom: -10px;
+            border-radius: 5px;
+        }
+
+        /* Dashboard cards */
+        .dashboard-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            padding: 1.8rem;
+            height: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: none;
+        }
+
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(108, 99, 255, 0.03), rgba(255, 101, 132, 0.03));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .dashboard-card:hover::before {
+            opacity: 1;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Simulation cards */
+        .simulation-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .simulation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .simulation-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0; 
+            width: 5px;
+            height: 0;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+            transition: height 0.3s ease;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .simulation-card:hover::before {
+            height: 100%;
+        }
+
+        .simulation-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            font-size: 1.8rem;
+            margin-right: 1.2rem;
+            transition: all 0.3s;
+            background-color: rgba(108, 99, 255, 0.1);
+            color: var(--primary-color);
+        }
+
+        .simulation-card:hover .simulation-icon {
+            transform: scale(1.1);
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .subject-badge {
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .simulation-actions {
+            display: flex;
+            margin-top: 1rem;
+            gap: 1rem;
+        }
+
+        .btn-simulation {
+            padding: 0.7rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-simulation:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn-start {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.2);
+        }
+
+        .btn-start:hover {
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.3);
+        }
+
+        .btn-details {
+            background-color: rgba(108, 99, 255, 0.1);
+            color: var(--primary-color);
+            border: none;
+        }
+
+        .btn-details:hover {
+            background-color: rgba(108, 99, 255, 0.2);
+        }
+
+        /* Exam in progress styles */
+        .timer-container {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .timer-icon {
+            margin-right: 1rem;
+            font-size: 1.8rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .options-container {
+            margin-top: 1.5rem;
+        }
+
+        .option-item {
+            padding: 1.2rem;
+            border-radius: 12px;
+            background-color: white;
+            border: 2px solid #E5E7EB;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-item:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .option-item.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(108, 99, 255, 0.05);
+        }
+
+        .option-item.selected::before {
+            content: "\F26A";
+            font-family: "bootstrap-icons";
+            position: absolute;
+            right: 1.2rem;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .question-navigation {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .question-nav-item {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: white;
+            border: 2px solid #E5E7EB;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .question-nav-item:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(108, 99, 255, 0.05);
+        }
+
+        .question-nav-item.current {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .question-nav-item.answered {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-color: var(--success-color);
+            color: var(--success-color);
+        }
+
+        /* Footer navigation for exam */
+        .exam-footer {
+            position: sticky;
+            bottom: 0;
+            background-color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+            border-radius: 20px 20px 0 0;
+            margin-top: 2rem;
+        }
+
+        /* Modal styling */
+        .modal-content {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-bottom: none;
+            color: white;
+            padding: 1.5rem 2rem;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-footer {
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1.2rem 2rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .form-control {
+            border-radius: 12px;
+            padding: 0.8rem 1.2rem;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .form-select {
+            border-radius: 12px;
+            padding: 0.8rem 1.2rem;
+            height: auto;
+            border: 1px solid #E5E7EB;
+        }
+
+        .btn-secondary {
+            background-color: #E5E7EB;
+            color: #4B5563;
+            border: none;
+            border-radius: 12px;
+            padding: 0.7rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background-color: #D1D5DB;
+            color: #111827;
+        }
+
+        /* Media queries */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                z-index: 999;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 2rem 1.5rem;
+            }
+            
+            .toggle-sidebar {
+                display: block !important;
+            }
+            
+            .navbar-toggler {
+                border: none;
+                padding: 0;
+            }
+            
+            .navbar-toggler:focus {
+                box-shadow: none;
+            }
+            
+            .navbar-toggler-icon {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .simulation-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader">
+        <div class="loader-dots">
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="index.html">
+                <img src="tj5n4mq0k8.png" alt="EduFuturo Logo" height="40" class="logo-image">
+                <span class="logo-text">EduFuturo</span>
+            </a>
+            <button class="navbar-toggler toggle-sidebar" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle me-1"></i> Minha Conta
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Perfil</a></li>
+
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sair</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- App Container -->
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h5 class="mb-3">Área de Estudo</h5>
+                <div class="d-flex gap-2 mb-2">
+                    <button class="btn btn-add flex-grow-1" data-bs-toggle="modal" data-bs-target="#addDisciplineModal">
+                        <i class="bi bi-plus-circle"></i> Adicionar Disciplina
+                    </button>
+                </div>
+            </div>
+            <div id="sidebar-links-container">
+                <a href="estudo.html" class="sidebar-link">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-speedometer2"></i> Academia
+                </a>
+                <a href="#" class="sidebar-link">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-book"></i> Minhas Disciplinas
+                </a>
+                <a href="#" class="sidebar-link">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-journal-text"></i> Materiais de Estudo
+                </a>
+                <a href="#" class="sidebar-link">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-pencil-square"></i> Exercícios
+                </a>
+                <a href="cronograma.html" class="sidebar-link">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-alarm"></i> Cronograma
+                </a>
+                <a href="desempenho.html" class="sidebar-link">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-graph-up"></i> Desempenho
+                </a>
+                <a href="simulacao.html" class="sidebar-link active">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-lightning-charge"></i> Simulados
+                </a>
+                <a href="metas.html" class="sidebar-link">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-card-checklist"></i> Metas
+                </a>
+                <a href="gamificacao.html" class="sidebar-link">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-trophy"></i> Gamificação
+                </a>
+                <a href="salas.html" class="sidebar-link">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-people-fill"></i> Salas de Aula
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="row mb-4">
+                <div class="col-12" data-aos="fade-up">
+                    <h2 class="section-title">Simulados</h2>
+                </div>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="row mb-5">
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="dashboard-card">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="me-3 d-flex align-items-center justify-content-center" 
+                                 style="background-color: rgba(108, 99, 255, 0.1); width: 48px; height: 48px; border-radius: 12px;">
+                                <i class="bi bi-lightning-charge" style="font-size: 1.5rem; color: var(--primary-color);"></i>
+                            </div>
+                            <div>
+                                <h4 class="mb-0 fw-bold">24</h4>
+                                <p class="text-muted mb-0">Simulados Realizados</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="dashboard-card">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="me-3 d-flex align-items-center justify-content-center" 
+                                 style="background-color: rgba(16, 185, 129, 0.1); width: 48px; height: 48px; border-radius: 12px;">
+                                <i class="bi bi-award" style="font-size: 1.5rem; color: var(--success-color);"></i>
+                            </div>
+                            <div>
+                                <h4 class="mb-0 fw-bold">78%</h4>
+                                <p class="text-muted mb-0">Média de Acertos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="dashboard-card">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="me-3 d-flex align-items-center justify-content-center" 
+                                 style="background-color: rgba(251, 191, 36, 0.1); width: 48px; height: 48px; border-radius: 12px;">
+                                <i class="bi bi-hourglass-split" style="font-size: 1.5rem; color: var(--warning-color);"></i>
+                            </div>
+                            <div>
+                                <h4 class="mb-0 fw-bold">140</h4>
+                                <p class="text-muted mb-0">Tempo Médio (min)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="dashboard-card">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="me-3 d-flex align-items-center justify-content-center" 
+                                 style="background-color: rgba(239, 68, 68, 0.1); width: 48px; height: 48px; border-radius: 12px;">
+                                <i class="bi bi-calendar-check" style="font-size: 1.5rem; color: var(--danger-color);"></i>
+                            </div>
+                            <div>
+                                <h4 class="mb-0 fw-bold">4</h4>
+                                <p class="text-muted mb-0">Simulados Disponíveis</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Simulation Library -->
+            <div class="row mb-4">
+                <div class="col-12" data-aos="fade-up">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="fw-bold">Biblioteca de Simulados</h4>
+                        <div>
+                            <button class="btn btn-outline-primary me-2" id="newSimulationBtn">
+                                <i class="bi bi-plus-circle me-1"></i> Novo Simulado
+                            </button>
+                            <button class="btn btn-add" data-bs-toggle="modal" data-bs-target="#filterSimulationModal">
+                                <i class="bi bi-funnel me-2"></i> Filtrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12" data-aos="fade-up" data-aos-delay="100">
+                    <!-- Simulation 1 -->
+                    <div class="simulation-card">
+                        <div class="d-flex">
+                            <div class="simulation-icon">
+                                <i class="bi bi-calculator"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between">
+                                    <h5 class="fw-bold">Simulado ENEM - Matemática e suas Tecnologias</h5>
+                                    <span class="badge bg-success">Disponível</span>
+                                </div>
+                                <div class="mt-2 mb-3">
+                                    <span class="subject-badge" style="background-color: rgba(108, 99, 255, 0.1); color: var(--primary-color);">
+                                        Matemática
+                                    </span>
+                                    <span class="subject-badge" style="background-color: rgba(16, 185, 129, 0.1); color: var(--success-color);">
+                                        45 questões
+                                    </span>
+                                    <span class="subject-badge" style="background-color: rgba(251, 191, 36, 0.1); color: var(--warning-color);">
+                                        180 minutos
+                                    </span>
+                                </div>
+                                <p class="text-muted">Simulado completo com questões de Matemática nos moldes do ENEM. Abrange álgebra, geometria, estatística e matemática financeira.</p>
+                                <div class="simulation-actions">
+                                    <button class="btn btn-simulation btn-start">
+                                        <i class="bi bi-play-fill me-2"></i> Iniciar Simulado
+                                    </button>
+                                    <button class="btn btn-simulation btn-details">
+                                        <i class="bi bi-info-circle me-2"></i> Ver Detalhes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Simulation 2 -->
+                    <div class="simulation-card">
+                        <div class="d-flex">
+                            <div class="simulation-icon" style="background-color: rgba(255, 101, 132, 0.1); color: var(--accent-color);">
+                                <i class="bi bi-book"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between">
+                                    <h5 class="fw-bold">Simulado ENEM - Linguagens, Códigos e suas Tecnologias</h5>
+                                    <span class="badge bg-success">Disponível</span>
+                                </div>
+                                <div class="mt-2 mb-3">
+                                    <span class="subject-badge" style="background-color: rgba(255, 101, 132, 0.1); color: var(--accent-color);">
+                                        Português
+                                    </span>
+                                    <span class="subject-badge" style="background-color: rgba(96, 165, 250, 0.1); color: var(--info-color);">
+                                        Literatura
+                                    </span>
+                                    <span class="subject-badge" style="background-color: rgba(16, 185, 129, 0.1); color: var(--success-color);">
+                                        40 questões
+                                    </span>
+                                    <span class="subject-badge" style="background-color: rgba(251, 191, 36, 0.1); color: var(--warning-color);">
+                                        150 minutos
+                                    </span>
+                                </div>
+                                <p class="text-muted">Simulado de Linguagens nos moldes do ENEM. Abrange interpretação de texto, gramática, literatura brasileira e variações linguísticas.</p>
+                                <div class="simulation-actions">
+                                    <button class="btn btn-simulation btn-start">
+                                        <i class="bi bi-play-fill me-2"></i> Iniciar Simulado
+                                    </button>
+                                    <button class="btn btn-simulation btn-details">
+                                        <i class="bi bi-info-circle me-2"></i> Ver Detalhes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Simulation 3 -->
+                    <div class="simulation-card">
+                        <div class="d-flex">
+                            <div class="simulation-icon" style="background-color: rgba(251, 191, 36, 0.1); color: var(--warning-color);">
+                                <i class="bi bi-globe2"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between">
+                                    <h5 class="fw-bold">Simulado ENEM - Ciências Humanas e suas Tecnologias</h5>
+                                    <span class="badge bg-success">Disponível</span>
+                                </div>
+                                <div class="mt-2 mb-3">
+                                    <span class="subject-badge" style="background-color: rgba(251, 191, 36, 0.1); color: var(--warning-color);">
+                                        História
+                                    </span>
+                                    <span class="subject-badge" style="background-color: rgba(16, 185, 129, 0.1); color: var(--success-color);">
+                                        Geografia
+                                    </span>
+                                    <span class="subject-badge" style="background-color: rgba(108, 99, 255, 0.1); color: var(--primary-color);">
+                                        Filosofia
+                                    </span>
+                                    <span class="subject-badge" style="background-color: rgba(96, 165, 250, 0.1); color: var(--info-color);">
+                                        45 questões
+                                    </span>
+                                </div>
+                                <p class="text-muted">Simulado de Ciências Humanas abrangendo História, Geografia, Filosofia e Sociologia, com questões de atualidades e interdisciplinares.</p>
+                                <div class="simulation-actions">
+                                    <button class="btn btn-simulation btn-start">
+                                        <i class="bi bi-play-fill me-2"></i> Iniciar Simulado
+                                    </button>
+                                    <button class="btn btn-simulation btn-details">
+                                        <i class="bi bi-info-circle me-2"></i> Ver Detalhes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Simulation 4 -->
+                    <div class="simulation-card">
+                        <div class="d-flex">
+                            <div class="simulation-icon" style="background-color: rgba(239, 68, 68, 0.1); color: var(--danger-color);">
+                                <i class="bi bi-lightning-charge"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between">
+                                    <h5 class="fw-bold">Simulado ENEM - Ciências da Natureza e suas Tecnologias</h5>
+                                    <span class="badge bg-warning">Em Breve</span>
+                                </div>
+                                <div class="mt-2 mb-3">
+                                    <span class="subject-badge" style="background-color: rgba(239, 68, 68, 0.1); color: var(--danger-color);">
+                                        Física
+                                    </span>
+                                    <span class="subject-badge" style="background-color: rgba(16, 185, 129, 0.1); color: var(--success-color);">
+                                        Química
+                                    </span>
+                                    <span class="subject-badge" style="background-color: rgba(96, 165, 250, 0.1); color: var(--info-color);">
+                                        Biologia
+                                    </span>
+                                    <span class="subject-badge" style="background-color: rgba(251, 191, 36, 0.1); color: var(--warning-color);">
+                                        45 questões
+                                    </span>
+                                </div>
+                                <p class="text-muted">Simulado de Ciências da Natureza com questões de Física, Química e Biologia, focando em práticas experimentais e questões ambientais.</p>
+                                <div class="simulation-actions">
+                                    <button class="btn btn-simulation btn-start" disabled>
+                                        <i class="bi bi-clock me-2"></i> Disponível em 2 dias
+                                    </button>
+                                    <button class="btn btn-simulation btn-details">
+                                        <i class="bi bi-info-circle me-2"></i> Ver Detalhes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recently Completed -->
+            <div class="row mt-5">
+                <div class="col-12" data-aos="fade-up">
+                    <h4 class="fw-bold mb-4">Simulados Recentes</h4>
+                </div>
+
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="dashboard-card">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h5 class="fw-bold mb-0">Matemática - Geometria</h5>
+                            <span class="badge bg-success">85%</span>
+                        </div>
+                        <div class="d-flex align-items-center text-muted mb-3">
+                            <i class="bi bi-calendar3 me-2"></i> Realizado em 15/05/2023
+                            <span class="ms-4"><i class="bi bi-clock me-2"></i> 45 minutos</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" style="width: 85%; background-color: var(--success-color);"></div>
+                        </div>
+                        <div class="text-end mt-3">
+                            <button class="btn btn-sm btn-simulation btn-details">
+                                Ver Relatório
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="dashboard-card">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h5 class="fw-bold mb-0">História - Brasil Colônia</h5>
+                            <span class="badge" style="background-color: rgba(251, 191, 36, 0.1); color: var(--warning-color);">
+                                72%
+                            </span>
+                        </div>
+                        <div class="d-flex align-items-center text-muted mb-3">
+                            <i class="bi bi-calendar3 me-2"></i> Realizado em 12/05/2023
+                            <span class="ms-4"><i class="bi bi-clock me-2"></i> 30 minutos</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" style="width: 72%; background-color: var(--warning-color);"></div>
+                        </div>
+                        <div class="text-end mt-3">
+                            <button class="btn btn-sm btn-simulation btn-details">
+                                Ver Relatório
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Exam Modal -->
+    <div class="modal fade" id="startExamModal" tabindex="-1" aria-labelledby="startExamModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="startExamModalLabel">Iniciar Simulado</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="examType" class="form-label">Tipo de Exame</label>
+                            <select class="form-select" id="examType">
+                                <option value="" disabled selected>Selecione o tipo de exame</option>
+                                <option value="enem">ENEM</option>
+                                <option value="vestibular">Vestibular</option>
+                                <option value="concurso">Concurso Público</option>
+                                <option value="oab">OAB</option>
+                                <option value="residencia">Residência Médica</option>
+                                <option value="custom">Personalizado</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="examYear" class="form-label">Ano</label>
+                            <select class="form-select" id="examYear">
+                                <option value="" disabled selected>Selecione o ano</option>
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="examArea" class="form-label">Área/Matéria</label>
+                            <select class="form-select" id="examArea">
+                                <option value="" disabled selected>Selecione a área</option>
+                                <option value="exatas">Ciências Exatas</option>
+                                <option value="humanas">Ciências Humanas</option>
+                                <option value="naturais">Ciências da Natureza</option>
+                                <option value="linguagens">Linguagens e Códigos</option>
+                                <option value="redacao">Redação</option>
+                                <option value="todas">Todas as áreas</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="examDuration" class="form-label">Duração (minutos)</label>
+                                    <input type="number" class="form-control" id="examDuration" value="180">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="examQuestions" class="form-label">Número de Questões</label>
+                                    <input type="number" class="form-control" id="examQuestions" value="45">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="timedExam" checked>
+                                <label class="form-check-label" for="timedExam">
+                                    Simulado com tempo limitado
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Iniciar Simulado</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Simulation Modal -->
+    <div class="modal fade" id="filterSimulationModal" tabindex="-1" aria-labelledby="filterSimulationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterSimulationModalLabel">Filtrar Simulados</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="simulationType" class="form-label">Tipo de Simulado</label>
+                            <select class="form-select" id="simulationType">
+                                <option value="all" selected>Todos</option>
+                                <option value="enem">ENEM</option>
+                                <option value="vestibular">Vestibular</option>
+                                <option value="concurso">Concursos</option>
+                                <option value="practice">Exercícios Práticos</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="simulationSubject" class="form-label">Matéria</label>
+                            <select class="form-select" id="simulationSubject">
+                                <option value="all" selected>Todas</option>
+                                <option value="matematica">Matemática</option>
+                                <option value="portugues">Português</option>
+                                <option value="historia">História</option>
+                                <option value="geografia">Geografia</option>
+                                <option value="fisica">Física</option>
+                                <option value="quimica">Química</option>
+                                <option value="biologia">Biologia</option>
+                                <option value="ingles">Inglês</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="simulationDuration" class="form-label">Duração Máxima</label>
+                            <select class="form-select" id="simulationDuration">
+                                <option value="all" selected>Qualquer duração</option>
+                                <option value="30">Até 30 minutos</option>
+                                <option value="60">Até 1 hora</option>
+                                <option value="120">Até 2 horas</option>
+                                <option value="180">Até 3 horas</option>
+                                <option value="240">Até 4 horas</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="simulationDifficulty" class="form-label">Nível de Dificuldade</label>
+                            <select class="form-select" id="simulationDifficulty">
+                                <option value="all" selected>Todos</option>
+                                <option value="easy">Fácil</option>
+                                <option value="medium">Médio</option>
+                                <option value="hard">Difícil</option>
+                                <option value="expert">Especialista</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="onlyAvailable" checked>
+                                <label class="form-check-label" for="onlyAvailable">
+                                    Mostrar apenas simulados disponíveis
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Aplicar Filtros</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Discipline Modal -->
+    <div class="modal fade" id="addDisciplineModal" tabindex="-1" aria-labelledby="addDisciplineModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addDisciplineModalLabel">Adicionar Nova Disciplina</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="disciplineName" class="form-label">Nome da Disciplina</label>
+                            <input type="text" class="form-control" id="disciplineName" placeholder="Ex: Matemática">
+                        </div>
+                        <div class="mb-3">
+                            <label for="disciplineIcon" class="form-label">Ícone</label>
+                            <select class="form-select" id="disciplineIcon">
+                                <option value="bi-book">📚 Livro</option>
+                                <option value="bi-calculator">🧮 Calculadora</option>
+                                <option value="bi-globe2">🌎 Globo</option>
+                                <option value="bi-lightning-charge">⚡ Raio</option>
+                                <option value="bi-palette">🎨 Paleta</option>
+                                <option value="bi-puzzle">🧩 Quebra-cabeça</option>
+                                <option value="bi-graph-up">📈 Gráfico</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="disciplineDescription" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="disciplineDescription" rows="3" placeholder="Descreva o conteúdo desta disciplina"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="disciplineColor" class="form-label">Cor</label>
+                            <input type="color" class="form-control form-control-color w-100" id="disciplineColor" value="#6C63FF">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Adicionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Create New Simulation Modal -->
+    <div class="modal fade" id="createSimulationModal" tabindex="-1" aria-labelledby="createSimulationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createSimulationModalLabel">Criar Nova Simulação</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs mb-4" id="simulationTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="from-scratch-tab" data-bs-toggle="tab" data-bs-target="#from-scratch" type="button" role="tab" aria-controls="from-scratch" aria-selected="true">Criar do Zero</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="from-content-tab" data-bs-toggle="tab" data-bs-target="#from-content" type="button" role="tab" aria-controls="from-content" aria-selected="false">Baseado em Conteúdo</button>
+                        </li>
+                    </ul>
+                    
+                    <div class="tab-content" id="simulationTabContent">
+                        <!-- From Scratch Tab -->
+                        <div class="tab-pane fade show active" id="from-scratch" role="tabpanel" aria-labelledby="from-scratch-tab">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="simulationTitle" class="form-label">Título da Simulação</label>
+                                    <input type="text" class="form-control" id="simulationTitle" placeholder="Ex: Simulado ENEM - Ciências da Natureza">
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="simulationSubject" class="form-label">Matéria Principal</label>
+                                        <select class="form-select" id="simulationSubject">
+                                            <option value="" selected disabled>Selecione a matéria</option>
+                                            <option value="matematica">Matemática</option>
+                                            <option value="portugues">Português</option>
+                                            <option value="historia">História</option>
+                                            <option value="geografia">Geografia</option>
+                                            <option value="fisica">Física</option>
+                                            <option value="quimica">Química</option>
+                                            <option value="biologia">Biologia</option>
+                                            <option value="filosofia">Filosofia</option>
+                                            <option value="sociologia">Sociologia</option>
+                                            <option value="ingles">Inglês</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="simulationType" class="form-label">Tipo de Simulação</label>
+                                        <select class="form-select" id="simulationType">
+                                            <option value="" selected disabled>Selecione o tipo</option>
+                                            <option value="enem">ENEM</option>
+                                            <option value="vestibular">Vestibular</option>
+                                            <option value="concurso">Concurso Público</option>
+                                            <option value="escolar">Avaliação Escolar</option>
+                                            <option value="certificacao">Certificação</option>
+                                            <option value="treinamento">Treinamento</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="questionCount" class="form-label">Número de Questões</label>
+                                        <input type="number" class="form-control" id="questionCount" min="5" max="100" value="30">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="simulationDuration" class="form-label">Duração (minutos)</label>
+                                        <input type="number" class="form-control" id="simulationDuration" min="10" max="360" value="120">
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="simulationDescription" class="form-label">Descrição da Simulação</label>
+                                    <textarea class="form-control" id="simulationDescription" rows="3" placeholder="Descreva o objetivo e conteúdo desta simulação"></textarea>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label d-block">Dificuldade</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="difficultyLevel" id="difficultyEasy" value="easy">
+                                        <label class="form-check-label" for="difficultyEasy">Fácil</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="difficultyLevel" id="difficultyMedium" value="medium" checked>
+                                        <label class="form-check-label" for="difficultyMedium">Médio</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="difficultyLevel" id="difficultyHard" value="hard">
+                                        <label class="form-check-label" for="difficultyHard">Difícil</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- From Content Tab -->
+                        <div class="tab-pane fade" id="from-content" role="tabpanel" aria-labelledby="from-content-tab">
+                            <div class="alert alert-info mb-4">
+                                <div class="d-flex">
+                                    <i class="bi bi-info-circle-fill me-3" style="font-size: 1.5rem;"></i>
+                                    <div>
+                                        <h6 class="fw-bold mb-1">Simulado a partir de Conteúdo</h6>
+                                        <p class="mb-0">Carregue arquivos PDF, forneça links ou digite textos para criar automaticamente um simulado baseado neste conteúdo.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="contentTitle" class="form-label">Título da Simulação</label>
+                                <input type="text" class="form-control" id="contentTitle" placeholder="Ex: Simulado - História do Brasil">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Fonte do Conteúdo</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="contentSource" id="sourceUpload" value="upload" checked>
+                                    <label class="form-check-label" for="sourceUpload">
+                                        Upload de Arquivo (PDF, DOCX)
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="contentSource" id="sourceLink" value="link">
+                                    <label class="form-check-label" for="sourceLink">
+                                        Link da Internet 
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="contentSource" id="sourceText" value="text">
+                                    <label class="form-check-label" for="sourceText">
+                                        Texto Manual
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- File Upload Content Source -->
+                            <div id="uploadContent" class="content-source-container mb-3">
+                                <label for="contentFile" class="form-label">Selecione o Arquivo</label>
+                                <input class="form-control" type="file" id="contentFile" accept=".pdf,.doc,.docx,.txt">
+                                <div class="form-text">Arquivos PDF, DOCX ou TXT de até 10MB são aceitos.</div>
+                            </div>
+                            
+                            <!-- Link Content Source -->
+                            <div id="linkContent" class="content-source-container mb-3" style="display: none;">
+                                <label for="contentLink" class="form-label">URL do Conteúdo</label>
+                                <input type="url" class="form-control" id="contentLink" placeholder="https://exemplo.com/artigo">
+                                <div class="form-text">Insira o endereço completo da página web contendo o conteúdo.</div>
+                            </div>
+                            
+                            <!-- Text Content Source -->
+                            <div id="textContent" class="content-source-container mb-3" style="display: none;">
+                                <label for="contentText" class="form-label">Texto do Conteúdo</label>
+                                <textarea class="form-control" id="contentText" rows="6" placeholder="Digite ou cole o conteúdo aqui..."></textarea>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="contentQuestionCount" class="form-label">Número de Questões</label>
+                                    <input type="number" class="form-control" id="contentQuestionCount" min="5" max="50" value="10">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="contentDifficulty" class="form-label">Dificuldade</label>
+                                    <select class="form-select" id="contentDifficulty">
+                                        <option value="easy">Fácil</option>
+                                        <option value="medium" selected>Médio</option>
+                                        <option value="hard">Difícil</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-check mb-4">
+                                <input class="form-check-input" type="checkbox" id="includeExplanations" checked>
+                                <label class="form-check-label" for="includeExplanations">
+                                    Incluir explicações para as respostas
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="createSimulationBtn">Criar Simulação</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simulation Details Modal -->
+    <div class="modal fade" id="simulationDetailsModal" tabindex="-1" aria-labelledby="simulationDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="simulationDetailsModalLabel">Detalhes da Simulação</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="simulationDetailsContent">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" id="startSimulationFromDetailsBtn">Iniciar Simulação</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simulation In Progress Modal -->
+    <div class="modal fade" id="simulationInProgressModal" tabindex="-1" aria-labelledby="simulationInProgressModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="simulationInProgressModalLabel">Simulação em Andamento</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="simulationContainer">
+                        <!-- Timer and progress -->
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div class="timer-container">
+                                <i class="bi bi-clock timer-icon"></i>
+                                <span id="simulationTimer">00:00:00</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="me-3"><span id="currentQuestionNum">1</span> de <span id="totalQuestions">30</span></span>
+                                <div class="progress" style="width: 200px;">
+                                    <div class="progress-bar bg-primary" id="simulationProgress" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question content -->
+                        <div id="questionContainer">
+                            <h5 id="questionTitle" class="fw-bold mb-4">Questão 1</h5>
+                            <p id="questionText" class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam luctus fermentum quam, sit amet placerat nulla imperdiet at. Fusce at semper felis. Suspendisse potenti. Nulla facilisi.</p>
+                            
+                            <div class="options-container" id="optionsContainer">
+                                <div class="option-item" data-option="A" onclick="selectOption(this)">
+                                    <strong>A.</strong> Primeira opção de resposta
+                                </div>
+                                <div class="option-item" data-option="B" onclick="selectOption(this)">
+                                    <strong>B.</strong> Segunda opção de resposta
+                                </div>
+                                <div class="option-item" data-option="C" onclick="selectOption(this)">
+                                    <strong>C.</strong> Terceira opção de resposta
+                                </div>
+                                <div class="option-item" data-option="D" onclick="selectOption(this)">
+                                    <strong>D.</strong> Quarta opção de resposta
+                                </div>
+                                <div class="option-item" data-option="E" onclick="selectOption(this)">
+                                    <strong>E.</strong> Quinta opção de resposta
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Navigation buttons -->
+                        <div class="d-flex justify-content-between mt-5">
+                            <button class="btn btn-outline-primary" id="prevQuestionBtn" onclick="navigateQuestion('prev')">
+                                <i class="bi bi-arrow-left me-2"></i>Anterior
+                            </button>
+                            <div class="question-navigation" id="questionNavigation">
+                                <!-- Will be populated dynamically -->
+                            </div>
+                            <button class="btn btn-primary" id="nextQuestionBtn" onclick="navigateQuestion('next')">
+                                Próxima<i class="bi bi-arrow-right ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar Simulado</button>
+                    <button type="button" class="btn btn-success" id="finishSimulationBtn">Finalizar Simulado</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS (Animate On Scroll)
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+
+            // Page loader
+            window.addEventListener('load', function() {
+                const loader = document.querySelector('.page-loader');
+                setTimeout(function() {
+                    loader.classList.add('loader-hidden');
+                }, 800);
+            });
+            
+            // Initialize tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+            
+            // Toggle sidebar on mobile
+            const toggleButton = document.querySelector('.toggle-sidebar');
+            const sidebar = document.querySelector('.sidebar');
+            
+            if (toggleButton) {
+                toggleButton.addEventListener('click', function() {
+                    sidebar.classList.toggle('show');
+                });
+            }
+            
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', function(event) {
+                if (window.innerWidth < 992) {
+                    const isClickInsideSidebar = sidebar.contains(event.target);
+                    const isClickOnToggleButton = toggleButton.contains(event.target);
+                    
+                    if (!isClickInsideSidebar && !isClickOnToggleButton && sidebar.classList.contains('show')) {
+                        sidebar.classList.remove('show');
+                    }
+                }
+            });
+            
+            // Animate progress bars on scroll
+            const progressBars = document.querySelectorAll('.progress-bar-fill');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.width = entry.target.getAttribute('data-width') || entry.target.style.width;
+                    }
+                });
+            });
+            
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
+                bar.dataset.width = width;
+                observer.observe(bar);
+            });
+            
+            // Simulation functionality
+            // Toggle content source in create simulation modal
+            const sourceRadios = document.querySelectorAll('input[name="contentSource"]');
+            const contentContainers = document.querySelectorAll('.content-source-container');
+            
+            sourceRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    contentContainers.forEach(container => {
+                        container.style.display = 'none';
+                    });
+                    
+                    const selectedContainer = document.getElementById(radio.value + 'Content');
+                    if (selectedContainer) {
+                        selectedContainer.style.display = 'block';
+                    }
+                });
+            });
+            
+            // Create simulation button
+            const createSimulationBtn = document.getElementById('createSimulationBtn');
+            if (createSimulationBtn) {
+                createSimulationBtn.addEventListener('click', function() {
+                    const createSimulationModal = bootstrap.Modal.getInstance(document.getElementById('createSimulationModal'));
+                    createSimulationModal.hide();
+                    
+                    // Show loading and success message
+                    alert('Simulação criada com sucesso!');
+                    
+                    // Reload the page to show the new simulation
+                    // In a real app, you'd add the new simulation to the DOM
+                    location.reload();
+                });
+            }
+            
+            // Handle "Ver Detalhes" buttons
+            const detailButtons = document.querySelectorAll('.btn-details');
+            detailButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const simulationCard = this.closest('.simulation-card');
+                    const simulationTitle = simulationCard.querySelector('h5').innerText;
+                    
+                    // Get the simulation details modal
+                    const detailsModal = document.getElementById('simulationDetailsModal');
+                    const modalTitle = detailsModal.querySelector('.modal-title');
+                    const modalContent = document.getElementById('simulationDetailsContent');
+                    
+                    // Set the modal title
+                    modalTitle.innerText = 'Detalhes da Simulação';
+                    
+                    // Create and set the dynamic content
+                    modalContent.innerHTML = `
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title">${simulationTitle}</h4>
+                                <p class="text-muted mb-3">Detalhes completos desta simulação</p>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-4 mb-3 mb-md-0">
+                                        <h6 class="fw-bold text-muted">Matéria</h6>
+                                        <p>${simulationCard.querySelector('.subject-badge') ? simulationCard.querySelector('.subject-badge').innerText : 'Múltiplas disciplinas'}</p>
+                                    </div>
+                                    <div class="col-md-4 mb-3 mb-md-0">
+                                        <h6 class="fw-bold text-muted">Questões</h6>
+                                        <p>${simulationCard.querySelector('.subject-badge:nth-child(2)') ? simulationCard.querySelector('.subject-badge:nth-child(2)').innerText : '45 questões'}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="fw-bold text-muted">Duração</h6>
+                                        <p>${simulationCard.querySelector('.subject-badge:nth-child(3)') ? simulationCard.querySelector('.subject-badge:nth-child(3)').innerText : '180 minutos'}</p>
+                                    </div>
+                                </div>
+                                
+                                <h6 class="fw-bold">Descrição</h6>
+                                <p>${simulationCard.querySelector('p.text-muted') ? simulationCard.querySelector('p.text-muted').innerText : 'Descrição não disponível.'}</p>
+                                
+                                <h6 class="fw-bold mt-4">Conteúdos Abordados</h6>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item ps-0">Interpretação de Problemas</li>
+                                    <li class="list-group-item ps-0">Resolução de Equações</li>
+                                    <li class="list-group-item ps-0">Análise de Gráficos</li>
+                                    <li class="list-group-item ps-0">Aplicação de Fórmulas</li>
+                                    <li class="list-group-item ps-0">Resolução de Problemas Contextualizados</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Estatísticas</h5>
+                                <div class="row text-center">
+                                    <div class="col-4">
+                                        <h3 class="fw-bold text-primary">87%</h3>
+                                        <p class="text-muted">Aprovação</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <h3 class="fw-bold text-success">1289</h3>
+                                        <p class="text-muted">Realizações</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <h3 class="fw-bold text-warning">45 min</h3>
+                                        <p class="text-muted">Tempo Médio</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Show the modal
+                    const modal = new bootstrap.Modal(detailsModal);
+                    modal.show();
+                });
+            });
+            
+            // Handle "Iniciar Simulação" buttons
+            const startButtons = document.querySelectorAll('.btn-start');
+            startButtons.forEach(button => {
+                if (!button.disabled) {
+                    button.addEventListener('click', function() {
+                        const simulationCard = this.closest('.simulation-card');
+                        const simulationTitle = simulationCard.querySelector('h5').innerText;
+                        
+                        // Get the modal
+                        const progressModal = document.getElementById('simulationInProgressModal');
+                        const modalTitle = progressModal.querySelector('.modal-title');
+                        
+                        // Update modal title
+                        modalTitle.innerText = simulationTitle;
+                        
+                        // Generate question navigation
+                        generateQuestionNavigation(30);
+                        
+                        // Initialize timer
+                        initializeSimulationTimer();
+                        
+                        // Show the modal
+                        const modal = new bootstrap.Modal(progressModal);
+                        modal.show();
+                    });
+                }
+            });
+            
+            // Handle "Start Simulation from Details" button
+            const startFromDetailsBtn = document.getElementById('startSimulationFromDetailsBtn');
+            if (startFromDetailsBtn) {
+                startFromDetailsBtn.addEventListener('click', function() {
+                    // Close the details modal
+                    const detailsModal = bootstrap.Modal.getInstance(document.getElementById('simulationDetailsModal'));
+                    detailsModal.hide();
+                    
+                    // Get the modal
+                    const progressModal = document.getElementById('simulationInProgressModal');
+                    const modalTitle = progressModal.querySelector('.modal-title');
+                    
+                    // Update modal title
+                    modalTitle.innerText = 'Simulação em Andamento';
+                    
+                    // Generate question navigation
+                    generateQuestionNavigation(30);
+                    
+                    // Initialize timer
+                    initializeSimulationTimer();
+                    
+                    // Show the modal
+                    const modal = new bootstrap.Modal(progressModal);
+                    modal.show();
+                });
+            }
+            
+            // Handle "Finalizar Simulado" button
+            const finishBtn = document.getElementById('finishSimulationBtn');
+            if (finishBtn) {
+                finishBtn.addEventListener('click', function() {
+                    const confirmed = confirm('Tem certeza que deseja finalizar o simulado? Suas respostas serão enviadas para correção.');
+                    if (confirmed) {
+                        // Close the simulation modal
+                        const simulationModal = bootstrap.Modal.getInstance(document.getElementById('simulationInProgressModal'));
+                        simulationModal.hide();
+                        
+                        // Show success message
+                        alert('Simulado concluído com sucesso! Seus resultados estarão disponíveis em breve.');
+                        
+                        // In a real app, you'd process the answers and show results
+                    }
+                });
+            }
+            
+            // Add event listener to the "Add Simulation" button
+            const addSimulationBtn = document.querySelector('.btn-outline-primary');
+            if (addSimulationBtn) {
+                addSimulationBtn.addEventListener('click', function() {
+                    const modal = new bootstrap.Modal(document.getElementById('createSimulationModal'));
+                    modal.show();
+                });
+            }
+        });
+        
+        // Generate question navigation
+        function generateQuestionNavigation(totalQuestions) {
+            const navigationContainer = document.getElementById('questionNavigation');
+            navigationContainer.innerHTML = '';
+            
+            for (let i = 1; i <= totalQuestions; i++) {
+                const navItem = document.createElement('div');
+                navItem.className = 'question-nav-item';
+                if (i === 1) navItem.classList.add('current');
+                navItem.textContent = i;
+                navItem.addEventListener('click', () => jumpToQuestion(i));
+                navigationContainer.appendChild(navItem);
+            }
+            
+            // Update total questions count
+            document.getElementById('totalQuestions').textContent = totalQuestions;
+        }
+        
+        // Simulation timer variables
+        let timerInterval;
+        let seconds = 0;
+        
+        // Initialize simulation timer
+        function initializeSimulationTimer() {
+            // Reset timer
+            clearInterval(timerInterval);
+            seconds = 0;
+            updateTimerDisplay();
+            
+            // Start timer
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+        
+        // Update timer
+        function updateTimer() {
+            seconds++;
+            updateTimerDisplay();
+        }
+        
+        // Update timer display
+        function updateTimerDisplay() {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            
+            const timeString = 
+                (hours < 10 ? "0" + hours : hours) + ":" + 
+                (minutes < 10 ? "0" + minutes : minutes) + ":" + 
+                (secs < 10 ? "0" + secs : secs);
+                
+            document.getElementById('simulationTimer').textContent = timeString;
+        }
+        
+        // Select option in the current question
+        function selectOption(optionElement) {
+            // Remove selection from all options
+            const options = optionElement.parentNode.querySelectorAll('.option-item');
+            options.forEach(option => option.classList.remove('selected'));
+            
+            // Add selection to the clicked option
+            optionElement.classList.add('selected');
+            
+            // Mark the question as answered in the navigation
+            const currentQuestionNum = parseInt(document.getElementById('currentQuestionNum').textContent);
+            const navItems = document.querySelectorAll('.question-nav-item');
+            if (navItems[currentQuestionNum - 1]) {
+                navItems[currentQuestionNum - 1].classList.add('answered');
+            }
+            
+            // Update progress bar
+            updateProgressBar();
+        }
+        
+        // Navigate questions (prev/next)
+        function navigateQuestion(direction) {
+            const currentQuestionNum = parseInt(document.getElementById('currentQuestionNum').textContent);
+            const totalQuestions = parseInt(document.getElementById('totalQuestions').textContent);
+            
+            let newQuestionNum;
+            
+            if (direction === 'prev') {
+                newQuestionNum = Math.max(1, currentQuestionNum - 1);
+            } else if (direction === 'next') {
+                newQuestionNum = Math.min(totalQuestions, currentQuestionNum + 1);
+            }
+            
+            if (newQuestionNum !== currentQuestionNum) {
+                jumpToQuestion(newQuestionNum);
+            }
+        }
+        
+        // Jump to a specific question
+        function jumpToQuestion(questionNumber) {
+            const totalQuestions = parseInt(document.getElementById('totalQuestions').textContent);
+            
+            // Validate question number
+            if (questionNumber < 1 || questionNumber > totalQuestions) return;
+            
+            // Update current question number
+            document.getElementById('currentQuestionNum').textContent = questionNumber;
+            
+            // Update question title
+            document.getElementById('questionTitle').textContent = `Questão ${questionNumber}`;
+            
+            // Update question navigation
+            const navItems = document.querySelectorAll('.question-nav-item');
+            navItems.forEach((item, idx) => {
+                item.classList.remove('current');
+                if (idx + 1 === questionNumber) {
+                    item.classList.add('current');
+                }
+            });
+            
+            // Update progress bar
+            updateProgressBar();
+            
+            // In a real app, you'd load the actual question content here
+            // For this demo, we'll just simulate different questions
+            document.getElementById('questionText').textContent = `Esta é a questão ${questionNumber} do simulado. O conteúdo da questão seria carregado dinamicamente.`;
+            
+            // Clear previous selections
+            const options = document.querySelectorAll('.option-item');
+            options.forEach(option => option.classList.remove('selected'));
+            
+            // Reset options text (in a real app, these would be loaded from the question data)
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            const optionLetters = ['A', 'B', 'C', 'D', 'E'];
+            for (let i = 0; i < 5; i++) {
+                const option = document.createElement('div');
+                option.className = 'option-item';
+                option.setAttribute('data-option', optionLetters[i]);
+                option.setAttribute('onclick', 'selectOption(this)');
+                option.innerHTML = `<strong>${optionLetters[i]}.</strong> Opção de resposta para a questão ${questionNumber}`;
+                optionsContainer.appendChild(option);
+            }
+            
+            // Update prev/next buttons
+            const prevBtn = document.getElementById('prevQuestionBtn');
+            const nextBtn = document.getElementById('nextQuestionBtn');
+            
+            prevBtn.disabled = questionNumber === 1;
+            nextBtn.disabled = questionNumber === totalQuestions;
+        }
+        
+        // Update progress bar
+        function updateProgressBar() {
+            const navItems = document.querySelectorAll('.question-nav-item');
+            const answeredCount = document.querySelectorAll('.question-nav-item.answered').length;
+            const totalQuestions = navItems.length;
+            
+            const progressPercentage = Math.round((answeredCount / totalQuestions) * 100);
+            document.getElementById('simulationProgress').style.width = `${progressPercentage}%`;
+            document.getElementById('simulationProgress').setAttribute('aria-valuenow', progressPercentage);
+        }
+    </script>
+</body>
+</html>

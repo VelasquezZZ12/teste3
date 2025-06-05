@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - EduFuturo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6C63FF;
+            --secondary-color: #FF8F6C;
+            --tertiary-color: #6CFFE8;
+            --accent-color: #FF6584;
+            --dark-color: #0A0E17;
+            --light-color: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            overflow-x: hidden;
+            min-height: 100vh;
+            background: radial-gradient(ellipse at top, #0a1025, transparent),
+                        radial-gradient(ellipse at bottom, #160a1c, transparent);
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%236C63FF' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Syncopate', sans-serif;
+            letter-spacing: -0.03em;
+            font-weight: 700;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: rgba(10, 14, 23, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white !important;
+            letter-spacing: -0.05em;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .logo-image {
+            transition: all 0.3s ease;
+        }
+        
+        .logo-text {
+            position: relative;
+            left: 10px;
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            white-space: nowrap;
+            display: inline-block;
+        }
+        
+        .navbar-brand:hover .logo-text {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9) !important;
+            margin: 0 0.5rem;
+            position: relative;
+            transition: all 0.4s;
+            padding: 0.5rem 0.8rem !important;
+            border-radius: 100px;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            background-color: rgba(108, 99, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: 100px;
+            min-height: 100vh;
+            padding-bottom: 4rem;
+        }
+
+        .page-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+        }
+
+        /* Blog cards */
+        .blog-card {
+            background: rgba(15, 23, 41, 0.5);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.5s;
+            margin-bottom: 30px;
+            height: 100%;
+            backdrop-filter: blur(10px);
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            transform: perspective(1000px) translateY(-10px) rotateX(5deg);
+            border-color: rgba(108, 99, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 
+                      0 0 20px rgba(108, 99, 255, 0.2);
+        }
+
+        .blog-image {
+            height: 240px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .blog-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(10, 14, 23, 0.8), transparent);
+        }
+
+        .blog-tag {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(108, 99, 255, 0.9);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+
+        .tag-estudos {
+            background: rgba(108, 255, 232, 0.9);
+        }
+
+        .tag-carreira {
+            background: rgba(255, 101, 132, 0.9);
+        }
+
+        .tag-motivacional {
+            background: rgba(255, 143, 108, 0.9);
+        }
+
+        .blog-content {
+            padding: 2rem;
+        }
+
+        .blog-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .blog-card:hover .blog-title {
+            transform: translateZ(10px);
+            color: var(--tertiary-color);
+        }
+
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .blog-meta-item {
+            display: flex;
+            align-items: center;
+            margin-right: 1.2rem;
+        }
+
+        .blog-meta-item i {
+            margin-right: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .blog-author {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-author-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+
+        .blog-author-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .blog-author-info h6 {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .blog-author-info small {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+        }
+
+        .blog-text {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .btn-read {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-read i {
+            transition: transform 0.3s;
+            margin-left: 0.5rem;
+        }
+
+        .btn-read:hover {
+            color: var(--accent-color);
+        }
+
+        .btn-read:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Featured Post */
+        .featured-post {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 400px;
+            margin-bottom: 2rem;
+            cursor: pointer;
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(10, 14, 23, 0.9), rgba(10, 14, 23, 0.4));
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .featured-tag {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(108, 99, 255, 0.9);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .featured-title {
+            font-size: 2.2rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .featured-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .featured-text {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Popular Posts */
+        .popular-post {
+            display: flex;
+            background: rgba(15, 23, 41, 0.5);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .popular-post:hover {
+            transform: translateY(-5px);
+            border-color: rgba(108, 99, 255, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 
+                        0 0 10px rgba(108, 99, 255, 0.2);
+        }
+
+        .popular-post-img {
+            width: 100px;
+            min-width: 100px;
+            height: 100px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .popular-post-content {
+            padding: 1rem;
+        }
+
+        .popular-post-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .popular-post:hover .popular-post-title {
+            color: var(--tertiary-color);
+        }
+
+        .popular-post-meta {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+        }
+
+        .popular-post-meta i {
+            margin-right: 0.4rem;
+            font-size: 0.9rem;
+        }
+
+        /* Categories */
+        .category-card {
+            background: rgba(15, 23, 41, 0.5);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-title {
+            margin-bottom: 1.2rem;
+            font-size: 1.3rem;
+            color: white;
+        }
+
+        .category-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(108, 99, 255, 0.1);
+        }
+
+        .category-item:last-child {
+            border-bottom: none;
+        }
+
+        .category-item a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .category-item a:hover {
+            color: var(--primary-color);
+        }
+
+        .category-count {
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--primary-color);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Subscribe */
+        .subscribe-card {
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.2), rgba(255, 101, 132, 0.2));
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .subscribe-title {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            color: white;
+        }
+
+        .subscribe-text {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+        }
+
+        .subscribe-form .form-control {
+            background: rgba(15, 23, 41, 0.7);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            color: white;
+            border-radius: 10px;
+            padding: 0.8rem 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .subscribe-form .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(108, 99, 255, 0.25);
+        }
+
+        .btn-subscribe {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-subscribe:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
+        }
+
+        /* Tags */
+        .tags-card {
+            background: rgba(15, 23, 41, 0.5);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .tags-title {
+            margin-bottom: 1.2rem;
+            font-size: 1.3rem;
+            color: white;
+        }
+
+        .tags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag-item {
+            background: rgba(108, 99, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: 1px solid rgba(108, 99, 255, 0.2);
+        }
+
+        .tag-item:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Pagination */
+        .custom-pagination {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .page-item .page-link {
+            color: var(--light-color);
+            background-color: rgba(15, 23, 41, 0.5);
+            border-color: rgba(108, 99, 255, 0.2);
+            margin: 0 5px;
+            border-radius: 8px;
+            padding: 10px 16px;
+            transition: all 0.3s;
+        }
+
+        .page-item .page-link:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .page-item.active .page-link {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        /* New Post Button */
+        .new-post-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 20px rgba(108, 99, 255, 0.4);
+            z-index: 100;
+            transition: all 0.3s;
+            border: none;
+            text-decoration: none;
+        }
+
+        .new-post-btn:hover {
+            transform: translateY(-5px) rotate(90deg);
+            box-shadow: 0 8px 30px rgba(108, 99, 255, 0.6);
+            color: white;
+        }
+
+        /* Notifications modal */
+        .notifications-modal {
+            display: none;
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 350px;
+            background: rgba(15, 23, 41, 0.95);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .notifications-modal.show {
+            display: block;
+        }
+
+        .notifications-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(108, 99, 255, 0.1);
+        }
+
+        .notifications-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            margin: 0;
+        }
+
+        .notifications-close {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .notifications-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(108, 99, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .notification-item:hover {
+            background-color: rgba(108, 99, 255, 0.1);
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-item.unread {
+            position: relative;
+        }
+
+        .notification-item.unread::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -8px;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+
+        .notification-content {
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .notification-time {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(10, 14, 23, 0.8);
+            position: relative;
+            border-top: 1px solid rgba(108, 99, 255, 0.1);
+            padding: 4rem 0 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-logo {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.05em;
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .footer-title {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            padding-left: 0;
+            display: inline-block;
+        }
+
+        .footer-links a::before {
+            content: '→';
+            position: absolute;
+            left: -20px;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 20px;
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+            left: 0;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(108, 99, 255, 0.1);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .navbar-toggler {
+                background-color: rgba(108, 99, 255, 0.1);
+                border: none;
+            }
+            
+            .navbar-toggler:focus {
+                box-shadow: none;
+            }
+            
+            .navbar-toggler-icon {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            }
+            
+            .featured-post {
+                height: 300px;
+            }
+            
+            .featured-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding-top: 80px;
+            }
+            
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .blog-card {
+                margin-bottom: 1.5rem;
+            }
+            
+            .blog-sidebar {
+                margin-top: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .featured-post {
+                height: 250px;
+            }
+            
+            .featured-title {
+                font-size: 1.5rem;
+            }
+            
+            .blog-meta {
+                flex-wrap: wrap;
+            }
+            
+            .blog-meta-item {
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="tj5n4mq0k8.png" alt="EduFuturo Logo" height="45" class="logo-image">
+                <span class="logo-text">EDUFUTURO</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="noticias.html">Notícias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="concursos.html">Concursos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="vestibulares.html">Vestibulares</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="estudo.html">Área de Estudo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="notificationsBtn">
+                            <i class="bi bi-bell"></i>
+                            <span class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill" id="notificationBadge">2</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Notifications Modal -->
+    <div class="notifications-modal" id="notificationsModal">
+        <div class="notifications-header">
+            <h5 class="notifications-title"><i class="bi bi-bell me-2"></i> Notificações</h5>
+            <button class="notifications-close" id="notificationsCloseBtn">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        <ul class="notifications-list">
+            <li class="notification-item unread">
+                <div class="notification-content">
+                    <strong>Carlos Oliveira</strong> comentou em seu post "5 Técnicas de Memorização Baseadas em Neurociência"
+                </div>
+                <div class="notification-time">Agora mesmo</div>
+            </li>
+            <li class="notification-item unread">
+                <div class="notification-content">
+                    <strong>Amanda Costa</strong> respondeu ao seu comentário no post "Como Criar um Cronograma de Estudos Eficiente"
+                </div>
+                <div class="notification-time">5 minutos atrás</div>
+            </li>
+            <li class="notification-item">
+                <div class="notification-content">
+                    <strong>Ricardo Santos</strong> curtiu seu post "10 Habilidades Mais Valorizadas no Mercado de Trabalho em 2023"
+                </div>
+                <div class="notification-time">30 minutos atrás</div>
+            </li>
+            <li class="notification-item">
+                <div class="notification-content">
+                    <strong>Camila Ferreira</strong> começou a seguir você
+                </div>
+                <div class="notification-time">2 horas atrás</div>
+            </li>
+            <li class="notification-item">
+                <div class="notification-content">
+                    Seu post "Como Manter a Motivação nos Estudos Durante Períodos Difíceis" foi compartilhado por <strong>10 pessoas</strong>
+                </div>
+                <div class="notification-time">1 dia atrás</div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <h1 class="page-title">Blog Educacional</h1>
+            
+            <!-- Featured Post -->
+            <div class="featured-post" data-aos="fade-up">
+                <img src="https://cdn.pixabay.com/photo/2016/02/19/10/00/laptop-1209008_1280.jpg" class="featured-image" alt="Featured post">
+                <div class="featured-overlay">
+                    <span class="featured-tag">Tendências</span>
+                    <h2 class="featured-title">Como a Inteligência Artificial está Transformando o Método de Estudo em 2023</h2>
+                    <div class="featured-meta">
+                        <div class="blog-meta-item">
+                            <i class="bi bi-person"></i> Mariana Silva
+                        </div>
+                        <div class="blog-meta-item">
+                            <i class="bi bi-calendar3"></i> 28 de Setembro, 2023
+                        </div>
+                        <div class="blog-meta-item">
+                            <i class="bi bi-eye"></i> 3.4k visualizações
+                        </div>
+                    </div>
+                    <p class="featured-text">Descubra como ferramentas baseadas em IA estão revolucionando o aprendizado personalizado e otimizando o tempo de estudo para vestibulares e concursos.</p>
+                    <a href="blog-post.html" class="btn btn-primary">Ler artigo completo</a>
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-lg-8" data-aos="fade-up">
+                    <!-- Blog Cards -->
+                    <div class="row">
+                        <!-- Blog Card 1 -->
+                        <div class="col-md-6 mb-4">
+                            <div class="blog-card">
+                                <div class="blog-image" style="background-image: url('https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_1280.jpg');">
+                                    <span class="blog-tag">Educação</span>
+                                </div>
+                                <div class="blog-content">
+                                    <h3 class="blog-title">5 Técnicas de Memorização Baseadas em Neurociência</h3>
+                                    <div class="blog-meta">
+                                        <div class="blog-meta-item">
+                                            <i class="bi bi-calendar3"></i> 20 Set 2023
+                                        </div>
+                                        <div class="blog-meta-item">
+                                            <i class="bi bi-chat-dots"></i> 24 comentários
+                                        </div>
+                                    </div>
+                                    <div class="blog-author">
+                                        <div class="blog-author-img">
+                                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Author">
+                                        </div>
+                                        <div class="blog-author-info">
+                                            <h6>Carlos Oliveira</h6>
+                                            <small>Neurocientista</small>
+                                        </div>
+                                    </div>
+                                    <p class="blog-text">Aprenda técnicas comprovadas cientificamente para melhorar sua capacidade de memorização e retenção de conteúdos complexos.</p>
+                                    <a href="blog-post.html" class="btn-read">Leia mais <i class="bi bi-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Blog Card 2 -->
+                        <div class="col-md-6 mb-4">
+                            <div class="blog-card">
+                                <div class="blog-image" style="background-image: url('https://cdn.pixabay.com/photo/2018/01/17/07/06/laptop-3087585_1280.jpg');">
+                                    <span class="blog-tag tag-estudos">Estudos</span>
+                                </div>
+                                <div class="blog-content">
+                                    <h3 class="blog-title">Como Criar um Cronograma de Estudos Eficiente</h3>
+                                    <div class="blog-meta">
+                                        <div class="blog-meta-item">
+                                            <i class="bi bi-calendar3"></i> 15 Set 2023
+                                        </div>
+                                        <div class="blog-meta-item">
+                                            <i class="bi bi-chat-dots"></i> 38 comentários
+                                        </div>
+                                    </div>
+                                    <div class="blog-author">
+                                        <div class="blog-author-img">
+                                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Author">
+                                        </div>
+                                        <div class="blog-author-info">
+                                            <h6>Amanda Costa</h6>
+                                            <small>Coach Educacional</small>
+                                        </div>
+                                    </div>
+                                    <p class="blog-text">Descubra como organizar seu tempo de forma estratégica para maximizar a produtividade e evitar a procrastinação nos estudos.</p>
+                                    <a href="blog-post.html" class="btn-read">Leia mais <i class="bi bi-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Blog Card 3 -->
+                        <div class="col-md-6 mb-4">
+                            <div class="blog-card">
+                                <div class="blog-image" style="background-image: url('https://cdn.pixabay.com/photo/2020/07/08/04/12/work-5382501_1280.jpg');">
+                                    <span class="blog-tag tag-carreira">Carreira</span>
+                                </div>
+                                <div class="blog-content">
+                                    <h3 class="blog-title">10 Habilidades Mais Valorizadas no Mercado de Trabalho em 2023</h3>
+                                    <div class="blog-meta">
+                                        <div class="blog-meta-item">
+                                            <i class="bi bi-calendar3"></i> 10 Set 2023
+                                        </div>
+                                        <div class="blog-meta-item">
+                                            <i class="bi bi-chat-dots"></i> 52 comentários
+                                        </div>
+                                    </div>
+                                    <div class="blog-author">
+                                        <div class="blog-author-img">
+                                            <img src="https://randomuser.me/api/portraits/men/56.jpg" alt="Author">
+                                        </div>
+                                        <div class="blog-author-info">
+                                            <h6>Ricardo Santos</h6>
+                                            <small>Especialista em RH</small>
+                                        </div>
+                                    </div>
+                                    <p class="blog-text">Conheça as competências técnicas e socioemocionais mais procuradas pelos recrutadores e como desenvolvê-las ainda na graduação.</p>
+                                    <a href="blog-post.html" class="btn-read">Leia mais <i class="bi bi-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Blog Card 4 -->
+                        <div class="col-md-6 mb-4">
+                            <div class="blog-card">
+                                <div class="blog-image" style="background-image: url('https://cdn.pixabay.com/photo/2017/09/08/20/29/chess-2730034_1280.jpg');">
+                                    <span class="blog-tag tag-motivacional">Motivacional</span>
+                                </div>
+                                <div class="blog-content">
+                                    <h3 class="blog-title">Como Manter a Motivação nos Estudos Durante Períodos Difíceis</h3>
+                                    <div class="blog-meta">
+                                        <div class="blog-meta-item">
+                                            <i class="bi bi-calendar3"></i> 5 Set 2023
+                                        </div>
+                                        <div class="blog-meta-item">
+                                            <i class="bi bi-chat-dots"></i> 45 comentários
+                                        </div>
+                                    </div>
+                                    <div class="blog-author">
+                                        <div class="blog-author-img">
+                                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Author">
+                                        </div>
+                                        <div class="blog-author-info">
+                                            <h6>Camila Ferreira</h6>
+                                            <small>Psicóloga Educacional</small>
+                                        </div>
+                                    </div>
+                                    <p class="blog-text">Estratégias práticas para superar o desânimo, lidar com a ansiedade e manter o foco em seus objetivos acadêmicos mesmo em tempos desafiadores.</p>
+                                    <a href="blog-post.html" class="btn-read">Leia mais <i class="bi bi-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <nav aria-label="Navegação do blog">
+                        <ul class="pagination custom-pagination">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-label="Anterior">
+                                    <span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+                                </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Próximo">
+                                    <span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                
+                <!-- Sidebar -->
+                <div class="col-lg-4 blog-sidebar" data-aos="fade-left">
+                    <!-- Search -->
+                    <div class="mb-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-dark text-white border-secondary" placeholder="Buscar no blog..." style="border-radius: 12px 0 0 12px;">
+                            <button class="btn btn-primary" type="button" style="border-radius: 0 12px 12px 0;"><i class="bi bi-search"></i></button>
+                        </div>
+                    </div>
+                    
+                    <!-- Categories -->
+                    <div class="category-card">
+                        <h4 class="category-title">Categorias</h4>
+                        <ul class="category-list">
+                            <li class="category-item">
+                                <a href="#">Técnicas de Estudo</a>
+                                <span class="category-count">24</span>
+                            </li>
+                            <li class="category-item">
+                                <a href="#">Vestibulares</a>
+                                <span class="category-count">18</span>
+                            </li>
+                            <li class="category-item">
+                                <a href="#">Concursos Públicos</a>
+                                <span class="category-count">15</span>
+                            </li>
+                            <li class="category-item">
+                                <a href="#">Carreira</a>
+                                <span class="category-count">12</span>
+                            </li>
+                            <li class="category-item">
+                                <a href="#">Motivação</a>
+                                <span class="category-count">9</span>
+                            </li>
+                            <li class="category-item">
+                                <a href="#">Tecnologia</a>
+                                <span class="category-count">7</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Popular Posts -->
+                    <div class="category-card">
+                        <h4 class="category-title">Posts Populares</h4>
+                        
+                        <div class="popular-post">
+                            <div class="popular-post-img" style="background-image: url('https://cdn.pixabay.com/photo/2017/08/06/22/01/books-2596809_1280.jpg');"></div>
+                            <div class="popular-post-content">
+                                <h5 class="popular-post-title">Método Pomodoro: como estudar de forma mais produtiva</h5>
+                                <div class="popular-post-meta">
+                                    <i class="bi bi-clock"></i> 12 Set 2023
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="popular-post">
+                            <div class="popular-post-img" style="background-image: url('https://cdn.pixabay.com/photo/2019/09/30/06/42/teachers-day-4515785_1280.jpg');"></div>
+                            <div class="popular-post-content">
+                                <h5 class="popular-post-title">Como escolher a carreira certa: guia prático</h5>
+                                <div class="popular-post-meta">
+                                    <i class="bi bi-clock"></i> 5 Set 2023
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="popular-post">
+                            <div class="popular-post-img" style="background-image: url('https://cdn.pixabay.com/photo/2020/07/30/10/26/brain-5450292_1280.jpg');"></div>
+                            <div class="popular-post-content">
+                                <h5 class="popular-post-title">Mapas mentais: organizando ideias visualmente</h5>
+                                <div class="popular-post-meta">
+                                    <i class="bi bi-clock"></i> 30 Ago 2023
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Subscribe -->
+                    <div class="subscribe-card">
+                        <h4 class="subscribe-title">Inscreva-se na Newsletter</h4>
+                        <p class="subscribe-text">Receba conteúdos exclusivos sobre educação, técnicas de estudo e preparação para concursos e vestibulares.</p>
+                        <form class="subscribe-form">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Seu nome">
+                            </div>
+                            <div class="mb-3">
+                                <input type="email" class="form-control" placeholder="Seu melhor email">
+                            </div>
+                            <button type="submit" class="btn-subscribe">Inscrever-se <i class="bi bi-arrow-right ms-1"></i></button>
+                        </form>
+                    </div>
+                    
+                    <!-- Tags -->
+                    <div class="tags-card">
+                        <h4 class="tags-title">Tags</h4>
+                        <div class="tags-list">
+                            <a href="#" class="tag-item">Estudo</a>
+                            <a href="#" class="tag-item">ENEM</a>
+                            <a href="#" class="tag-item">Vestibular</a>
+                            <a href="#" class="tag-item">Concurso</a>
+                            <a href="#" class="tag-item">Carreira</a>
+                            <a href="#" class="tag-item">Tecnologia</a>
+                            <a href="#" class="tag-item">Motivação</a>
+                            <a href="#" class="tag-item">Memorização</a>
+                            <a href="#" class="tag-item">Produtividade</a>
+                            <a href="#" class="tag-item">Inteligência Artificial</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Post Button -->
+    <a href="blog-novo-post.html" class="new-post-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Nova Publicação">
+        <i class="bi bi-plus-lg"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
+                    <a href="index.html" class="footer-logo">EDUFUTURO</a>
+                    <p class="footer-text">Transformando a educação brasileira através da tecnologia e da inteligência artificial para criar um futuro mais brilhante e acessível para todos.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Navegação</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="noticias.html">Notícias</a></li>
+                        <li><a href="concursos.html">Concursos</a></li>
+                        <li><a href="vestibulares.html">Vestibulares</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Estudo</h4>
+                    <ul class="footer-links">
+                        <li><a href="estudo.html">Área de Estudo</a></li>
+                        <li><a href="#">Materiais</a></li>
+                        <li><a href="#">Exercícios</a></li>
+                        <li><a href="#">Simulados</a></li>
+                        <li><a href="#">Suporte</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="footer-title">Contato</h4>
+                    <ul class="footer-links">
+                        <li><i class="bi bi-envelope me-2"></i> contato@edufuturo.com.br</li>
+                        <li><i class="bi bi-telephone me-2"></i> (11) 4002-8922</li>
+                        <li><i class="bi bi-geo-alt me-2"></i> Av. Paulista, 1000 - São Paulo, SP</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2023 EduFuturo. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 100
+            });
+            
+            // Blog comment functionality
+            const blogCards = document.querySelectorAll('.blog-card');
+            blogCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.classList.contains('btn-read')) {
+                        window.location.href = 'blog-post.html';
+                    }
+                });
+            });
+
+            // Notifications functionality
+            const notificationsBtn = document.getElementById('notificationsBtn');
+            if (notificationsBtn) {
+                notificationsBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const notificationsModal = document.getElementById('notificationsModal');
+                    notificationsModal.classList.toggle('show');
+                    
+                    // Remove badge when notifications are viewed
+                    const badge = document.getElementById('notificationBadge');
+                    if (badge) {
+                        badge.style.display = 'none';
+                    }
+                });
+
+                document.addEventListener('click', function(e) {
+                    const notificationsModal = document.getElementById('notificationsModal');
+                    if (notificationsModal && !notificationsBtn.contains(e.target) && !notificationsModal.contains(e.target)) {
+                        notificationsModal.classList.remove('show');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html><!-- Script para configurar o lazy loading de imagens -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Converter background-images em lazy load
+        const blogImages = document.querySelectorAll('.blog-image');
+        blogImages.forEach(img => {
+            // Obter a URL atual do background-image
+            const currentStyle = img.getAttribute('style');
+            if (currentStyle && currentStyle.includes('background-image')) {
+                // Extrair a URL
+                const match = currentStyle.match(/url\(['"]?([^'"]+)['"]?\)/);
+                if (match && match[1]) {
+                    const imageUrl = match[1];
+                    // Remover o background-image original
+                    img.style.backgroundImage = 'none';
+                    // Adicionar atributo data-bg-src
+                    img.setAttribute('data-bg-src', imageUrl);
+                }
+            }
+        });
+        
+        // Otimizar imagens na featured post
+        const featuredImage = document.querySelector('.featured-image');
+        if (featuredImage) {
+            const src = featuredImage.getAttribute('src');
+            if (src) {
+                featuredImage.setAttribute('data-src', src);
+                featuredImage.setAttribute('src', 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E');
+            }
+        }
+        
+        // Otimizar imagens nos cards de posts populares
+        const postImages = document.querySelectorAll('.popular-post-img');
+        postImages.forEach(img => {
+            // Obter a URL atual do background-image
+            const currentStyle = img.getAttribute('style');
+            if (currentStyle && currentStyle.includes('background-image')) {
+                // Extrair a URL
+                const match = currentStyle.match(/url\(['"]?([^'"]+)['"]?\)/);
+                if (match && match[1]) {
+                    const imageUrl = match[1];
+                    // Remover o background-image original
+                    img.style.backgroundImage = 'none';
+                    // Adicionar atributo data-bg-src
+                    img.setAttribute('data-bg-src', imageUrl);
+                }
+            }
+        });
+    });
+</script>

@@ -1,0 +1,2583 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salas de Aula - EduFuturo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6C63FF;
+            --secondary-color: #584cff;
+            --accent-color: #FF6584;
+            --success-color: #10B981;
+            --warning-color: #FBBF24;
+            --info-color: #60A5FA;
+            --danger-color: #EF4444;
+            --light-color: #F9FAFB;
+            --dark-color: #111827;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Page loader */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-dots {
+            display: flex;
+            gap: 12px;
+        }
+
+        .loader-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+
+        .loader-dot:nth-child(1) {
+            animation: bounce 1.4s ease-in-out infinite;
+        }
+
+        .loader-dot:nth-child(2) {
+            animation: bounce 1.4s ease-in-out 0.2s infinite;
+            background-color: var(--secondary-color);
+        }
+
+        .loader-dot:nth-child(3) {
+            animation: bounce 1.4s ease-in-out 0.4s infinite;
+            background-color: var(--accent-color);
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 0.8rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(108, 99, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: white !important;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .logo-image {
+            transition: all 0.3s ease;
+        }
+        
+        .logo-text {
+            position: relative;
+            left: 10px;
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            white-space: nowrap;
+            display: inline-block;
+        }
+        
+        .navbar-brand:hover .logo-text {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .navbar .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .navbar .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
+
+        .dropdown-item {
+            padding: 0.6rem 1.2rem;
+            transition: all 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(108, 99, 255, 0.1);
+            color: var(--primary-color);
+        }
+
+        /* Layout */
+        .app-container {
+            display: flex;
+            padding-top: 60px;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background-color: white;
+            height: calc(100vh - 60px);
+            position: fixed;
+            top: 60px;
+            left: 0;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+            z-index: 99;
+            padding: 2rem 0;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 0 1.5rem 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar-link {
+            padding: 0.9rem 1.5rem;
+            display: flex;
+            align-items: center;
+            color: var(--dark-color);
+            text-decoration: none;
+            position: relative;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin: 0.2rem 0.5rem;
+            border-radius: 12px;
+        }
+
+        .sidebar-link i {
+            margin-right: 12px;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-link:hover, .sidebar-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .sidebar-link:hover i, .sidebar-link.active i {
+            color: white;
+        }
+
+        .btn-add {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.3);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-add::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
+            z-index: -1;
+            transition: opacity 0.5s ease;
+            opacity: 0;
+        }
+
+        .btn-add:hover::before {
+            opacity: 1;
+        }
+
+        .btn-add:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(108, 99, 255, 0.4);
+        }
+
+        .btn-add i {
+            margin-right: 8px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 2rem 2.5rem;
+            margin-left: 280px;
+            transition: all 0.3s ease;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            width: 60%;
+            height: 5px;
+            background: var(--accent-color);
+            left: 0;
+            bottom: -10px;
+            border-radius: 5px;
+        }
+
+        /* Dashboard cards */
+        .dashboard-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            padding: 1.8rem;
+            height: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: none;
+        }
+
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(108, 99, 255, 0.03), rgba(255, 101, 132, 0.03));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .dashboard-card:hover::before {
+            opacity: 1;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Classroom cards */
+        .classroom-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .classroom-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .classroom-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0; 
+            width: 5px;
+            height: 0;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+            transition: height 0.3s ease;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .classroom-card:hover::before {
+            height: 100%;
+        }
+
+        .classroom-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            font-size: 1.8rem;
+            margin-right: 1.2rem;
+            transition: all 0.3s;
+            background-color: rgba(108, 99, 255, 0.1);
+            color: var(--primary-color);
+        }
+
+        .classroom-card:hover .classroom-icon {
+            transform: scale(1.1);
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .subject-badge {
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .classroom-actions {
+            display: flex;
+            margin-top: 1rem;
+            gap: 1rem;
+        }
+
+        .btn-classroom {
+            padding: 0.7rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-classroom:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn-enter {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.2);
+        }
+
+        .btn-enter:hover {
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.3);
+        }
+
+        .btn-details {
+            background-color: rgba(108, 99, 255, 0.1);
+            color: var(--primary-color);
+            border: none;
+        }
+
+        .btn-details:hover {
+            background-color: rgba(108, 99, 255, 0.2);
+        }
+
+        .btn-delete {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger-color);
+            border: none;
+        }
+
+        .btn-delete:hover {
+            background-color: rgba(239, 68, 68, 0.2);
+        }
+
+        /* Classroom environment options */
+        .environment-option {
+            border-radius: 20px;
+            border: 2px solid #E5E7EB;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            height: 100%;
+        }
+
+        .environment-option:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .environment-option.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(108, 99, 255, 0.05);
+        }
+
+        .environment-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .environment-name {
+            font-weight: 600;
+        }
+
+        /* Chat interface */
+        .chat-container {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            display: flex;
+            flex-direction: column;
+            height: 75vh;
+        }
+
+        .chat-header {
+            padding: 1.2rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-header-icon {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .chat-header-info h5 {
+            margin-bottom: 0.2rem;
+            font-weight: 700;
+        }
+
+        .chat-header-info p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            background-color: #F3F4F6;
+        }
+
+        .chat-message {
+            margin-bottom: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            max-width: 75%;
+        }
+
+        .chat-message.sent {
+            align-self: flex-end;
+            align-items: flex-end;
+        }
+
+        .chat-message.received {
+            align-self: flex-start;
+            align-items: flex-start;
+        }
+
+        .message-content {
+            padding: 0.8rem 1.2rem;
+            border-radius: 16px;
+            margin-bottom: 0.3rem;
+            position: relative;
+        }
+
+        .sent .message-content {
+            background-color: var(--primary-color);
+            color: white;
+            border-bottom-right-radius: 0;
+        }
+
+        .received .message-content {
+            background-color: white;
+            color: var(--dark-color);
+            border-bottom-left-radius: 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .message-info {
+            font-size: 0.8rem;
+            color: #6B7280;
+        }
+
+        .chat-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 30px;
+            background-color: #F3F4F6;
+            margin-right: 1rem;
+            transition: all 0.3s;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.3);
+            background-color: white;
+        }
+
+        .btn-send {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.2);
+        }
+
+        .btn-send:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.3);
+        }
+
+        /* Modal styling */
+        .modal-content {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-bottom: none;
+            color: white;
+            padding: 1.5rem 2rem;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-footer {
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1.2rem 2rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .form-control {
+            border-radius: 12px;
+            padding: 0.8rem 1.2rem;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .form-select {
+            border-radius: 12px;
+            padding: 0.8rem 1.2rem;
+            height: auto;
+            border: 1px solid #E5E7EB;
+        }
+
+        .btn-secondary {
+            background-color: #E5E7EB;
+            color: #4B5563;
+            border: none;
+            border-radius: 12px;
+            padding: 0.7rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background-color: #D1D5DB;
+            color: #111827;
+        }
+
+        /* Media queries */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                z-index: 999;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 2rem 1.5rem;
+            }
+            
+            .toggle-sidebar {
+                display: block !important;
+            }
+            
+            .navbar-toggler {
+                border: none;
+                padding: 0;
+            }
+            
+            .navbar-toggler:focus {
+                box-shadow: none;
+            }
+            
+            .navbar-toggler-icon {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .classroom-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.4rem;
+            }
+
+            .chat-message {
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader">
+        <div class="loader-dots">
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="index.html">
+                <img src="tj5n4mq0k8.png" alt="EduFuturo Logo" height="40" class="logo-image">
+                <span class="logo-text">EduFuturo</span>
+            </a>
+            <button class="navbar-toggler toggle-sidebar" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle me-1"></i> Minha Conta
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Perfil</a></li>
+                
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sair</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- App Container -->
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h5 class="mb-3">Área de Estudo</h5>
+                <div class="d-flex gap-2 mb-2">
+                    <button class="btn btn-add flex-grow-1" data-bs-toggle="modal" data-bs-target="#addDisciplineModal">
+                        <i class="bi bi-plus-circle"></i> Adicionar Disciplina
+                    </button>
+                </div>
+            </div>
+            <div id="sidebar-links-container">
+                <a href="estudo.html" class="sidebar-link">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-speedometer2"></i> Academia
+                </a>
+                <a href="#" class="sidebar-link">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-book"></i> Minhas Disciplinas
+                </a>
+                <a href="#" class="sidebar-link">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-journal-text"></i> Materiais de Estudo
+                </a>
+                <a href="#" class="sidebar-link">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-pencil-square"></i> Exercícios
+                </a>
+                <a href="cronograma.html" class="sidebar-link">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-alarm"></i> Cronograma
+                </a>
+                <a href="desempenho.html" class="sidebar-link">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-graph-up"></i> Desempenho
+                </a>
+                <a href="simulacao.html" class="sidebar-link">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-lightning-charge"></i> Simulados
+                </a>
+                <a href="metas.html" class="sidebar-link">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-card-checklist"></i> Metas
+                </a>
+                <a href="gamificacao.html" class="sidebar-link">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-trophy"></i> Gamificação
+                </a>
+                <a href="salas.html" class="sidebar-link active">
+                    <div class="drag-handle"><i class="bi bi-grip-vertical"></i></div>
+                    <i class="bi bi-people-fill"></i> Salas de Aula
+                </a>
+            </div>
+        </div>
+        
+        <!-- Friends Button (Fixed position) -->
+        <div class="position-fixed bottom-0 end-0 mb-4 me-4" style="z-index: 1000;">
+            <button class="friends-btn" data-bs-toggle="modal" data-bs-target="#friendsModal">
+                <div class="friends-btn-inner">
+                    <i class="bi bi-people"></i>
+                </div>
+                <!-- Badge will be shown dynamically based on pending requests -->
+                <span class="friends-btn-badge" id="friendRequestBadge" style="display: none;">0</span>
+            </button>
+        </div>
+        
+        <style>
+            /* Enhanced Friends Button Styles */
+            .friends-btn {
+                position: relative;
+                width: 65px;
+                height: 65px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #8667f7 0%, #6C63FF 60%, #584cff 100%);
+                border: none;
+                box-shadow: 0 6px 16px rgba(108, 99, 255, 0.3), 0 0 0 5px rgba(108, 99, 255, 0.1);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                padding: 0;
+                overflow: hidden;
+            }
+            
+            .friends-btn:hover {
+                transform: translateY(-5px) scale(1.05);
+                box-shadow: 0 10px 20px rgba(108, 99, 255, 0.4), 0 0 0 8px rgba(108, 99, 255, 0.1);
+            }
+            
+            .friends-btn:active {
+                transform: translateY(0) scale(0.95);
+                box-shadow: 0 4px 10px rgba(108, 99, 255, 0.2), 0 0 0 3px rgba(108, 99, 255, 0.1);
+            }
+            
+            .friends-btn-inner {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(5px);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                font-size: 1.7rem;
+                transition: all 0.3s;
+                animation: pulse 2s infinite;
+            }
+            
+            @keyframes pulse {
+                0% {
+                    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.3);
+                }
+                70% {
+                    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+                }
+                100% {
+                    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+                }
+            }
+            
+            .friends-btn:hover .friends-btn-inner {
+                background: rgba(255, 255, 255, 0.25);
+                transform: rotate(10deg);
+            }
+            
+            .friends-btn-badge {
+                position: absolute;
+                top: 0;
+                right: 0;
+                background: #FF6584;
+                color: white;
+                border-radius: 50%;
+                width: 22px;
+                height: 22px;
+                font-size: 0.8rem;
+                font-weight: bold;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                box-shadow: 0 3px 8px rgba(255, 101, 132, 0.3);
+                border: 2px solid white;
+            }
+        </style>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div id="classrooms-section">
+                <div class="row mb-4">
+                    <div class="col-12" data-aos="fade-up">
+                        <h2 class="section-title">Salas de Aula</h2>
+                    </div>
+                </div>
+
+                <!-- Statistics Cards -->
+                <div class="row mb-5">
+                    <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="dashboard-card">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="me-3 d-flex align-items-center justify-content-center" 
+                                     style="background-color: rgba(108, 99, 255, 0.1); width: 48px; height: 48px; border-radius: 12px;">
+                                    <i class="bi bi-people" style="font-size: 1.5rem; color: var(--primary-color);"></i>
+                                </div>
+                                <div>
+                                    <h4 class="mb-0 fw-bold">4</h4>
+                                    <p class="text-muted mb-0">Salas Ativas</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="dashboard-card">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="me-3 d-flex align-items-center justify-content-center" 
+                                     style="background-color: rgba(16, 185, 129, 0.1); width: 48px; height: 48px; border-radius: 12px;">
+                                    <i class="bi bi-chat-dots" style="font-size: 1.5rem; color: var(--success-color);"></i>
+                                </div>
+                                <div>
+                                    <h4 class="mb-0 fw-bold">128</h4>
+                                    <p class="text-muted mb-0">Mensagens Enviadas</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="dashboard-card">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="me-3 d-flex align-items-center justify-content-center" 
+                                     style="background-color: rgba(251, 191, 36, 0.1); width: 48px; height: 48px; border-radius: 12px;">
+                                    <i class="bi bi-clock-history" style="font-size: 1.5rem; color: var(--warning-color);"></i>
+                                </div>
+                                <div>
+                                    <h4 class="mb-0 fw-bold">42h</h4>
+                                    <p class="text-muted mb-0">Tempo em Salas</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                        <div class="dashboard-card">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="me-3 d-flex align-items-center justify-content-center" 
+                                     style="background-color: rgba(239, 68, 68, 0.1); width: 48px; height: 48px; border-radius: 12px;">
+                                    <i class="bi bi-person-plus" style="font-size: 1.5rem; color: var(--danger-color);"></i>
+                                </div>
+                                <div>
+                                    <h4 class="mb-0 fw-bold">18</h4>
+                                    <p class="text-muted mb-0">Colegas de Estudo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Classrooms List -->
+                <div class="row mb-4">
+                    <div class="col-12" data-aos="fade-up">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="fw-bold">Minhas Salas de Aula</h4>
+                            <button class="btn btn-add" data-bs-toggle="modal" data-bs-target="#addClassroomModal">
+                                <i class="bi bi-plus-circle me-2"></i> Nova Sala
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-12" data-aos="fade-up" data-aos-delay="100">
+                        <!-- Classroom 1 -->
+                        <div class="classroom-card">
+                            <div class="d-flex">
+                                <div class="classroom-icon">
+                                    <i class="bi bi-calculator"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <h5 class="fw-bold">Sala de Matemática - Cálculo</h5>
+                                        <span class="badge bg-success">Ativa</span>
+                                    </div>
+                                    <div class="mt-2 mb-3">
+                                        <span class="subject-badge" style="background-color: rgba(108, 99, 255, 0.1); color: var(--primary-color);">
+                                            Matemática
+                                        </span>
+                                        <span class="subject-badge" style="background-color: rgba(16, 185, 129, 0.1); color: var(--success-color);">
+                                            8 participantes
+                                        </span>
+                                        <span class="subject-badge" style="background-color: rgba(251, 191, 36, 0.1); color: var(--warning-color);">
+                                            Nível Avançado
+                                        </span>
+                                    </div>
+                                    <p class="text-muted">Sala dedicada para discussão e resolução de exercícios de cálculo diferencial e integral. Compartilhe dúvidas e soluções com outros estudantes.</p>
+                                    <div class="classroom-actions">
+                                        <button class="btn btn-classroom btn-enter" onclick="showChatInterface('Sala de Matemática - Cálculo', 'bi-calculator', 'Matemática')">
+                                            <i class="bi bi-box-arrow-in-right me-2"></i> Entrar
+                                        </button>
+                                        <button class="btn btn-classroom btn-details">
+                                            <i class="bi bi-info-circle me-2"></i> Detalhes
+                                        </button>
+                                        <button class="btn btn-classroom btn-delete">
+                                            <i class="bi bi-trash me-2"></i> Excluir
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Classroom 2 -->
+                        <div class="classroom-card">
+                            <div class="d-flex">
+                                <div class="classroom-icon" style="background-color: rgba(255, 101, 132, 0.1); color: var(--accent-color);">
+                                    <i class="bi bi-book"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <h5 class="fw-bold">Grupo de Literatura</h5>
+                                        <span class="badge bg-success">Ativa</span>
+                                    </div>
+                                    <div class="mt-2 mb-3">
+                                        <span class="subject-badge" style="background-color: rgba(255, 101, 132, 0.1); color: var(--accent-color);">
+                                            Português
+                                        </span>
+                                        <span class="subject-badge" style="background-color: rgba(96, 165, 250, 0.1); color: var(--info-color);">
+                                            12 participantes
+                                        </span>
+                                        <span class="subject-badge" style="background-color: rgba(16, 185, 129, 0.1); color: var(--success-color);">
+                                            Nível Intermediário
+                                        </span>
+                                    </div>
+                                    <p class="text-muted">Sala para discussão de livros, interpretação de textos e preparação para redações de vestibular. Clube do livro virtual com leituras semanais.</p>
+                                    <div class="classroom-actions">
+                                        <button class="btn btn-classroom btn-enter" onclick="showChatInterface('Grupo de Literatura', 'bi-book', 'Português')">
+                                            <i class="bi bi-box-arrow-in-right me-2"></i> Entrar
+                                        </button>
+                                        <button class="btn btn-classroom btn-details">
+                                            <i class="bi bi-info-circle me-2"></i> Detalhes
+                                        </button>
+                                        <button class="btn btn-classroom btn-delete">
+                                            <i class="bi bi-trash me-2"></i> Excluir
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Classroom 3 -->
+                        <div class="classroom-card">
+                            <div class="d-flex">
+                                <div class="classroom-icon" style="background-color: rgba(251, 191, 36, 0.1); color: var(--warning-color);">
+                                    <i class="bi bi-globe2"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <h5 class="fw-bold">Sala de História e Geografia</h5>
+                                        <span class="badge bg-success">Ativa</span>
+                                    </div>
+                                    <div class="mt-2 mb-3">
+                                        <span class="subject-badge" style="background-color: rgba(251, 191, 36, 0.1); color: var(--warning-color);">
+                                            História
+                                        </span>
+                                        <span class="subject-badge" style="background-color: rgba(16, 185, 129, 0.1); color: var(--success-color);">
+                                            Geografia
+                                        </span>
+                                        <span class="subject-badge" style="background-color: rgba(108, 99, 255, 0.1); color: var(--primary-color);">
+                                            15 participantes
+                                        </span>
+                                    </div>
+                                    <p class="text-muted">Sala para discussão de temas de História e Geografia, com foco em atualidades para o ENEM e vestibulares. Mapas mentais e resumos compartilhados.</p>
+                                    <div class="classroom-actions">
+                                        <button class="btn btn-classroom btn-enter" onclick="showChatInterface('Sala de História e Geografia', 'bi-globe2', 'História e Geografia')">
+                                            <i class="bi bi-box-arrow-in-right me-2"></i> Entrar
+                                        </button>
+                                        <button class="btn btn-classroom btn-details">
+                                            <i class="bi bi-info-circle me-2"></i> Detalhes
+                                        </button>
+                                        <button class="btn btn-classroom btn-delete">
+                                            <i class="bi bi-trash me-2"></i> Excluir
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Classroom 4 -->
+                        <div class="classroom-card">
+                            <div class="d-flex">
+                                <div class="classroom-icon" style="background-color: rgba(239, 68, 68, 0.1); color: var(--danger-color);">
+                                    <i class="bi bi-lightning-charge"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <h5 class="fw-bold">Grupo de Física e Química</h5>
+                                        <span class="badge bg-warning">Inativa</span>
+                                    </div>
+                                    <div class="mt-2 mb-3">
+                                        <span class="subject-badge" style="background-color: rgba(239, 68, 68, 0.1); color: var(--danger-color);">
+                                            Física
+                                        </span>
+                                        <span class="subject-badge" style="background-color: rgba(16, 185, 129, 0.1); color: var(--success-color);">
+                                            Química
+                                        </span>
+                                        <span class="subject-badge" style="background-color: rgba(96, 165, 250, 0.1); color: var(--info-color);">
+                                            5 participantes
+                                        </span>
+                                    </div>
+                                    <p class="text-muted">Sala para resolução de problemas de física e química. Simulados, experimentos virtuais e debates sobre questões de vestibular.</p>
+                                    <div class="classroom-actions">
+                                        <button class="btn btn-classroom btn-enter">
+                                            <i class="bi bi-arrow-clockwise me-2"></i> Reativar
+                                        </button>
+                                        <button class="btn btn-classroom btn-details">
+                                            <i class="bi bi-info-circle me-2"></i> Detalhes
+                                        </button>
+                                        <button class="btn btn-classroom btn-delete">
+                                            <i class="bi bi-trash me-2"></i> Excluir
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Interface - Initially Hidden -->
+            <div id="chat-interface" class="d-none">
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <button class="btn btn-outline-primary mb-4" onclick="showClassrooms()">
+                            <i class="bi bi-arrow-left me-2"></i> Voltar para Salas
+                        </button>
+                    </div>
+                    <div class="col-12">
+                        <div class="chat-container">
+                            <div class="chat-header">
+                                <div class="chat-header-icon" id="chat-header-icon">
+                                    <i class="bi bi-calculator"></i>
+                                </div>
+                                <div class="chat-header-info">
+                                    <h5 id="chat-room-title">Sala de Matemática</h5>
+                                    <p id="chat-room-subject">Matemática • 8 participantes online</p>
+                                </div>
+                                <div class="ms-auto">
+                                    <button class="btn btn-sm text-white" id="chatSettingsBtn" data-bs-toggle="modal" data-bs-target="#chatSettingsModal" title="Configurações da Sala">
+                                        <i class="bi bi-gear"></i>
+                                    </button>
+                                    <button class="btn btn-sm text-white" data-bs-toggle="modal" data-bs-target="#chatMembersModal" title="Participantes">
+                                        <i class="bi bi-people-fill"></i>
+                                    </button>
+                                    <button class="btn btn-sm text-white" data-bs-toggle="dropdown" title="Mais opções">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><a class="dropdown-item" href="#"><i class="bi bi-file-earmark-arrow-down me-2"></i>Salvar conversa</a></li>
+                                        <li><a class="dropdown-item" href="#"><i class="bi bi-bell-slash me-2"></i>Silenciar notificações</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Sair da sala</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="chat-body">
+                                <div class="d-flex flex-column">
+                                    <!-- Today's date indicator -->
+                                    <div class="align-self-center mb-4">
+                                        <span class="badge bg-secondary">Hoje</span>
+                                    </div>
+                                    
+                                    <!-- Received Message -->
+                                    <div class="chat-message received">
+                                        <div class="message-content">
+                                            Olá pessoal! Alguém pode me ajudar com a lista de exercícios de cálculo?
+                                        </div>
+                                        <div class="message-info">
+                                            Maria • 10:15
+                                        </div>
+                                    </div>
+
+                                    <!-- Received Message -->
+                                    <div class="chat-message received">
+                                        <div class="message-content">
+                                            Especificamente estou com dúvidas na questão 5 sobre integrais.
+                                        </div>
+                                        <div class="message-info">
+                                            Maria • 10:16
+                                        </div>
+                                    </div>
+
+                                    <!-- Sent Message -->
+                                    <div class="chat-message sent">
+                                        <div class="message-content">
+                                            Claro! Essa lista é bem desafiadora. Vamos marcar uma sessão de estudo para resolvermos juntos?
+                                        </div>
+                                        <div class="message-info">
+                                            Você • 10:20
+                                        </div>
+                                    </div>
+
+                                    <!-- Received Message -->
+                                    <div class="chat-message received">
+                                        <div class="message-content">
+                                            Ótima ideia! Poderia ser hoje à tarde? Encontrei um material muito bom que explica passo a passo.
+                                        </div>
+                                        <div class="message-info">
+                                            João • 10:22
+                                        </div>
+                                    </div>
+
+                                    <!-- Received Message -->
+                                    <div class="chat-message received">
+                                        <div class="message-content">
+                                            Também estou disponível! Seria bom revisarmos a matéria antes da prova.
+                                        </div>
+                                        <div class="message-info">
+                                            Ana • 10:25
+                                        </div>
+                                    </div>
+
+                                    <!-- Sent Message -->
+                                    <div class="chat-message sent">
+                                        <div class="message-content">
+                                            Perfeito! Podemos começar às 15h. Vou compartilhar meus resumos e a resolução que já comecei.
+                                        </div>
+                                        <div class="message-info">
+                                            Você • 10:30
+                                        </div>
+                                    </div>
+
+                                    <!-- Received Message -->
+                                    <div class="chat-message received">
+                                        <div class="message-content">
+                                            Combinado! Vou enviar o link da videoaula que encontrei sobre o tema.
+                                        </div>
+                                        <div class="message-info">
+                                            Maria • 10:32
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat-footer">
+                                <button class="btn btn-sm me-2" data-bs-toggle="tooltip" title="Anexar arquivo">
+                                    <i class="bi bi-paperclip"></i>
+                                </button>
+                                <input type="text" class="chat-input" placeholder="Digite sua mensagem...">
+                                <button class="btn-send">
+                                    <i class="bi bi-send"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Classroom Modal -->
+    <div class="modal fade" id="addClassroomModal" tabindex="-1" aria-labelledby="addClassroomModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addClassroomModalLabel">Criar Nova Sala de Aula</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="classroomName" class="form-label">Nome da Sala</label>
+                            <input type="text" class="form-control" id="classroomName" placeholder="Ex: Grupo de Estudos de Matemática">
+                        </div>
+                        <div class="mb-3">
+                            <label for="classroomSubject" class="form-label">Disciplina Principal</label>
+                            <select class="form-select" id="classroomSubject">
+                                <option value="matematica">Matemática</option>
+                                <option value="portugues">Português</option>
+                                <option value="historia">História</option>
+                                <option value="geografia">Geografia</option>
+                                <option value="fisica">Física</option>
+                                <option value="quimica">Química</option>
+                                <option value="biologia">Biologia</option>
+                                <option value="ingles">Inglês</option>
+                                <option value="multidisciplinar">Multidisciplinar</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="classroomDescription" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="classroomDescription" rows="3" placeholder="Descreva o propósito desta sala de aula"></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="classroomLevel" class="form-label">Nível</label>
+                            <select class="form-select" id="classroomLevel">
+                                <option value="iniciante">Iniciante</option>
+                                <option value="intermediario">Intermediário</option>
+                                <option value="avancado">Avançado</option>
+                                <option value="todos">Todos os níveis</option>
+                            </select>
+                        </div>
+
+                        <h6 class="fw-bold mb-3">Ambiente de Sala</h6>
+                        <p class="text-muted mb-3">Escolha o tipo de ambiente para sua sala virtual:</p>
+
+                        <div class="row mb-4">
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="environment-option selected">
+                                    <div class="environment-icon">
+                                        <i class="bi bi-book"></i>
+                                    </div>
+                                    <div class="environment-name">Sala de Aula</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="environment-option">
+                                    <div class="environment-icon">
+                                        <i class="bi bi-building"></i>
+                                    </div>
+                                    <div class="environment-name">Biblioteca</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="environment-option">
+                                    <div class="environment-icon">
+                                        <i class="bi bi-laptop"></i>
+                                    </div>
+                                    <div class="environment-name">Lab. Virtual</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="environment-option">
+                                    <div class="environment-icon">
+                                        <i class="bi bi-cup-hot"></i>
+                                    </div>
+                                    <div class="environment-name">Café Estudo</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="privateRoom">
+                                <label class="form-check-label" for="privateRoom">
+                                    Sala privada (apenas com convite)
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Criar Sala</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Discipline Modal -->
+    <div class="modal fade" id="addDisciplineModal" tabindex="-1" aria-labelledby="addDisciplineModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addDisciplineModalLabel">Adicionar Nova Disciplina</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="disciplineName" class="form-label">Nome da Disciplina</label>
+                            <input type="text" class="form-control" id="disciplineName" placeholder="Ex: Matemática">
+                        </div>
+                        <div class="mb-3">
+                            <label for="disciplineIcon" class="form-label">Ícone</label>
+                            <select class="form-select" id="disciplineIcon">
+                                <option value="bi-book">📚 Livro</option>
+                                <option value="bi-calculator">🧮 Calculadora</option>
+                                <option value="bi-globe2">🌎 Globo</option>
+                                <option value="bi-lightning-charge">⚡ Raio</option>
+                                <option value="bi-palette">🎨 Paleta</option>
+                                <option value="bi-puzzle">🧩 Quebra-cabeça</option>
+                                <option value="bi-graph-up">📈 Gráfico</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="disciplineDescription" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="disciplineDescription" rows="3" placeholder="Descreva o conteúdo desta disciplina"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="disciplineColor" class="form-label">Cor</label>
+                            <input type="color" class="form-control form-control-color w-100" id="disciplineColor" value="#6C63FF">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Adicionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Settings Modal -->
+    <div class="modal fade" id="chatSettingsModal" tabindex="-1" aria-labelledby="chatSettingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="chatSettingsModalLabel">Configurações da Sala</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <!-- Chat name -->
+                        <div class="mb-3">
+                            <label for="chatName" class="form-label">Nome da Sala</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="chatName" value="Sala de Matemática - Cálculo">
+                                <div class="input-group-text">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="lockChatName">
+                                        <label class="form-check-label" for="lockChatName">Bloquear</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <small class="text-muted">Bloquear para impedir que outros membros alterem o nome</small>
+                        </div>
+
+                        <!-- Chat photo -->
+                        <div class="mb-4">
+                            <label class="form-label">Ícone da Sala</label>
+                            <div class="d-flex align-items-center mb-2">
+                                <div style="width: 60px; height: 60px; background-color: rgba(108, 99, 255, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary-color); font-size: 1.8rem; margin-right: 15px;">
+                                    <i class="bi bi-calculator"></i>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-outline-primary mb-2">Alterar Ícone</button>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="lockChatPhoto">
+                                        <label class="form-check-label" for="lockChatPhoto">Bloquear alteração do ícone</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Admin settings section -->
+                        <div class="border rounded p-3 mb-3">
+                            <h6 class="fw-bold">Configurações de Administrador</h6>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="allowMemberAdd" checked>
+                                <label class="form-check-label" for="allowMemberAdd">Permitir que outros administradores adicionem membros</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="allowMemberRemove">
+                                <label class="form-check-label" for="allowMemberRemove">Permitir que outros administradores removam membros</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="allowMemberPromote">
+                                <label class="form-check-label" for="allowMemberPromote">Permitir que outros administradores promovam membros</label>
+                            </div>
+                        </div>
+
+                        <!-- Privacy section -->
+                        <div class="border rounded p-3">
+                            <h6 class="fw-bold">Privacidade</h6>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="privateRoom" checked>
+                                <label class="form-check-label" for="privateRoom">Sala privada (apenas convidados podem participar)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="moderatedChat">
+                                <label class="form-check-label" for="moderatedChat">Ativar moderação de mensagens</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Salvar Alterações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Members Modal -->
+    <div class="modal fade" id="chatMembersModal" tabindex="-1" aria-labelledby="chatMembersModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="chatMembersModalLabel">Participantes da Sala</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Adicionar Participante</label>
+                        <div class="input-group mb-2">
+                            <input type="text" id="addMemberInput" class="form-control" placeholder="Nome ou email do usuário">
+                            <button class="btn btn-primary" id="addMemberBtn">Adicionar</button>
+                        </div>
+                        <div id="memberSearchResults" class="list-group mb-2" style="display: none; max-height: 200px; overflow-y: auto;"></div>
+                        <div id="memberFeedback" class="mb-2"></div>
+                        <small class="text-muted">Você pode adicionar até 50 participantes nesta sala</small>
+                    </div>
+
+                    <h6 class="mb-3 fw-bold" id="memberListTitle">Lista de Participantes (8)</h6>
+                    <ul class="list-group mb-3">
+                        <!-- Member 1 - You (Admin) -->
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div style="width: 40px; height: 40px; background-color: var(--primary-color); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                    <span>Você</span>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">Você (Admin)</div>
+                                    <small class="text-muted">Online agora</small>
+                                </div>
+                            </div>
+                            <span class="badge bg-primary">Admin</span>
+                        </li>
+                        
+                        <!-- Member 2 - Maria -->
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div style="width: 40px; height: 40px; background-color: var(--accent-color); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                    <span>M</span>
+                                </div>
+                                <div>
+                                    <div>Maria</div>
+                                    <small class="text-muted">Online agora</small>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="dropdown">
+                                    <i class="bi bi-three-dots-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-shield-plus me-2"></i>Tornar admin</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-envelope me-2"></i>Mensagem privada</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-person-x me-2"></i>Remover da sala</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Member 3 - João -->
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div style="width: 40px; height: 40px; background-color: var(--info-color); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                    <span>J</span>
+                                </div>
+                                <div>
+                                    <div>João</div>
+                                    <small class="text-muted">Online agora</small>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="dropdown">
+                                    <i class="bi bi-three-dots-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-shield-plus me-2"></i>Tornar admin</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-envelope me-2"></i>Mensagem privada</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-person-x me-2"></i>Remover da sala</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Member 4 - Ana (Admin) -->
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div style="width: 40px; height: 40px; background-color: var(--success-color); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                    <span>A</span>
+                                </div>
+                                <div>
+                                    <div>Ana</div>
+                                    <small class="text-muted">Online há 5 minutos</small>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="badge bg-primary me-2">Admin</span>
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="dropdown">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><a class="dropdown-item" href="#"><i class="bi bi-shield-minus me-2"></i>Remover como admin</a></li>
+                                        <li><a class="dropdown-item" href="#"><i class="bi bi-envelope me-2"></i>Mensagem privada</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-person-x me-2"></i>Remover da sala</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Additional Members (collapsed) -->
+                        <li class="list-group-item text-center">
+                            <button class="btn btn-link">Ver outros 4 participantes</button>
+                        </li>
+                    </ul>
+
+                    <div class="d-grid">
+                        <button type="button" class="btn btn-danger">Sair da Sala</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Friends Modal -->
+    <div class="modal fade" id="friendsModal" tabindex="-1" aria-labelledby="friendsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="friendsModalLabel">Meus Amigos</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs mb-4" id="friendsTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="friends-list-tab" data-bs-toggle="tab" data-bs-target="#friends-list" type="button" role="tab" aria-controls="friends-list" aria-selected="true">
+                                Lista de Amigos
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="add-friends-tab" data-bs-toggle="tab" data-bs-target="#add-friends" type="button" role="tab" aria-controls="add-friends" aria-selected="false">
+                                Adicionar Amigos
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="friend-requests-tab" data-bs-toggle="tab" data-bs-target="#friend-requests" type="button" role="tab" aria-controls="friend-requests" aria-selected="false">
+                                Solicitações <span class="badge bg-danger ms-1">2</span>
+                            </button>
+                        </li>
+                    </ul>
+                    
+                    <div class="tab-content" id="friendsTabContent">
+                        <!-- Friends List Tab -->
+                        <div class="tab-pane fade show active" id="friends-list" role="tabpanel" aria-labelledby="friends-list-tab">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Buscar amigo..." id="searchFriendInput">
+                                <button class="btn btn-outline-secondary" type="button">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                            
+                            <ul class="list-group friends-list mb-3">
+                                <!-- Friend 1 - Maria -->
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <div style="width: 40px; height: 40px; background-color: var(--accent-color); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                            <span>M</span>
+                                        </div>
+                                        <div>
+                                            <div>Maria Silva</div>
+                                            <small class="text-muted">Online agora</small>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-sm btn-outline-primary me-1" onclick="openFriendChat('Maria Silva', 'M', 'accent-color')">
+                                            <i class="bi bi-chat-dots"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="dropdown">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="#"><i class="bi bi-person-badge me-2"></i>Ver perfil</a></li>
+                                            <li><a class="dropdown-item" href="#"><i class="bi bi-people-fill me-2"></i>Adicionar à sala</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-person-dash me-2"></i>Remover amigo</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                
+                                <!-- Friend 2 - João -->
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <div style="width: 40px; height: 40px; background-color: var(--info-color); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                            <span>J</span>
+                                        </div>
+                                        <div>
+                                            <div>João Santos</div>
+                                            <small class="text-muted">Online agora</small>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-sm btn-outline-primary me-1" onclick="openFriendChat('João Santos', 'J', 'info-color')">
+                                            <i class="bi bi-chat-dots"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="dropdown">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="#"><i class="bi bi-person-badge me-2"></i>Ver perfil</a></li>
+                                            <li><a class="dropdown-item" href="#"><i class="bi bi-people-fill me-2"></i>Adicionar à sala</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-person-dash me-2"></i>Remover amigo</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                
+                                <!-- Friend 3 - Ana -->
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <div style="width: 40px; height: 40px; background-color: var(--success-color); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                            <span>A</span>
+                                        </div>
+                                        <div>
+                                            <div>Ana Costa</div>
+                                            <small class="text-muted">Online há 5 minutos</small>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-sm btn-outline-primary me-1" onclick="openFriendChat('Ana Costa', 'A', 'success-color')">
+                                            <i class="bi bi-chat-dots"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="dropdown">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="#"><i class="bi bi-person-badge me-2"></i>Ver perfil</a></li>
+                                            <li><a class="dropdown-item" href="#"><i class="bi bi-people-fill me-2"></i>Adicionar à sala</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-person-dash me-2"></i>Remover amigo</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Add Friends Tab -->
+                        <div class="tab-pane fade" id="add-friends" role="tabpanel" aria-labelledby="add-friends-tab">
+                            <div class="mb-4">
+                                <label class="form-label">Adicionar por Email ou Nome</label>
+                                <div class="input-group mb-2">
+                                    <input type="text" id="addFriendInput" class="form-control" placeholder="Email ou nome do usuário">
+                                    <button class="btn btn-primary" id="addFriendBtn">Adicionar</button>
+                                </div>
+                                <div id="friendSearchResults" class="list-group mb-2" style="display: none; max-height: 200px; overflow-y: auto;"></div>
+                                <div id="friendFeedback" class="mb-2"></div>
+                                <small class="text-muted">Você receberá uma notificação quando seu convite for aceito</small>
+                            </div>
+                            
+                            <h6 class="mb-3 fw-bold">Sugestões de Amigos</h6>
+                            <ul class="list-group mb-3">
+                                <!-- Suggestion 1 -->
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <div style="width: 40px; height: 40px; background-color: var(--warning-color); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                            <span>C</span>
+                                        </div>
+                                        <div>
+                                            <div>Carlos Oliveira</div>
+                                            <small class="text-muted">3 amigos em comum</small>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-person-plus me-1"></i> Adicionar
+                                    </button>
+                                </li>
+                                
+                                <!-- Suggestion 2 -->
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <div style="width: 40px; height: 40px; background-color: var(--danger-color); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                            <span>J</span>
+                                        </div>
+                                        <div>
+                                            <div>Julia Lima</div>
+                                            <small class="text-muted">1 amigo em comum</small>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-person-plus me-1"></i> Adicionar
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Friend Requests Tab -->
+                        <div class="tab-pane fade" id="friend-requests" role="tabpanel" aria-labelledby="friend-requests-tab">
+                            <h6 class="mb-3 fw-bold">Solicitações Recebidas</h6>
+                            <ul class="list-group mb-4">
+                                <!-- Request 1 -->
+                                <li class="list-group-item">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div style="width: 40px; height: 40px; background-color: var(--warning-color); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                            <span>C</span>
+                                        </div>
+                                        <div>
+                                            <div>Carlos Oliveira</div>
+                                            <small class="text-muted">Enviado há 3 dias</small>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <button class="btn btn-sm btn-outline-danger me-2">
+                                            <i class="bi bi-x-circle me-1"></i> Recusar
+                                        </button>
+                                        <button class="btn btn-sm btn-primary">
+                                            <i class="bi bi-check-circle me-1"></i> Aceitar
+                                        </button>
+                                    </div>
+                                </li>
+                                
+                                <!-- Request 2 -->
+                                <li class="list-group-item">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div style="width: 40px; height: 40px; background-color: var(--primary-color); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                            <span>P</span>
+                                        </div>
+                                        <div>
+                                            <div>Pedro Alves</div>
+                                            <small class="text-muted">Enviado ontem</small>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <button class="btn btn-sm btn-outline-danger me-2">
+                                            <i class="bi bi-x-circle me-1"></i> Recusar
+                                        </button>
+                                        <button class="btn btn-sm btn-primary">
+                                            <i class="bi bi-check-circle me-1"></i> Aceitar
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                            
+                            <h6 class="mb-3 fw-bold">Solicitações Enviadas</h6>
+                            <ul class="list-group">
+                                <!-- Sent Request 1 -->
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <div style="width: 40px; height: 40px; background-color: var(--secondary-color); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                            <span>M</span>
+                                        </div>
+                                        <div>
+                                            <div>Mariana Gomes</div>
+                                            <small class="text-muted">Enviado há 2 dias</small>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-x-circle me-1"></i> Cancelar
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Friend Chat Modal -->
+    <div class="modal fade" id="friendChatModal" tabindex="-1" aria-labelledby="friendChatModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: var(--primary-color); color: white;">
+                    <div class="d-flex align-items-center">
+                        <div id="friendChatAvatar" style="width: 40px; height: 40px; background-color: var(--accent-color); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                            <span>M</span>
+                        </div>
+                        <h5 class="modal-title" id="friendChatModalLabel">Maria Silva</h5>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="chat-body p-3" style="height: 300px; overflow-y: auto; background-color: #F3F4F6;">
+                        <div class="d-flex flex-column">
+                            <!-- Date indicator -->
+                            <div class="align-self-center mb-3">
+                                <span class="badge bg-secondary">Hoje</span>
+                            </div>
+                            
+                            <!-- Received Message -->
+                            <div class="chat-message received" style="max-width: 80%; margin-bottom: 1rem; align-self: flex-start;">
+                                <div style="background-color: white; border-radius: 16px; padding: 10px 15px; border-bottom-left-radius: 0; position: relative; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                    Oi! Você vai participar da sessão de estudos hoje?
+                                </div>
+                                <small class="text-muted">09:30</small>
+                            </div>
+
+                            <!-- Sent Message -->
+                            <div class="chat-message sent" style="max-width: 80%; margin-bottom: 1rem; align-self: flex-end;">
+                                <div style="background-color: var(--primary-color); color: white; border-radius: 16px; padding: 10px 15px; border-bottom-right-radius: 0;">
+                                    Olá! Sim, vou estar lá. Você preparou as questões que comentamos?
+                                </div>
+                                <small class="text-muted d-block text-end">09:32</small>
+                            </div>
+
+                            <!-- Received Message -->
+                            <div class="chat-message received" style="max-width: 80%; margin-bottom: 1rem; align-self: flex-start;">
+                                <div style="background-color: white; border-radius: 16px; padding: 10px 15px; border-bottom-left-radius: 0; position: relative; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                    Preparei sim! Consegui resolver quase todas, mas estou com dúvida na questão 5.
+                                </div>
+                                <small class="text-muted">09:35</small>
+                            </div>
+
+                            <!-- Sent Message -->
+                            <div class="chat-message sent" style="max-width: 80%; margin-bottom: 1rem; align-self: flex-end;">
+                                <div style="background-color: var(--primary-color); color: white; border-radius: 16px; padding: 10px 15px; border-bottom-right-radius: 0;">
+                                    Ótimo! Podemos revisar essa questão juntos. Vou levar meu material também.
+                                </div>
+                                <small class="text-muted d-block text-end">09:40</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-footer d-flex p-2 border-top">
+                        <button class="btn btn-sm me-2" data-bs-toggle="tooltip" title="Anexar arquivo">
+                            <i class="bi bi-paperclip"></i>
+                        </button>
+                        <input type="text" class="form-control" placeholder="Digite sua mensagem...">
+                        <button class="btn btn-primary ms-2">
+                            <i class="bi bi-send"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Simulated database of users
+        const usersDatabase = [
+            { id: 1, name: 'Maria Silva', email: 'maria@example.com', avatar: 'M', avatarColor: 'accent-color' },
+            { id: 2, name: 'João Santos', email: 'joao@example.com', avatar: 'J', avatarColor: 'info-color' },
+            { id: 3, name: 'Ana Costa', email: 'ana@example.com', avatar: 'A', avatarColor: 'success-color' },
+            { id: 4, name: 'Carlos Oliveira', email: 'carlos@example.com', avatar: 'C', avatarColor: 'warning-color' },
+            { id: 5, name: 'Julia Lima', email: 'julia@example.com', avatar: 'J', avatarColor: 'danger-color' },
+            { id: 6, name: 'Pedro Alves', email: 'pedro@example.com', avatar: 'P', avatarColor: 'primary-color' },
+            { id: 7, name: 'Mariana Gomes', email: 'mariana@example.com', avatar: 'M', avatarColor: 'secondary-color' },
+            { id: 8, name: 'Lucas Pereira', email: 'lucas@example.com', avatar: 'L', avatarColor: 'info-color' },
+            { id: 9, name: 'Beatriz Castro', email: 'beatriz@example.com', avatar: 'B', avatarColor: 'danger-color' },
+            { id: 10, name: 'Gabriel Martins', email: 'gabriel@example.com', avatar: 'G', avatarColor: 'success-color' }
+        ];
+
+        // Simulated database of friend connections
+        const friendsDatabase = [
+            { userId: 1, friendId: 2 },
+            { userId: 1, friendId: 3 },
+            { userId: 1, friendId: 5 },
+            { userId: 2, friendId: 1 },
+            { userId: 3, friendId: 1 },
+            { userId: 5, friendId: 1 }
+        ];
+
+        // Simulated database of pending friend requests
+        const pendingFriendRequestsDatabase = [
+            { id: 1, senderId: 4, receiverId: 1, status: 'pending', timestamp: new Date('2023-07-15') },
+            { id: 2, senderId: 6, receiverId: 1, status: 'pending', timestamp: new Date('2023-07-18') }
+        ];
+
+        // Simulated database of room invitations
+        const roomInvitationsDatabase = [
+            { id: 1, roomId: 'math-101', roomName: 'Sala de Matemática Avançada', senderId: 3, receiverId: 1, status: 'pending', timestamp: new Date('2023-07-20') },
+            { id: 2, roomId: 'physics-202', roomName: 'Grupo de Estudos de Física', senderId: 5, receiverId: 1, status: 'pending', timestamp: new Date('2023-07-22') }
+        ];
+
+        // Simulated current user
+        const currentUser = {
+            id: 1,
+            name: 'Você',
+            email: 'seu.email@example.com',
+            avatar: 'Você',
+            avatarColor: 'primary-color'
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS (Animate On Scroll)
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+
+            // Page loader
+            window.addEventListener('load', function() {
+                const loader = document.querySelector('.page-loader');
+                setTimeout(function() {
+                    loader.classList.add('loader-hidden');
+                }, 800);
+            });
+            
+            // Initialize tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+            
+            // Toggle sidebar on mobile
+            const toggleButton = document.querySelector('.toggle-sidebar');
+            const sidebar = document.querySelector('.sidebar');
+            
+            if (toggleButton) {
+                toggleButton.addEventListener('click', function() {
+                    sidebar.classList.toggle('show');
+                });
+            }
+            
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', function(event) {
+                if (window.innerWidth < 992) {
+                    const isClickInsideSidebar = sidebar.contains(event.target);
+                    const isClickOnToggleButton = toggleButton.contains(event.target);
+                    
+                    if (!isClickInsideSidebar && !isClickOnToggleButton && sidebar.classList.contains('show')) {
+                        sidebar.classList.remove('show');
+                    }
+                }
+            });
+            
+            // Environment selection
+            const environmentOptions = document.querySelectorAll('.environment-option');
+            environmentOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    environmentOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+
+            // Add Member functionality
+            setupAddMemberFunctionality();
+            
+            // Setup friend search and add functionality
+            setupFriendsFunctionality();
+            
+            // Initialize friend request badge
+            updateFriendRequestBadge();
+        });
+
+        function setupAddMemberFunctionality() {
+            const addMemberInput = document.getElementById('addMemberInput');
+            const addMemberBtn = document.getElementById('addMemberBtn');
+            const searchResults = document.getElementById('memberSearchResults');
+            const feedbackEl = document.getElementById('memberFeedback');
+
+            // Add event listener for input changes (search as you type)
+            addMemberInput.addEventListener('input', function() {
+                const searchTerm = this.value.trim().toLowerCase();
+                
+                // Clear previous results
+                searchResults.innerHTML = '';
+                
+                if (searchTerm.length < 2) {
+                    searchResults.style.display = 'none';
+                    return;
+                }
+                
+                // Search in the database
+                const filteredUsers = usersDatabase.filter(user => 
+                    (user.name.toLowerCase().includes(searchTerm) || 
+                     user.email.toLowerCase().includes(searchTerm)) && 
+                    user.id !== currentUser.id // Don't show the current user
+                );
+                
+                // Display results
+                if (filteredUsers.length > 0) {
+                    filteredUsers.forEach(user => {
+                        const resultItem = document.createElement('a');
+                        resultItem.href = '#';
+                        resultItem.className = 'list-group-item list-group-item-action';
+                        resultItem.innerHTML = `
+                            <div class="d-flex align-items-center">
+                                <div style="width: 30px; height: 30px; background-color: var(--${user.avatarColor}); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+                                    <span>${user.avatar}</span>
+                                </div>
+                                <div>
+                                    <div>${user.name}</div>
+                                    <small class="text-muted">${user.email}</small>
+                                </div>
+                            </div>
+                        `;
+                        
+                        // Add click handler
+                        resultItem.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            sendInvitation(user);
+                            searchResults.style.display = 'none';
+                            addMemberInput.value = '';
+                        });
+                        
+                        searchResults.appendChild(resultItem);
+                    });
+                    
+                    searchResults.style.display = 'block';
+                } else {
+                    const noResults = document.createElement('div');
+                    noResults.className = 'list-group-item text-center text-muted';
+                    noResults.textContent = 'Nenhum usuário encontrado';
+                    searchResults.appendChild(noResults);
+                    searchResults.style.display = 'block';
+                }
+            });
+            
+            // Add event listener for the Add button
+            addMemberBtn.addEventListener('click', function() {
+                const searchTerm = addMemberInput.value.trim();
+                
+                if (!searchTerm) {
+                    showFeedback('Por favor, digite um nome ou email', 'warning');
+                    return;
+                }
+                
+                // Check if it's an email
+                const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(searchTerm);
+                
+                // Find user in the database
+                let user;
+                if (isEmail) {
+                    user = usersDatabase.find(u => u.email.toLowerCase() === searchTerm.toLowerCase());
+                } else {
+                    user = usersDatabase.find(u => u.name.toLowerCase() === searchTerm.toLowerCase());
+                }
+                
+                if (user) {
+                    sendInvitation(user);
+                    addMemberInput.value = '';
+                    searchResults.style.display = 'none';
+                } else {
+                    // If user not found and it's an email, offer to send invitation
+                    if (isEmail) {
+                        showFeedback(`
+                            Usuário com o email <strong>${searchTerm}</strong> não encontrado. 
+                            <button class="btn btn-sm btn-outline-primary ms-2" id="sendExternalInvite">Enviar convite</button>
+                        `, 'info', true);
+                        
+                        // Add event listener for the invite button
+                        document.getElementById('sendExternalInvite').addEventListener('click', function() {
+                            showFeedback(`Convite enviado para ${searchTerm}. Quando o usuário se cadastrar, ele receberá sua solicitação.`, 'success');
+                            addMemberInput.value = '';
+                        });
+                    } else {
+                        showFeedback(`Usuário "${searchTerm}" não encontrado. Tente um nome completo ou email.`, 'warning');
+                    }
+                }
+            });
+            
+            // Close search results when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!addMemberInput.contains(event.target) && !searchResults.contains(event.target)) {
+                    searchResults.style.display = 'none';
+                }
+            });
+        }
+
+        function sendInvitation(user) {
+            // Check if the user is already a friend or has a pending request
+            const alreadyFriend = friendsDatabase.some(f => 
+                (f.userId === currentUser.id && f.friendId === user.id) || 
+                (f.userId === user.id && f.friendId === currentUser.id)
+            );
+            
+            const pendingRequest = pendingFriendRequestsDatabase.some(r => 
+                (r.senderId === currentUser.id && r.receiverId === user.id) || 
+                (r.senderId === user.id && r.receiverId === currentUser.id)
+            );
+            
+            if (alreadyFriend) {
+                // Add to the room directly if already a friend
+                addToMembersList(user);
+                showFeedback(`${user.name} foi adicionado à sala.`, 'success');
+            } else if (pendingRequest) {
+                showFeedback(`Já existe uma solicitação de amizade pendente para ${user.name}.`, 'info');
+            } else {
+                // Send a new friend request and room invitation
+                const newRequestId = pendingFriendRequestsDatabase.length + 1;
+                
+                pendingFriendRequestsDatabase.push({
+                    id: newRequestId,
+                    senderId: currentUser.id,
+                    receiverId: user.id,
+                    status: 'pending',
+                    timestamp: new Date()
+                });
+                
+                showFeedback(`Convite enviado para ${user.name}. Aguardando aceitação.`, 'success');
+                
+                // Simulate receiving response after 3 seconds (in a real app, this would happen when the user accepts)
+                setTimeout(() => {
+                    simulateAcceptedInvitation(user);
+                }, 3000);
+            }
+        }
+
+        function simulateAcceptedInvitation(user) {
+            // Update the request status
+            const request = pendingFriendRequestsDatabase.find(r => 
+                r.senderId === currentUser.id && r.receiverId === user.id
+            );
+            
+            if (request) {
+                request.status = 'accepted';
+                
+                // Add to friends database
+                friendsDatabase.push(
+                    { userId: currentUser.id, friendId: user.id },
+                    { userId: user.id, friendId: currentUser.id }
+                );
+                
+                // Add to the members list
+                addToMembersList(user);
+                
+                showFeedback(`${user.name} aceitou seu convite e foi adicionado à sala.`, 'success');
+            }
+        }
+
+        function addToMembersList(user) {
+            // This function would add the user to the room members list
+            const membersList = document.querySelector('.modal-body ul.list-group');
+            
+            // Create the new member list item
+            const memberItem = document.createElement('li');
+            memberItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+            memberItem.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <div style="width: 40px; height: 40px; background-color: var(--${user.avatarColor}); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                        <span>${user.avatar}</span>
+                    </div>
+                    <div>
+                        <div>${user.name}</div>
+                        <small class="text-muted">Online agora</small>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="dropdown">
+                        <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-shield-plus me-2"></i>Tornar admin</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-envelope me-2"></i>Mensagem privada</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-person-x me-2"></i>Remover da sala</a></li>
+                    </ul>
+                </div>
+            `;
+            
+            // Insert new member before the "Ver outros participantes" item
+            const lastItem = membersList.querySelector('li:last-child');
+            membersList.insertBefore(memberItem, lastItem);
+            
+            // Update the member count
+            const roomTitle = document.querySelector('#chat-room-subject');
+            if (roomTitle) {
+                const oldText = roomTitle.textContent;
+                const parts = oldText.split('•');
+                if (parts.length >= 2) {
+                    const countText = parts[1].trim();
+                    const count = parseInt(countText.split(' ')[0]) + 1; // Increment count
+                    roomTitle.textContent = `${parts[0]} • ${count} participantes online`;
+                }
+            }
+            
+            // Update the participant count in the modal title
+            const modalTitle = document.querySelector('#chatMembersModalLabel');
+            if (modalTitle) {
+                const matches = modalTitle.textContent.match(/Participantes da Sala \((\d+)\)/);
+                if (matches && matches.length > 1) {
+                    const count = parseInt(matches[1]) + 1;
+                    modalTitle.textContent = `Participantes da Sala (${count})`;
+                } else {
+                    // If not in the expected format, just update to include the count
+                    const listItems = membersList.querySelectorAll('li');
+                    // Subtract 1 for the "Ver outros participantes" button
+                    modalTitle.textContent = `Participantes da Sala (${listItems.length - 1})`;
+                }
+            }
+        }
+
+        function showFeedback(message, type, isHTML = false) {
+            const feedbackEl = document.getElementById('memberFeedback');
+            feedbackEl.className = `alert alert-${type} mb-2`;
+            
+            if (isHTML) {
+                feedbackEl.innerHTML = message;
+            } else {
+                feedbackEl.textContent = message;
+            }
+            
+            // Auto-hide after 5 seconds if success message
+            if (type === 'success') {
+                setTimeout(() => {
+                    feedbackEl.innerHTML = '';
+                    feedbackEl.className = 'mb-2';
+                }, 5000);
+            }
+        }
+
+        // Function to show chat interface
+        function showChatInterface(roomName, iconClass, subject) {
+            document.getElementById('classrooms-section').classList.add('d-none');
+            document.getElementById('chat-interface').classList.remove('d-none');
+            
+            // Update chat header info
+            document.getElementById('chat-room-title').textContent = roomName;
+            document.getElementById('chat-room-subject').textContent = subject + ' • 8 participantes online';
+            document.getElementById('chat-header-icon').innerHTML = `<i class="bi ${iconClass}"></i>`;
+        }
+
+        // Function to go back to classrooms list
+        function showClassrooms() {
+            document.getElementById('chat-interface').classList.add('d-none');
+            document.getElementById('classrooms-section').classList.remove('d-none');
+        }
+        
+        // Function to open friend chat modal
+        function openFriendChat(friendName, avatar, avatarColor) {
+            const friendChatModal = new bootstrap.Modal(document.getElementById('friendChatModal'));
+            
+            // Update chat header with friend info
+            document.getElementById('friendChatModalLabel').textContent = friendName;
+            const avatarElement = document.getElementById('friendChatAvatar');
+            avatarElement.style.backgroundColor = `var(--${avatarColor})`;
+            avatarElement.innerHTML = `<span>${avatar}</span>`;
+            
+            // Show the modal
+            friendChatModal.show();
+        }
+        
+        // Setup friends functionality
+        function setupFriendsFunctionality() {
+            const addFriendInput = document.getElementById('addFriendInput');
+            const addFriendBtn = document.getElementById('addFriendBtn');
+            const searchResults = document.getElementById('friendSearchResults');
+            const feedbackEl = document.getElementById('friendFeedback');
+            
+            // Add event listener for input changes (search as you type)
+            if (addFriendInput) {
+                addFriendInput.addEventListener('input', function() {
+                    const searchTerm = this.value.trim().toLowerCase();
+                    
+                    // Clear previous results
+                    searchResults.innerHTML = '';
+                    
+                    if (searchTerm.length < 2) {
+                        searchResults.style.display = 'none';
+                        return;
+                    }
+                    
+                    // Search in the database
+                    const filteredUsers = usersDatabase.filter(user => 
+                        (user.name.toLowerCase().includes(searchTerm) || 
+                         user.email.toLowerCase().includes(searchTerm)) && 
+                        user.id !== currentUser.id && // Don't show the current user
+                        !friendsDatabase.some(f => f.userId === currentUser.id && f.friendId === user.id) // Don't show existing friends
+                    );
+                    
+                    // Display results
+                    if (filteredUsers.length > 0) {
+                        filteredUsers.forEach(user => {
+                            const resultItem = document.createElement('a');
+                            resultItem.href = '#';
+                            resultItem.className = 'list-group-item list-group-item-action';
+                            resultItem.innerHTML = `
+                                <div class="d-flex align-items-center">
+                                    <div style="width: 30px; height: 30px; background-color: var(--${user.avatarColor}); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+                                        <span>${user.avatar}</span>
+                                    </div>
+                                    <div>
+                                        <div>${user.name}</div>
+                                        <small class="text-muted">${user.email}</small>
+                                    </div>
+                                </div>
+                            `;
+                            
+                            // Add click handler
+                            resultItem.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                sendFriendRequest(user);
+                                searchResults.style.display = 'none';
+                                addFriendInput.value = '';
+                            });
+                            
+                            searchResults.appendChild(resultItem);
+                        });
+                        
+                        searchResults.style.display = 'block';
+                    } else {
+                        const noResults = document.createElement('div');
+                        noResults.className = 'list-group-item text-center text-muted';
+                        noResults.textContent = 'Nenhum usuário encontrado';
+                        searchResults.appendChild(noResults);
+                        searchResults.style.display = 'block';
+                    }
+                });
+            }
+            
+            // Add event listener for the Add button
+            if (addFriendBtn) {
+                addFriendBtn.addEventListener('click', function() {
+                    const searchTerm = addFriendInput.value.trim();
+                    
+                    if (!searchTerm) {
+                        showFriendFeedback('Por favor, digite um nome ou email', 'warning');
+                        return;
+                    }
+                    
+                    // Check if it's an email
+                    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(searchTerm);
+                    
+                    // Show loading feedback
+                    showFriendFeedback('Buscando usuário...', 'info');
+                    
+                    // Simulate a database query with a slight delay
+                    setTimeout(() => {
+                        // Simulate API call to check if user exists in database
+                        checkUserExists(searchTerm, isEmail).then(user => {
+                            if (user) {
+                                // Check if already a friend
+                                const alreadyFriend = friendsDatabase.some(f => 
+                                    (f.userId === currentUser.id && f.friendId === user.id) || 
+                                    (f.userId === user.id && f.friendId === currentUser.id)
+                                );
+                                
+                                // Check if already has a pending request
+                                const pendingRequest = pendingFriendRequestsDatabase.some(r => 
+                                    (r.senderId === currentUser.id && r.receiverId === user.id && r.status === 'pending')
+                                );
+                                
+                                if (alreadyFriend) {
+                                    showFriendFeedback(`${user.name} já é seu amigo.`, 'info');
+                                } else if (pendingRequest) {
+                                    showFriendFeedback(`Já existe uma solicitação pendente para ${user.name}.`, 'info');
+                                } else {
+                                    sendFriendRequest(user);
+                                }
+                            } else {
+                                // User not found in database
+                                showFriendFeedback(`Usuário "${searchTerm}" não foi encontrado no sistema.`, 'warning');
+                            }
+                            
+                            addFriendInput.value = '';
+                            searchResults.style.display = 'none';
+                        });
+                    }, 1000);
+                });
+            }
+            
+            // Close search results when clicking outside
+            document.addEventListener('click', function(event) {
+                if (searchResults && addFriendInput) {
+                    if (!addFriendInput.contains(event.target) && !searchResults.contains(event.target)) {
+                        searchResults.style.display = 'none';
+                    }
+                }
+            });
+            
+            // Setup friend request accept/reject buttons
+            document.querySelectorAll('#friend-requests .btn-primary').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const listItem = this.closest('li');
+                    const nameElement = listItem.querySelector('div > div:first-child');
+                    const name = nameElement.textContent.trim();
+                    
+                    showFriendFeedback(`Solicitação de ${name} aceita. Vocês agora são amigos!`, 'success');
+                    listItem.remove();
+                    
+                    // Update friend request count
+                    updateFriendRequestCount();
+                });
+            });
+            
+            document.querySelectorAll('#friend-requests .btn-outline-danger, #friend-requests .btn-outline-secondary').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const listItem = this.closest('li');
+                    listItem.remove();
+                    
+                    // Update friend request count
+                    updateFriendRequestCount();
+                });
+            });
+            
+            // Add friend from suggestions
+            document.querySelectorAll('#add-friends .list-group .btn-outline-primary').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const listItem = this.closest('li');
+                    const nameElement = listItem.querySelector('div > div:first-child');
+                    const name = nameElement.textContent.trim();
+                    
+                    this.innerHTML = '<i class="bi bi-check-circle me-1"></i> Enviado';
+                    this.disabled = true;
+                    this.classList.remove('btn-outline-primary');
+                    this.classList.add('btn-outline-secondary');
+                    
+                    // Find user in database to send request
+                    const user = usersDatabase.find(u => u.name === name);
+                    if (user) {
+                        sendFriendRequest(user);
+                    } else {
+                        showFriendFeedback(`Solicitação de amizade enviada para ${name}.`, 'success');
+                    }
+                });
+            });
+        }
+        
+        // Function to check if user exists in database (simulated)
+        function checkUserExists(searchTerm, isEmail) {
+            return new Promise((resolve) => {
+                // This would be a real database query in a production environment
+                let user;
+                if (isEmail) {
+                    user = usersDatabase.find(u => u.email.toLowerCase() === searchTerm.toLowerCase());
+                } else {
+                    user = usersDatabase.find(u => u.name.toLowerCase() === searchTerm.toLowerCase());
+                }
+                resolve(user);
+            });
+        }
+        
+        function sendFriendRequest(user) {
+            // Check if already has a pending request
+            const pendingOutgoing = pendingFriendRequestsDatabase.some(r => 
+                r.senderId === currentUser.id && r.receiverId === user.id && r.status === 'pending'
+            );
+            
+            const pendingIncoming = pendingFriendRequestsDatabase.some(r => 
+                r.senderId === user.id && r.receiverId === currentUser.id && r.status === 'pending'
+            );
+            
+            if (pendingOutgoing) {
+                showFriendFeedback(`Você já enviou uma solicitação para ${user.name}.`, 'info');
+                return;
+            }
+            
+            if (pendingIncoming) {
+                showFriendFeedback(`${user.name} já te enviou uma solicitação. Verifique a aba de solicitações.`, 'info');
+                return;
+            }
+            
+            // Send a new friend request
+            const newRequestId = pendingFriendRequestsDatabase.length + 1;
+            pendingFriendRequestsDatabase.push({
+                id: newRequestId,
+                senderId: currentUser.id,
+                receiverId: user.id,
+                status: 'pending',
+                timestamp: new Date()
+            });
+            
+            // Update the badge count
+            updateFriendRequestBadge();
+            
+            showFriendFeedback(`Solicitação de amizade enviada para ${user.name}.`, 'success');
+        }
+        
+        function updateFriendRequestCount() {
+            const requestItems = document.querySelectorAll('#friend-requests ul:first-of-type li').length;
+            const badgeEl = document.querySelector('#friend-requests-tab .badge');
+            
+            if (requestItems > 0) {
+                badgeEl.textContent = requestItems;
+                badgeEl.style.display = 'inline-block';
+            } else {
+                badgeEl.style.display = 'none';
+            }
+            
+            // Also update the main friend button badge
+            updateFriendRequestBadge();
+        }
+        
+        function updateFriendRequestBadge() {
+            // Always hide badge - notification count disabled
+            const badgeEl = document.getElementById('friendRequestBadge');
+            badgeEl.style.display = 'none';
+        }
+        
+        function showFriendFeedback(message, type, isHTML = false) {
+            const feedbackEl = document.getElementById('friendFeedback');
+            if (feedbackEl) {
+                feedbackEl.className = `alert alert-${type} mb-2`;
+                
+                if (isHTML) {
+                    feedbackEl.innerHTML = message;
+                } else {
+                    feedbackEl.textContent = message;
+                }
+                
+                // Auto-hide after 5 seconds if success message
+                if (type === 'success') {
+                    setTimeout(() => {
+                        feedbackEl.innerHTML = '';
+                        feedbackEl.className = 'mb-2';
+                    }, 5000);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
